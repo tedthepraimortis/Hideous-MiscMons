@@ -14,11 +14,11 @@ OptionMenu MiscMonsMenu
     StaticText "Zombiemen", "Green"
     Slider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", -1, 100., 1, 0
     Slider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", -1, 100., 1, 0
-    Slider "UMP-45 Breacher Spawn Chance:", "umpzombie_zombieman_spawn_bias", -1, 100., 1, 0
+    Slider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", -1, 100., 1, 0
     StaticText "Undead Homeboys", "Yellow"
     Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_homeboy_spawn_bias", -1, 100., 1, 0
     StaticText "Shotgunners", "Red"
-    Slider "Greely Breacher Spawn Chance:", "greely_shotgunner_spawn_bias", -1, 100., 1, 0
+    Slider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", -1, 100., 1, 0
     StaticText "Chaingunners", "Blue"
     Slider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", -1, 100., 1, 0
     StaticText ""

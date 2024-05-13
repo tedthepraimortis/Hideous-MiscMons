@@ -12,7 +12,7 @@ class GreelyShortgunner:HDHumanoid{
 		painsound "shotguy/pain";
 		deathsound "shotguy/death";
 		activesound "shotguy/active";
-		tag "$TAG_ZOMBSHOTGUN";
+		tag "$cc_greelyjackboot";
 
 		speed 10;
 		decal "BulletScratch";
@@ -23,8 +23,8 @@ class GreelyShortgunner:HDHumanoid{
 		accuracy 0;
 
 		//placeholder
-		obituary "$OB_SHOTGUNZOMBIE";
-		hitobituary "$OB_SHOTZOMB_HIT";
+		obituary "$OB_GREELYZOMBIE";
+		hitobituary "$OB_GREELYZOMB_HIT";
 	}
 	bool semi;
 	int gunloaded;

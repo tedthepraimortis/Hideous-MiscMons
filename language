@@ -1,5 +1,41 @@
 [enu default]
 
-cc_zombtrog = "Zombieman Veteran";
+// Menu Lumps
+MISCMONS_MAINMENU = "\c[Yellow]Ⓜ Hideous MiscMons\c-";
+MISCMONS_TITLE = "------ Hideous MiscMons ------";
 
-OB_ZOMBTROG = "asshole man";
+// Enemy Tags
+
+// Zombiemen
+cc_zombtrog = "Veteran Zombieman";
+cc_zombump = "UMP-45 Jackboot";
+cc_zombpd42 = "Spec-Ops Zombieman";
+
+// Jackboots/Shotgunners
+cc_greelyjackboot = "Jackboot Breacher";
+
+// Undead Homeboys
+cc_zombusp = "Undead Officer";
+
+// Chaingunners
+cc_medium = "M64 Vera Machinegunner";
+
+// Obituaries
+
+// Zombiemen
+OB_ZOMBTROG = "%o was shown that oldies can still be goldies.";
+OB_ZOMBTROG_HIT = "%o was knocked down a peg.";
+OB_ZOMBPD42 = "%o was quietly taken down.";
+OB_ZOMBPD42 = "%o was shown that plastic can still hurt.";
+OB_ZOMBUMP = "%o was stopped right in their tracks.";
+
+// Jackboots/Shotgunners
+OB_GREELYZOMBIE = "%o was shown that length doesn't matter.";
+OB_GREELYZOMB_HIT = "%o found the steel back of a Greely.";
+
+// Undead Homeboys
+OB_ZOMBUSP = "%o was shown .45 ACP's stopping power.";
+OB_ZOMBUSP_HIT = "%o experienced build quality inspection.";
+
+// Chaingunners
+OB_VERAZOMBIE = "%o was turned to swiss cheese.";
