@@ -1,0 +1,19 @@
+// Most of these are server variables so in a multiplayer session they can be synced to other players.
+// Every weapon has a comment before it's cvars based on it's name in-game for organization. - [Ted]
+
+// Zombiemen
+server int trogtrooper_zombieman_spawn_bias = 15;
+server int pd42zombie_zombieman_spawn_bias = 15;
+server int umpzombie_zombieman_spawn_bias = 20;
+
+// Homeboys
+server int uspzombie_homeboy_spawn_bias = 10;
+
+// Shotgunners
+server int greely_shotgunner_spawn_bias = 10;
+
+// Chaingunners
+server int verazombie_chaingunner_spawn_bias = 10;
+
+// Global Enemy CVARs
+server bool enemy_persistent_spawning = false;
