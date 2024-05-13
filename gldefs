@@ -1,0 +1,144 @@
+//brightmap definitions
+brightmap sprite BPOSF1
+{
+	map BMBPOSF1
+	disablefullbright
+}
+
+brightmap sprite BPOSF2F8
+{
+	map BMBPOSF2
+	disablefullbright
+}
+
+brightmap sprite BPOSF3F7
+{
+	map BMBPOSF3
+	disablefullbright
+}
+
+brightmap sprite BPOSF4F6
+{
+	map BMBPOSF4
+	disablefullbright
+}
+
+brightmap sprite BPOSF5
+{
+	map BMBPOSF5
+	disablefullbright
+}
+
+BrightMap Sprite VDDCF1
+{
+	map VDDCF1
+	disablefullbright
+}
+
+BrightMap Sprite VDDCF2F8
+{
+	Map VDDCF2F8
+	disablefullbright
+}
+
+BrightMap Sprite VDDCF3F7
+{
+	Map VDDCF3F7 
+	disablefullbright
+}
+
+BrightMap Sprite VDDCF4F6
+{
+	Map VDDCF4F6 
+	disablefullbright
+}
+
+BrightMap Sprite VDDCF5
+{
+	Map VDDCF5
+	disablefullbright 
+}
+
+BrightMap Sprite CPS2E1
+{
+	Map BMCPS2E1
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2E2E8
+{
+	Map BMCPS2E2
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2E3E7
+{
+	Map BMCPS2E3
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2E4E6
+{
+	Map BMCPS2E4
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2F1
+{
+	Map BMCPS2F1
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2F2F8
+{
+	Map BMCPS2F2
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2F3F7
+{
+	Map BMCPS2F3
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2F4F6
+{
+	Map BMCPS2F4
+	DisableFullBright
+}
+
+BrightMap Sprite CPS2F5
+{
+	Map BMCPS2F5
+	DisableFullBright
+}
+
+BrightMap Sprite ZSP1F1
+{
+	Map BMZSP1F1
+	DisableFullBright
+}
+
+BrightMap Sprite ZSP1F2F8
+{
+	Map BMZSP1F2
+	DisableFullBright
+}
+
+BrightMap Sprite ZSP1F3F7
+{
+	Map BMZSP1F3
+	DisableFullBright
+}
+
+BrightMap Sprite ZSP1F4F6
+{
+	Map BMZSP1F4
+	DisableFullBright
+}
+
+BrightMap Sprite ZSP1F5
+{
+	Map BMZSP1F5
+	DisableFullBright
+}

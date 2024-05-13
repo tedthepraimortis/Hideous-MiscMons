@@ -1,0 +1,187 @@
+// ------------------------------------------------------------
+// GHJHADIHGJKHDGJKHGKJHGDKJHFDJK KM DGDK JKGKDG MY GUYTUUUTUTSSSSS
+// yes based on HoopBubble it's the easiest solution for a pretty simple enemy - [Ted]
+// ------------------------------------------------------------
+class UMPZombie:HDHumanoid{
+	default{
+		seesound "grunt/sight";
+		painsound "grunt/pain";
+		deathsound "grunt/death";
+		activesound "grunt/active";
+		tag "$cc_zombump";
+
+		painchance 170;
+
+		obituary "$OB_ZOMUMP";
+		translation "192:207=103:111","240:247=5:8";
+	}
+	override void postbeginplay(){
+		super.postbeginplay();
+		gunloaded=31;
+		if(!bplayingid){
+			scale*=0.81;
+		}
+		givearmour(1.);
+	}
+	int gunloaded;
+	override void deathdrop(){
+		hdweapon wp=null;
+		if(!bhasdropped){
+			DropNewItem("HDHandgunRandomDrop");
+			bhasdropped=true;
+            // Gonna do this till I figure out how to use the Enums from the UMP with this. Probably overlooking something basic. - [Ted]
+			DropNewItem("UMPrandom");
+		}else if(!bfriendly){
+			DropNewItem("HDUMPMag",240);
+			DropNewItem("HDUMPMag",128);
+		}
+	}
+	states{
+	spawn:
+		ZSP2 FF 1{
+			A_HDLook();
+			A_Recoil(frandom(-0.1,0.1));
+			A_SetTics(random(10,40));
+		}
+		ZSP2 B 0 A_Jump(16,"spawnstretch");
+		ZSP2 B 0 A_Jump(116,"spawnwander");
+		ZSP2 B 8 A_Recoil(frandom(-0.2,0.2));
+		loop;
+	spawnstretch:
+		ZSP2 E 1{
+			A_Recoil(frandom(-0.4,0.4));
+			A_SetTics(random(30,80));
+			if(!random(0,3))A_Vocalize("grunt/active");
+		}
+		---- A 0 setstatelabel("spawn");
+	spawnstill:
+		ZSP2 A 0 A_HDLook();
+		ZSP2 A 0 A_Recoil(frandom(-0.4,0.4));
+		ZSP2 CD 5 A_SetAngle(angle+frandom(-4.,4.));
+		ZSP2 A 0 A_HDLook();
+		ZSP2 A 0 A_Jump(192,2);
+		ZSP2 A 0 A_Vocalize("grunt/active");
+		ZSP2 AB 5 A_SetAngle(angle+frandom(-4.,4.));
+		ZSP2 A 0 A_HDLook();
+		ZSP2 B 1 A_SetTics(random(10,40));
+		---- A 0 setstatelabel("spawn");
+	spawnwander:
+		ZSP2 CDAB 5 A_HDWander();
+		---- A 0 setstatelabel("spawn");
+	see:
+		ZSP2 A 0 A_JumpIf(gunloaded<2,"reload");
+		ZSP2 ABCD 4 A_HDChase();
+		ZSP2 A 0 A_JumpIfTargetInLOS("see");
+		---- A 0 setstatelabel("roam");
+	roam:
+		#### E 3 A_Jump(60,"roam2");
+		#### E 0{spread=1;}
+		#### EEEE 1 A_Watch();
+		#### E 0{spread=0;}
+		#### EEEEEEEEEEEEE 1 A_Watch();
+		#### A 0 A_Jump(60,"roam");
+	roam2:
+		#### A 0 A_Jump(8,"see");
+		#### ABCD 5 A_HDChase(speedmult:0.6);
+		#### A 0 A_Jump(140,"Roam");
+		#### A 0 A_JumpIfTargetInLOS("see");
+		loop;
+	pain:
+		ZSP2 H 3;
+		ZSP2 H 3 A_Pain();
+		ZSP2 A 0 A_Jump(192,"see");
+		---- A 0 setstatelabel("see");
+	missile:
+		#### ABCD 3 A_TurnToAim(40,shootstate:"aiming");
+		loop;
+	aiming:
+		#### E 3 A_FaceLastTargetPos(30);
+		#### F 1 A_StartAim(rate:0.85,mintics:0,maxtics:35);
+		//fallthrough to shoot
+	shoot:
+		ZSP2 G 1 bright light("SHOT"){
+			if(gunloaded<1){
+				setstatelabel("ohforfuckssake");
+				return;
+			}
+			pitch+=frandom(0,spread)-frandom(0,spread);
+			angle+=frandom(0,spread)-frandom(0,spread);
+			A_StartSound("UMP/fire",CHAN_WEAPON);
+            // Yes this is 9mm. Yes I know the UMP-45 shoots .45 ACP. This means you don't basically immediately die from these dudes. - [Ted]
+			HDBulletActor.FireBullet(self,"HDB_45ACP",zofs:35,spread:1.,speedfactor:frandom(0.69,0.71));
+			gunloaded--;
+		}
+		ZSP2 F 2 A_EjectSMGCasing();
+		ZSP2 F 0 A_Jump(128,"shoot");
+	shootend:
+		ZSP2 F 1 A_FaceTarget(0,0);
+		ZSP2 F 4 A_Jump(132,"see");
+		ZSP2 FFFFF 4 A_CoverFire();
+		loop;
+	ohforfuckssake:
+		ZSP2 F 8;
+	reload:
+		ZSP2 A 3 A_HDChase("melee",null,CHF_FLEE);
+		ZSP2 B 4{
+			A_StartSound("weapons/rifleclick2",8);
+			if(gunloaded>=0)A_SpawnProjectile("HDUMPMagEmpty",38,0,random(90,120));
+			gunloaded=-1;
+		}
+		ZSP2 CD 3 A_HDChase("melee",null,CHF_FLEE);
+		ZSP2 E 4{
+			A_StartSound("weapons/rifleload",8);
+			A_HDWander();
+		}
+		ZSP2 F 3{
+			A_StartSound("weapons/rifleclick2",8);
+			gunloaded+=30;
+			A_HDWander();
+		}
+		---- A 0 setstatelabel("see");
+	death:
+		ZSP2 I 5;
+		ZSP2 J 5 A_Scream();
+		ZSP2 KL 5;
+	dead:
+		ZSP2 L 3 A_JumpIf(abs(vel.z)<2,1);
+		loop;
+		ZSP2 M 5 canraise A_JumpIf(abs(vel.z)>=2,"dead");
+		loop;
+	xxxdeath:
+		ZSP2 N 5;
+		ZSP2 O 5 A_XScream();
+		ZSP2 PQRSTU 5;
+		---- A 0 setstatelabel("xdead");
+	xdeath:
+		ZSP2 N 5 A_SpawnItemEx("MegaBloodSplatter",0,0,34,0,0,0,0,160);
+		ZSP2 O 0 A_SpawnItemEx("MegaBloodSplatter",0,0,34,0,0,0,0,160);
+		ZSP2 O 5 A_XScream();
+		ZSP2 P 5 A_SpawnItemEx("MegaBloodSplatter",0,0,34,0,0,0,0,160);
+		ZSP2 Q 0 A_SpawnItemEx("MegaBloodSplatter",0,0,34,0,0,0,0,160);
+		ZSP2 QRSTU 5;
+	xdead:
+		ZSP2 U 3 canraise A_JumpIf(abs(vel.z)<2,1);
+		wait;
+		ZSP2 V 5 canraise A_JumpIf(abs(vel.z)>=2,"xdead");
+		wait;
+	raise:
+		ZSP2 M 4;
+		ZSP2 MLK 6;
+		ZSP2 JIH 4;
+		---- A 0 setstatelabel("see");
+	ungib:
+		ZSP2 V 4;
+		ZSP2 VUT 8;
+		ZSP2 SRQ 6;
+		ZSP2 PON 4;
+		---- A 0 setstatelabel("see");
+	}
+}
+
+class HDUMPMagEmpty:IdleDummy{
+	override void postbeginplay(){
+		super.postbeginplay();
+		HDMagAmmo.SpawnMag(self,"HDUMPMag",0);
+		destroy();
+	}
+}
