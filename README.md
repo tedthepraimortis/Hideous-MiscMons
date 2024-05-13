@@ -1,4 +1,4 @@
-# hnnng monster.... pack....
+# Hideous-MiscMons
 
 ## Credits
 
