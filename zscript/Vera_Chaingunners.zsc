@@ -68,7 +68,7 @@ class VeraZombie:HDHumanoid{
 		if(chambers<1)setstatelabel("chamber");
 
 		//shoot the bullet
-		A_StartSound("weapons/vulcanette",CHAN_WEAPON,CHANF_OVERLAP);
+		A_StartSound("weapons/vera",CHAN_WEAPON,CHANF_OVERLAP);
 		HDBulletActor.FireBullet(self,"HDB_426",spread:2,distantsound:"world/vulcfar");
 		pitch+=frandom(-0.4,0.3);angle+=frandom(-0.3,0.3);
 		burstcount--;
@@ -100,7 +100,7 @@ class VeraZombie:HDHumanoid{
 			vvv.weaponstatus[VERAS_CHAMBER1]=(!random(0,3))?2:1;
 			vvv.weaponstatus[VERAS_CHAMBER2]=(!random(0,3))?2:1;
 			vvv.weaponstatus[VERAS_CHAMBER3]=(!random(0,3))?2:1;
-			if(superauto)vvv.weaponstatus[0]|=VERAF_FAST;
+			if(superauto==true)vvv.weaponstatus[0]|=VERAF_FAST;
 			vvv.weaponstatus[VERAS_BATTERY]=random(1,20);
 			vvv.weaponstatus[VERAS_BREAKCHANCE]=random(0,random(1,500));
 			vvv.weaponstatus[VERAS_ZOOM]=random(16,70);
@@ -193,10 +193,7 @@ class VeraZombie:HDHumanoid{
 		loop;
 	aim:
 		CPS2 E 2{
-			if(
-				target
-				&&target.spawnhealth()>random(50,1000)
-			)superauto=true;
+			if(random(0,10)>7)superauto=true;
 		}
 		CPS2 E 1 A_StartAim(rate:0.92,maxtics:random(20,30));
 		//fallthrough to shoot
@@ -217,7 +214,7 @@ class VeraZombie:HDHumanoid{
 	shuntmag:
 		CPS2 E 1;
 		CPS2 E 3{
-			A_StartSound("weapons/vulcshunt",8);
+			A_StartSound("weapons/verashunt",8);
 			if(thismag>=0){
 				actor mmm=HDMagAmmo.SpawnMag(self,"HD4mMag",0);
 				mmm.A_ChangeVelocity(3,frandom(-3,2),frandom(0,-2),CVF_RELATIVE|CVF_REPLACE);
@@ -244,7 +241,7 @@ class VeraZombie:HDHumanoid{
 		CPS2 ABCD 5 A_Chase(null,null,flags:CHF_FLEE);
 	loadamag:
 		CPS2 E 9 A_StartSound("weapons/pocket",9);
-		CPS2 E 7 A_StartSound("weapons/vulcmag",8);
+		CPS2 E 7 A_StartSound("weapons/veraforcemag",8);
 		CPS2 E 10{
 			if(thismag<0)thismag=50;
 			else if(mags<4)mags++;
