@@ -85,6 +85,8 @@ class VeraZombie:HDHumanoid{
 		if(!bhasdropped){
 			bhasdropped=true;
 			DropNewItem("HDBattery",16);
+			DropNewItem("HD4mMag",96);
+			DropNewItem("HD4mMag",96);
 			DropNewItem("HDHandgunRandomDrop");
 			let vvv=DropNewWeapon("HDVera");
 			if(!vvv)return;
@@ -102,7 +104,10 @@ class VeraZombie:HDHumanoid{
 			vvv.weaponstatus[VERAS_BATTERY]=random(1,20);
 			vvv.weaponstatus[VERAS_BREAKCHANCE]=random(0,random(1,500));
 			vvv.weaponstatus[VERAS_ZOOM]=random(16,70);
-		}else if(!bfriendly){
+		}
+		else if(!bfriendly){
+			DropNewItem("HD4mMag",96);
+			DropNewItem("HD4mMag",96);
 			DropNewItem("HD4mMag",96);
 			DropNewItem("HD4mMag",96);
 			DropNewItem("HDBattery",8);
