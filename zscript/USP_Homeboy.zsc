@@ -32,6 +32,11 @@ class USPHomeboy:HDHumanoid{
 		//specific to undead homeboy
 		thismag=random(1,15);
 		chamber=2;
+
+		If (hmm_uniquesprites == false){
+			sprite=getspriteindex("POSS");
+			A_SetTranslation("FreedoomGreycoat");
+		}
 	}
 	virtual bool noammo(){
 		return chamber<1&&thismag<1;

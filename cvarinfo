@@ -17,3 +17,4 @@ server int verazombie_chaingunner_spawn_bias = 10;
 
 // Global Enemy CVARs
 server bool enemy_persistent_spawning = false;
+server bool hmm_uniquesprites = false;

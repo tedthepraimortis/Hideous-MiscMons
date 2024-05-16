@@ -34,6 +34,9 @@ class GreelyShortgunner:HDHumanoid{
 	}
 	override void postbeginplay(){
 		super.postbeginplay();
+		If (hmm_uniquesprites == false){
+			sprite=getspriteindex("SPOS");
+		}
 		givearmour(1.,0.,0.6);
 	}
 	override void deathdrop(){

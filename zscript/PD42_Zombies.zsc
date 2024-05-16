@@ -31,9 +31,11 @@ class PeeDeeFourtyTrooper:HDHumanoid{
 	override void postbeginplay(){
 		super.postbeginplay();
 		firemode=random(0,1);
-		{
-			mag=random(1,36);
-			maxtargetrange=6000;
+		mag=random(1,36);
+		maxtargetrange=6000;
+		If (hmm_uniquesprites == false){
+			sprite=getspriteindex("POSS");
+			A_SetTranslation("FreedoomGreycoat");
 		}
 	}
 	void A_ZomFrag(){

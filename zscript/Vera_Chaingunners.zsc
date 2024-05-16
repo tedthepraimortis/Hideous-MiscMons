@@ -30,6 +30,9 @@ class VeraZombie:HDHumanoid{
 	vector2 coverdir;
 	override void postbeginplay(){
 		super.postbeginplay();
+		If (hmm_uniquesprites == false){
+			sprite=getspriteindex("CPOS");
+		}
 		chambers=3;
 		burstcount=random(3,40);
 		superauto=randompick(0,0,1,1);

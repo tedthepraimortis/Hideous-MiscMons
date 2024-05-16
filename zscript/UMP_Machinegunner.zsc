@@ -18,8 +18,9 @@ class UMPZombie:HDHumanoid{
 	override void postbeginplay(){
 		super.postbeginplay();
 		gunloaded=31;
-		if(!bplayingid){
-			scale*=0.81;
+		If (hmm_uniquesprites == false){
+			sprite=getspriteindex("PLAY");
+			A_SetTranslation("FreedoomGreycoat");
 		}
 		givearmour(1.);
 	}
