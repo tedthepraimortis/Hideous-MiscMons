@@ -4,6 +4,12 @@
 MISCMONS_MAINMENU = "\c[Yellow]Ⓜ Hideous MiscMons\c-";
 MISCMONS_TITLE = "------ Hideous MiscMons ------";
 
+// Menu Option Values
+MENU_ENABLED = "Enabled";
+MENU_DISABLED = "Disabled";
+MENU_REPLACEALL = "Replace All";
+MENU_WITHALL = "With All";
+
 // Enemy Tags
 
 // Zombiemen

@@ -1,3 +1,32 @@
+OptionMenu MiscMonsMenu
+{
+    Title "$MISCMONS_TITLE"
+    StaticText ""
+    StaticText ""
+
+    StaticText "Zombiemen", "Green"
+    ScaleSlider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    ScaleSlider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    ScaleSlider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    StaticText ""
+
+    StaticText "Undead Homeboys", "Yellow"
+    ScaleSlider "USP-45 Homeboy Spawn Chance:", "uspzombie_homeboy_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    StaticText ""
+
+    StaticText "Shotgunners", "Red"
+    ScaleSlider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    StaticText ""
+
+    StaticText "Chaingunners", "Blue"
+    ScaleSlider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    StaticText ""
+    StaticText ""
+
+    StaticText "Mass Persistency"
+    Option "Enemy Persistent Spawns:", "enemy_persistent_spawning", "OnOff"
+}
+
 AddOptionMenu "OptionsMenu"
 {
     Submenu "$MISCMONS_MAINMENU", "MiscMonsMenu"
@@ -6,22 +35,4 @@ AddOptionMenu "OptionsMenu"
 AddOptionMenu "HDAddonMenu"
 {
     Submenu "$MISCMONS_MAINMENU", "MiscMonsMenu"
-}
-
-OptionMenu MiscMonsMenu
-{
-    Title "$MISCMONS_TITLE"
-    StaticText "Zombiemen", "Green"
-    Slider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", -1, 100., 1, 0
-    Slider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", -1, 100., 1, 0
-    Slider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", -1, 100., 1, 0
-    StaticText "Undead Homeboys", "Yellow"
-    Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_homeboy_spawn_bias", -1, 100., 1, 0
-    StaticText "Shotgunners", "Red"
-    Slider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", -1, 100., 1, 0
-    StaticText "Chaingunners", "Blue"
-    Slider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", -1, 100., 1, 0
-    StaticText ""
-    StaticText "Mass Persistency"
-    Option "Enemy Persistent Spawns:", "enemy_persistent_spawning", "OnOff"
 }
