@@ -105,7 +105,7 @@ class GreelyShortgunner : HDHumanoid {
 
     States {
         spawn:
-            ZSP1 A 0 nodelay A_JumpIf(wep>=0,"spawn2");
+            ZSP1 A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
             PLAY A 0;
         idle:
         spawn2:
@@ -190,41 +190,46 @@ class GreelyShortgunner : HDHumanoid {
             loop;
 
         missile:
-            #### ABCD 3 A_TurnToAim(40,shootstate:"aiming");
+            #### ABCD 3 A_TurnToAim(40, shootstate: "aiming");
             loop;
         aiming:
-            #### E 1 A_StartAim(rate:0.88,maxtics:random(10,40));
+            #### E 1 A_StartAim(rate: 0.88, maxtics: random(10, 40));
             //fallthrough to shoot
         shoot:
             #### E 2 A_LeadTarget(tics);
-            #### E 0{
-                if (gunloaded<1) {
+            #### E 0 {
+                if (gunloaded < 1) {
                     setstatelabel("ohforfuckssake");
                     return;
                 }
-                angle+=frandom(0,spread)-frandom(0,spread);
-                pitch+=frandom(0,spread)-frandom(0,spread);
+
+                angle += frandom(0, spread) - frandom(0, spread);
+                pitch += frandom(0, spread) - frandom(0, spread);
 
                 setstatelabel("shootsg");
             }
 
         shootsg:
             #### F 1 bright light("SHOT") {
-                if (gunspent>0) {
+                if (gunspent > 0) {
                     setstatelabel("chambersg");
                     return;
                 }
-                HDBulletActor.FireBullet(self,"HDB_wad");
+
+                HDBulletActor.FireBullet(self, "HDB_wad");
                 Hunter.Fire(self);
-                gunspent=1;
+                gunspent = 1;
             }
             #### E 3;
             #### E 1{
-                if (gunspent)setstatelabel("chambersg");
-                else A_SetTics(random(4,12));
+                if (gunspent) {
+                    setstatelabel("chambersg");
+                } else {
+                    A_SetTics(random(4, 12));
+                }
             }
-            #### E 0 A_Jump(127,"see");
-            #### E 0 A_Jump(32,"missile");
+            #### E 0 A_Jump(127, "see");
+            #### E 0 A_Jump(32, "missile");
             ---- A 0 setstatelabel("roam");
         chambersg:
             #### E 8{
