@@ -349,24 +349,24 @@ class ZombieTrogtrooper : HDHumanoid {
             wait;
             #### L 5 canraise A_JumpIf(abs(vel.z) >= 2, "dead");
             wait;
-        xxxdeath:
+        deadgib:
             #### M 5;
             #### N 5 A_XScream();
             #### OPQRST 5;
-            goto xdead;
-        xdeath:
+            goto gibbed;
+        gib:
             #### M 5;
             #### N 5 {
-                spawn("MegaBloodSplatter", pos + (0, 0, 34), ALLOW_REPLACE);
+                A_GibSplatter();
                 A_XScream();
             }
-            #### OP 5 spawn("MegaBloodSplatter", pos + (0, 0, 34), ALLOW_REPLACE);
+            #### OP 5  A_GibSplatter();
             #### QRST 5;
-            goto xdead;
-        xdead:
+            goto gibbed;
+        gibbed:
             #### T 3 canraise A_JumpIf(abs(vel.z) < 2, 1);
             wait;
-            #### U 5 canraise A_JumpIf(abs(vel.z) >= 2, "xdead");
+            #### U 5 canraise A_JumpIf(abs(vel.z) >= 2, "gibbed");
             wait;
         raise:
             #### L 4;

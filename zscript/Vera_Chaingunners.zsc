@@ -341,48 +341,48 @@ class VeraZombie : HDHumanoid {
         death:
             CPS2 H 5;
             CPS2 I 5 {
-                A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
+                A_GibSplatter();
                 A_Vocalize(deathsound);
             }
-            CPS2 J 5 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
+            CPS2 J 5 A_GibSplatter();
             CPS2 KLMNO 3;
         dead:
             CPS2 P 3 A_Jumpif(abs(vel.z) < 2, 1);
             loop;
             CPS2 P 5 canraise A_Jumpif(abs(vel.z) >= 2, "dead");
             loop;
-        xxxdeath:
+        deadgib:
             CPS2 Q 3;
             CPS2 R 3 {
-                A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
+                A_GibSplatter();
                 A_XScream();
             }
             CPS2 STUVW 5;
-			goto xdead;
+			goto gibbed;
 
-        xdeath:
+        gib:
             CPS2 O 5;
             CPS2 P 3 {
-                A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
+                A_GibSplatter();
                 A_XScream();
             }
-            CPS2 R 2 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
+            CPS2 R 2 A_GibSplatter();
             CPS2 Q 5;
-            CPS2 Q 0 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
-            CPS2 RS 5 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 34, 0, 0, 0, 0, 160);
-        xdead:
+            CPS2 Q 0 A_GibSplatter();
+            CPS2 RS 5 A_GibSplatter();
+        gibbed:
             CPS2 X 3 canraise A_Jumpif(abs(vel.z) < 2, 1);
             wait;
             CPS2 Y 5 canraise A_Jumpif(abs(vel.z) >= 2, "dead");
             wait;
         raise:
-            CPS2 O 2 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 4, 0, 0, 3, 0, SXF_NOCHECKPOSITION);
+            CPS2 O 2 A_GibSplatter();
             CPS2 NML 6;
             CPS2 KJIH 4;
 			goto see;
         ungib:
-            CPS2 X 6 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 4, 0, 0,3, 0 , SXF_NOCHECKPOSITION);
-            CPS2 WV 12 A_SpawnItemEx("MegaBloodSplatter", 0, 0, 4, 0, 0, 3, 0, SXF_NOCHECKPOSITION);
+            CPS2 X 6 A_GibSplatter();
+            CPS2 WV 12 A_GibSplatter();
             CPS2 UT 7;
             CPS2 SRQ 5;
 			goto see;
