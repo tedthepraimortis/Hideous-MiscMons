@@ -1,7 +1,7 @@
 [enu default]
 
 // Menu Lumps
-MISCMONS_MAINMENU = "\c[Yellow]Ⓜ Hideous MiscMons\c-";
+MISCMONS_MAINMENU = "\c[Yellow]Ⓜ\c- Hideous MiscMons";
 MISCMONS_TITLE = "------ Hideous MiscMons ------";
 
 // Menu Option Values
