@@ -105,23 +105,42 @@ class USPHomeboy : HDHumanoid {
     }
 
     override void deathdrop() {
-        if (bHASDROPPED) {
-            DropNewItem("HDUSPMag",96);
-        } else {
-            bHASDROPPED = true;
+        if (bHASDROPPED && bFRIENDLY) return;
 
-            let ppp=DropNewWeapon("HDUSP");
-            if (!ppp) return;
+        name wpnName = 'HDUSP';
+        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
 
-            ppp.weaponstatus[2] = thismag; // USProp_Mag
-            ppp.weaponstatus[1] = chamber; // USProp_Chamber
+        name magName = 'HDUSPMag';
+        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
+
+        if (wpnCls && magCls) {
+
+            if (!bHASDROPPED) {
+
+                let wpn = DropNewWeapon(wpnName);
+                if (wpn) {
+                    wpn.weaponstatus[1] = chamber; // USProp_Chamber
+                    wpn.weaponstatus[2] = thismag; // USProp_Mag
+                }
+
+                DropNewItem(magName, 96);
+            } else {
+                DropNewItem(magName, 96);
+                DropNewItem(magName, 96);
+            }
+
+        } else if (!bHASDROPPED) {
+            DropNewItem("HDHandgunRandomDrop");
         }
     }
 
     void A_PistolZombieUnload(int which = 0) {
         if (thismag >= 0) {
-            HDMagAmmo.SpawnMag(self,"HDUSPMag",thismag);
             A_StartSound("USP/MagOut", 8);
+
+            name magName = 'HDUSPMag';
+            Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
+            if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
         }
 
         thismag = -1;

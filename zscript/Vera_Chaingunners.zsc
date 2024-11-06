@@ -102,46 +102,55 @@ class VeraZombie : HDHumanoid {
     }
 
     override void deathdrop() {
-        if (!bHASDROPPED) {
-            bHASDROPPED = true;
+        if (bHASDROPPED && bFRIENDLY) return;
 
-            DropNewItem("HDBattery",16);
-            DropNewItem("HD4mMag",96);
-            DropNewItem("HD4mMag",96);
-            DropNewItem("HDHandgunRandomDrop");
+        name wpnName = 'HDVera';
+        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
 
-            let vvv = DropNewWeapon("HDVera");
-            if (!vvv) return;
+        if (wpnCls) {
 
-            vvv.weaponstatus[VERAS_MAG1] = thismag;
+            if (!bHASDROPPED) {
 
-            for (int i = VERAS_MAG2; i <= VERAS_MAG3; i++) {
-                if (mags > 0) {
-                    vvv.weaponstatus[i] = 51;
-                    mags--;
-                } else {
-                    vvv.weaponstatus[i]=-1;
+                let wpn = DropNewWeapon(wpnName);
+                if (!wpn) {
+
+                    wpn.weaponstatus[1] = thismag; // VERAS_MAG1
+
+                    for (int i = 2; i <= 3; i++) { // VERAS_MAG2, VERAS_MAG3
+                        if (mags > 0) {
+                            wpn.weaponstatus[i] = 51;
+                            mags--;
+                        } else {
+                            wpn.weaponstatus[i]=-1;
+                        }
+                    }
+
+                    wpn.weaponstatus[4] = (!random(0,3)) ? 2 : 1; // VERAS_CHAMBER1
+                    wpn.weaponstatus[5] = (!random(0,3)) ? 2 : 1; // VERAS_CHAMBER2
+                    wpn.weaponstatus[6] = (!random(0,3)) ? 2 : 1; // VERAS_CHAMBER3
+
+                    if (superauto) wpn.weaponstatus[0] |= 1; // VERAF_FAST
+
+                    wpn.weaponstatus[7] = random(1, 20);                 // VERAS_BATTERY
+                    wpn.weaponstatus[8] = random(16, 70);                   // VERAS_ZOOM
+                    wpn.weaponstatus[10] = random(0, random(1, 500)); // VERAS_BREAKCHANCE
                 }
+
+                DropNewItem("HD4mMag", 96);
+                DropNewItem("HD4mMag", 96);
+
+                DropNewItem("HDBattery", 16);
+            } else {
+                DropNewItem("HD4mMag", 96);
+                DropNewItem("HD4mMag", 96);
+                DropNewItem("HD4mMag", 96);
+                DropNewItem("HD4mMag", 96);
+
+                DropNewItem("HDBattery", 8);
             }
 
-            vvv.weaponstatus[VERAS_CHAMBER1] = (!random(0,3)) ? 2 : 1;
-            vvv.weaponstatus[VERAS_CHAMBER2] = (!random(0,3)) ? 2 : 1;
-            vvv.weaponstatus[VERAS_CHAMBER3] = (!random(0,3)) ? 2 : 1;
-
-            if (superauto) {
-                vvv.weaponstatus[0] |= VERAF_FAST;
-            }
-
-            vvv.weaponstatus[VERAS_BATTERY] = random(1, 20);
-            vvv.weaponstatus[VERAS_BREAKCHANCE] = random(0, random(1, 500));
-            vvv.weaponstatus[VERAS_ZOOM] = random(16, 70);
-        }
-        else if (!bfriendly) {
-            DropNewItem("HD4mMag",96);
-            DropNewItem("HD4mMag",96);
-            DropNewItem("HD4mMag",96);
-            DropNewItem("HD4mMag",96);
-            DropNewItem("HDBattery",8);
+        } else if (!bHASDROPPED) {
+            DropNewItem("HDHandgunRandomDrop");
         }
     }
 

@@ -78,38 +78,45 @@ class PeeDeeFourtyTrooper : HDHumanoid {
     override void deathdrop() {
         if (bHASDROPPED && bFRIENDLY) return;
 
-        HDWeapon wpn = null;
+        name wpnName = 'HDPDFour';
+        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
 
-        if (!bHASDROPPED) {
-            DropNewItem("HDPDFourMag", 96);
+        name magName = 'HDPDFourMag';
+        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
 
-            // Taken from HDPDFourRandom
-            wpn = DropNewWeapon("HDPDFour");
-            if (!wpn) return;
+        if (wpnCls && magCls) {
 
-            HDF.TransferSpecials(self, wpn);
+            if (!bHASDROPPED) {
+                
+                // Taken from HDPDFourRandom
+                let wpn = DropNewWeapon(wpnName);
 
-            if (!random(0, 2)) {
-                wpn.weaponStatus[PDS_FLAGS] |= PDF_REFLEXSIGHT;
+                if (wpn) {
+
+                    HDF.TransferSpecials(self, wpn);
+
+                    if (!random(0, 2)) {
+                        wpn.weaponStatus[0] |= 4;          // PDS_FLAGS, PD_REFLEXSIGHT
+                    }
+
+                    if (slugthrower) {
+                        wpn.weaponStatus[0] |= 2;          // PDS_FLAGS, PDF_SLUGLAUNCHER
+                        wpn.weaponStatus[5] = slugchamber; // PDS_SLUGCHAMBER
+                        A_SpawnItemEx('SlugPickup', -6, flags: SXF_NOCHECKPOSITION);
+                    }
+                    
+                    wpn.weaponStatus[1] = mag;             // PDS_MAG
+                    wpn.weaponStatus[3] = firemode;        // PDS_FIREMODE
+                }
+
+                DropNewItem(magName, 96);
+            } else {
+                DropNewItem(magName, 96);
+                DropNewItem(magName, 96);
             }
 
-            if (slugthrower) {
-                wpn.weaponStatus[PDS_FLAGS] |= PDF_SLUGLAUNCHER;
-                wpn.weaponStatus[PDS_SLUGCHAMBER] = slugchamber;
-                A_SpawnItemEx('SlugPickup', -6, flags: SXF_NOCHECKPOSITION);
-            }
-            
-            wpn.weaponStatus[PDS_MAG] = mag;
-            wpn.weaponStatus[PDS_FIREMODE] = firemode;
-        } else {
-            DropNewItem("HDPDFourMag", 96);
-            DropNewItem("HDPDFourMag", 96);
-        }
-
-        if (!bHASDROPPED) {
+        } else if (!bHASDROPPED) {
             DropNewItem("HDHandgunRandomDrop");
-
-            bHASDROPPED = true;
         }
     }
 
@@ -314,7 +321,11 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             #### AA 1 A_HDChase("melee", null, flags: CHF_FLEE);
             #### A 0 {
                 A_StartSound("PD42/MagOut", CHAN_WEAPON);
-                HDMagAmmo.SpawnMag(self, "HDPDFourMag", 0);
+
+                name magName = 'HDPDFourMag';
+                Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
+                if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
+
                 mag = -1;
             }
         unloadedreload:

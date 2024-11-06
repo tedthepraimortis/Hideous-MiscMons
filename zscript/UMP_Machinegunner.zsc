@@ -31,17 +31,35 @@ class UMPZombie : HDHumanoid {
     }
     
     override void deathdrop() {
-        HDWeapon wpn = null;
+        if (bHASDROPPED && bFRIENDLY) return;
 
-        if (!bHASDROPPED) {
+        name wpnName = 'HDUMP';
+        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
+
+        name magName = 'HDUMPMag';
+        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
+
+        if (wpnCls && magCls) {
+
+            if (!bHASDROPPED) {
+                
+                // Taken from UMPRandom
+                let wpn = DropNewWeapon(wpnName);
+
+                if (wpn) {
+                    HDF.TransferSpecials(self, wpn);
+                    
+                    wpn.InitializeWepStats(false);
+                }
+
+                DropNewItem(magName, 96);
+            } else {
+                DropNewItem(magName, 96);
+                DropNewItem(magName, 96);
+            }
+
+        } else if (!bHASDROPPED) {
             DropNewItem("HDHandgunRandomDrop");
-            bHASDROPPED = true;
-
-            // Gonna do this till I figure out how to use the Enums from the UMP with this. Probably overlooking something basic. - [Ted]
-            DropNewItem("UMPrandom");
-        } else if (!bFRIENDLY) {
-            DropNewItem("HDUMPMag", 240);
-            DropNewItem("HDUMPMag", 128);
         }
     }
 
@@ -139,7 +157,11 @@ class UMPZombie : HDHumanoid {
             ZSP2 A 3 A_HDChase("melee", null, CHF_FLEE);
             ZSP2 B 4 {
                 A_StartSound("UMP/MagOut", 8);
-                HDMagAmmo.SpawnMag(self, "HDUMPMag", 0);
+
+                name magName = 'HDUMPMag';
+                Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
+                if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
+
                 gunloaded = -1;
             }
             ZSP2 CD 3 A_HDChase("melee", null, CHF_FLEE);
