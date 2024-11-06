@@ -125,14 +125,14 @@ class VeraZombie : HDHumanoid {
                         }
                     }
 
-                    wpn.weaponstatus[4] = (!random(0,3)) ? 2 : 1; // VERAS_CHAMBER1
-                    wpn.weaponstatus[5] = (!random(0,3)) ? 2 : 1; // VERAS_CHAMBER2
-                    wpn.weaponstatus[6] = (!random(0,3)) ? 2 : 1; // VERAS_CHAMBER3
+                    wpn.weaponstatus[4] = (!random(0,3)) ? 2 : 1;     // VERAS_CHAMBER1
+                    wpn.weaponstatus[5] = (!random(0,3)) ? 2 : 1;     // VERAS_CHAMBER2
+                    wpn.weaponstatus[6] = (!random(0,3)) ? 2 : 1;     // VERAS_CHAMBER3
 
-                    if (superauto) wpn.weaponstatus[0] |= 1; // VERAF_FAST
+                    if (superauto) wpn.weaponstatus[0] |= 1;          // VERAF_FAST
 
-                    wpn.weaponstatus[7] = random(1, 20);                 // VERAS_BATTERY
-                    wpn.weaponstatus[8] = random(16, 70);                   // VERAS_ZOOM
+                    wpn.weaponstatus[7] = random(1, 20);              // VERAS_BATTERY
+                    wpn.weaponstatus[8] = random(16, 70);             // VERAS_ZOOM
                     wpn.weaponstatus[10] = random(0, random(1, 500)); // VERAS_BREAKCHANCE
                 }
 
