@@ -145,8 +145,14 @@ class MiscMonsHandler : EventHandler {
         // Greely Shotgunner
         Array<MiscMonsSpawnEnemyEntry> spawns_greelyshotgunner;
         spawns_greelyshotgunner.push(addEnemyentry('Jackboot', greely_shotgunner_spawn_bias));
-        spawns_greelyshotgunner.push(addEnemyentry('JackAndJillboot', greely_shotgunner_spawn_bias));
+        // spawns_greelyshotgunner.push(addEnemyentry('JackAndJillboot', greely_shotgunner_spawn_bias));
         addEnemy('GreelyShortgunner', spawns_greelyshotgunner, enemy_persistent_spawning);
+
+        // Altis O/U Shotgunner
+        Array<MiscMonsSpawnEnemyEntry> spawns_altisshotgunner;
+        // spawns_altisshotgunner.push(addEnemyentry('Jackboot', greely_shotgunner_spawn_bias));
+        spawns_altisshotgunner.push(addEnemyentry('JackAndJillboot', greely_shotgunner_spawn_bias));
+        addEnemy('AltisShotgunner', spawns_altisshotgunner, enemy_persistent_spawning);
 
         // --------------------
         // Chaingunners

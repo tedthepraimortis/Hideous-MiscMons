@@ -1,0 +1,107 @@
+class AltisShotgunner : JackAndJillboot {
+    default {
+        //$Category "Monsters/Hideous Destructor"
+        //$Title "Shotgun Guy (Altis O/U)"
+        //$Sprite "SPOUA1"
+    }
+
+    // Taken from mob_zombshotgun.zs
+    override void postbeginplay() {
+        super.postbeginplay();
+
+        sprite = GetSpriteIndex("SPOUA1");
+        // A_SetTranslation("ShotgunGuy");
+        gunloaded = random(1,2);
+
+        if (random(0, 7)) {
+            choke = ((7 + 8 * 7));
+        } else {
+            choke = random(0, 7);
+
+            // set second barrel
+            if (wep) {
+                choke += 8 * random(0, 7);
+            }
+        }
+    }
+
+    override void tick() {
+        super.tick();
+
+        // Visual Zombies tryin' to make me a normal SSG Zombieman...
+        if (CountInv('VisualJackboot_Updater')) {
+            TakeInventory('VisualJackboot_Updater', 100);
+            sprite = GetSpriteIndex("SPOUA1");
+        }
+    }
+
+    override void deathdrop() {
+        if (bHASDROPPED && bFRIENDLY) return;
+
+        name wpnName = 'HDAltis';
+        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
+
+        if (wpnCls) {
+
+            if (!bHASDROPPED) {
+
+                let wpn = DropNewWeapon(wpnName);
+                if (wpn) {
+
+                    if (gunloaded == 2) {
+                        wpn.weaponstatus[2] = 2; // OUSS_CHAMBER2
+                    } else if (gunspent == 2) {
+                        wpn.weaponstatus[2] = 1; // OUSS_CHAMBER2
+                    }
+
+                    if (gunloaded > 0) {
+                        wpn.weaponstatus[1] = 2; // OUSS_CHAMBER1
+                    } else if (gunspent > 0) {
+                        wpn.weaponstatus[1] = 1; // OUSS_CHAMBER1
+                    }
+
+                    wpn.weaponstatus[6] = (choke & (1|2|4)); // OUSS_CHOKE1
+                    wpn.weaponstatus[7] = (choke >> 3);      // OUSS_CHOKE2
+
+                    gunloaded = 2;
+                }
+
+                DropNewItem("ShellPickup", 200);
+            } else {
+                DropNewItem("ShellPickup", 200);
+            }
+
+        } else if (!bHASDROPPED) {
+            super.deathdrop();
+        }
+    }
+
+    states {
+        spawn:
+            SPOU A 0;
+            goto spawn2;
+
+        // TODO: Implement Altis Shells/Slugs Firing
+        // shootssg:
+        //     #### F 1 bright light("SHOT"){
+        //         A_StartSound("weapons/slayersingle",CHAN_WEAPON);
+        //         if(gunloaded>1&&!random(0,5)){
+        //             //both barrels
+        //             A_StartSound("weapons/slayersingle",CHAN_WEAPON,CHANF_OVERLAP);
+        //             gunspent=2;
+        //             gunloaded=0;
+        //             Slayer.Fire(self,0,(choke&(1|2|4)));
+        //             Slayer.Fire(self,1,(choke>>3));
+        //         }else{
+        //             //single barrel
+        //             gunspent++;
+        //             gunloaded--;
+        //             if(gunspent)Slayer.Fire(self,1,(choke>>3));
+        //             else Slayer.Fire(self,0,(choke&(1|2|4)));
+        //         }
+        //     }
+        //     #### E 1 A_SetTics(random(2,4));
+        //     #### E 0 A_Jump(192,"see");
+        //     goto roam;
+    }
+}

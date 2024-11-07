@@ -2,6 +2,7 @@ version "4.11"
 
 #include "zscript/Trog_Zombies.zsc"
 #include "zscript/PD42_Zombies.zsc"
+#include "zscript/Altis_Shotgunner.zsc"
 #include "zscript/Greely_Shotgunners.zsc"
 #include "zscript/UMP_Machinegunner.zsc"
 #include "zscript/USP_Homeboy.zsc"

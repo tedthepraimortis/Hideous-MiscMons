@@ -11,6 +11,7 @@ server int uspzombie_homeboy_spawn_bias = 10;
 
 // Shotgunners
 server int greely_shotgunner_spawn_bias = 10;
+server int altis_shotgunner_spawn_bias = 10;
 
 // Chaingunners
 server int verazombie_chaingunner_spawn_bias = 10;
