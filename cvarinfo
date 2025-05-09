@@ -2,19 +2,19 @@
 // Every weapon has a comment before it's cvars based on it's name in-game for organization. - [Ted]
 
 // Zombiemen
-server int trogtrooper_zombieman_spawn_bias = 15;
-server int pd42zombie_zombieman_spawn_bias = 15;
-server int umpzombie_zombieman_spawn_bias = 20;
+server float trogtrooper_zombieman_spawn_bias = 9.666;
+server float pd42zombie_zombieman_spawn_bias = 9.666;
+server float umpzombie_zombieman_spawn_bias = 7.25;
 
 // Homeboys
-server int uspzombie_homeboy_spawn_bias = 10;
+server float uspzombie_homeboy_spawn_bias = 14.5;
 
 // Shotgunners
-server int greely_shotgunner_spawn_bias = 10;
-server int altis_shotgunner_spawn_bias = 10;
+server float greely_shotgunner_spawn_bias = 22.6;
+server float altis_shotgunner_spawn_bias = 22.6;
 
 // Chaingunners
-server int verazombie_chaingunner_spawn_bias = 10;
+server float verazombie_chaingunner_spawn_bias = 1.0;
 
 // Global Enemy CVARs
 server bool enemy_persistent_spawning = false;

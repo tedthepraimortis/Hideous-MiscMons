@@ -36,8 +36,10 @@ class AltisShotgunner : JackAndJillboot {
         super.tick();
 
         // Visual Zombies tryin' to make me a normal SSG Zombieman...
-        if (CountInv('VisualJackboot_Updater')) {
-            TakeInventory('VisualJackboot_Updater', 100);
+        name visJackbootTokenName = 'VisualJackboot_Updater';
+        class<Inventory> visJackbootToken = visJackbootTokenName;
+        if (visJackbootToken && CountInv(visJackbootToken)) {
+            TakeInventory(visJackbootToken, 100);
             sprite = GetSpriteIndex("SPOUA1");
         }
     }
