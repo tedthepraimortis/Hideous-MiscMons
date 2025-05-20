@@ -7,7 +7,8 @@ server float pd42zombie_zombieman_spawn_bias = 9.666;
 server float umpzombie_zombieman_spawn_bias = 7.25;
 
 // Homeboys
-server float uspzombie_homeboy_spawn_bias = 14.5;
+server float uspzombie_zombieman_spawn_bias = 14.5;
+server float uspzombie_homeboy_spawn_bias = 0.1;
 
 // Shotgunners
 server float greely_shotgunner_spawn_bias = 22.6;

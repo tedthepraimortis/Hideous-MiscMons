@@ -1,23 +1,26 @@
 // TROG Zombieman Spawn Pools
-addSpawnTableSingleEntry => { "tableName": "HDCore.ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-addSpawnTableSingleEntry => { "tableName": "HDCore.ShotgunGuyReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+// addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // PD-42 Zombieman Spawn Pools
-addSpawnTableSingleEntry => { "tableName": "HDCore.ZombieManReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-addSpawnTableSingleEntry => { "tableName": "HDCore.ShotgunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+// addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // UMP Zombieman
-addSpawnTableSingleEntry => { "tableName": "HDCore.ZombieManReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-addSpawnTableSingleEntry => { "tableName": "HDCore.ShotgunGuyReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+// addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // USP Zombieman
-addSpawnTableSingleEntry => { "tableName": "HDCore.ZombieManReplaces", "name": "USPHomeboy", "weight": "#uspzombie_homeboy_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "USPHomeboy", "weight": "#uspzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+
+newSpawnTable => { "spawnName": "UndeadHomeboy", "addOriginalThing": "true", "persists": "true" }
+addSpawnTableSingleEntry => { "tableName": "UndeadHomeboy", "name": "USPHomeboy", "weight": "#uspzombie_homeboy_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // Greely Shotgunner
-addSpawnTableSingleEntry => { "tableName": "HDCore.ShotgunGuyReplaces", "name": "GreelyShortgunner", "weight": "#greely_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "GreelyShortgunner", "weight": "#greely_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // Altis O/U Shotgunner
-addSpawnTableSingleEntry => { "tableName": "HDCore.ShotgunGuyReplaces", "name": "AltisShotgunner", "weight": "#altis_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisShotgunner", "weight": "#altis_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // Vera Chaingunner
-addSpawnTableSingleEntry => { "tableName": "HDCore.ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
