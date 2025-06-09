@@ -1,0 +1,44 @@
+class WingedBab : Babuin
+{
+    default{
+        +nogravity +float +floatbob
+        +lookallaround
+        health 60;
+        scale 0.8;
+        speed 20;
+        mass 40;
+        painchance 100;
+        obituary "$OB_WINGEDBABUIN";
+        tag "$TAG_WINGEDBABUIN";
+    }
+    states{
+    see:
+		#### A 0{
+			//because babuins come into this state from all sorts of weird shit
+			if(
+				!checkmove(pos.xy,true)
+				&&blockingmobj
+			){
+				setorigin((pos.xy+(pos.xy-blockingmobj.pos.xy),pos.z+1),true);
+			}
+
+			blookallaround=false;
+			if(!random(0,127))A_Vocalize(seesound);
+            if(!random(0,16))vel.z+=frandom(-4,4);
+			MustUnstick();
+
+			if(CheckClimb())return;
+
+			bnofear=target&&distance3dsquared(target)<65536.;
+
+			if(
+				(target&&checksight(target))
+				||!random(0,7)
+			)setstatelabel("seechase");
+			else setstatelabel("roam");
+		}
+    postmelee:
+        #### G 6 A_CustomMeleeAttack(random(1,10),"","","teeth",true);
+        ---- A 0 setstatelabel("see");
+    }
+}
