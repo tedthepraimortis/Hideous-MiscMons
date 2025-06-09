@@ -74,9 +74,9 @@ class FrontiersmanZombie : HDHumanoid {
                     gunloaded = 5;
                 }
 
-                DropNewItem("HD7mBoxPickup", 200);
+                DropNewItem("SevenMilAmmo", 200);
             } else {
-                DropNewItem("HD7mClip", 200);
+                DropNewItem("SevenMilAmmo", 200);
             }
 
         } else if (!bHASDROPPED) {
