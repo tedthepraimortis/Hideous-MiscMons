@@ -45,8 +45,6 @@ class FrontiersmanZombie : HDHumanoid {
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("SPOS");
         }
-
-        givearmour(1.0, 0.0, 0.6);
     }
 
     override void deathdrop() {
