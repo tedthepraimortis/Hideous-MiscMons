@@ -116,7 +116,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             }
 
         } else if (!bHASDROPPED) {
-            DropNewItem("HDHandgunRandomDrop");
+            DropNewItem("ZM66AssaultRifle");
         }
     }
 
