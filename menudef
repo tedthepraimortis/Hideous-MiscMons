@@ -2,6 +2,9 @@ OptionMenu MiscMonsMenu
 {
     Title "$MISCMONS_TITLE"
     StaticText ""
+
+    StaticText "Should the HMM monsters have unique sprites?"
+    Option "Unique Sprites: ", "hmm_uniquesprites", "OffOn"
     StaticText ""
 
     StaticText "Zombiemen", "Green"
