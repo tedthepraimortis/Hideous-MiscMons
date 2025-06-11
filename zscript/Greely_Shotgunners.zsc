@@ -20,7 +20,8 @@ class GreelyShortgunner : HDHumanoid {
         activesound "shotguy/active";
         tag "$cc_greelyjackboot";
 
-        speed 10;
+        speed 8;
+        scale 0.90;
         decal "BulletScratch";
         meleesound "weapons/smack";
         meleedamage 4;
@@ -222,6 +223,8 @@ class GreelyShortgunner : HDHumanoid {
                 }
                 if (firecount == 2){
                     HDBulletActor.FireBullet(self, "HDB_Slug");
+                    A_StartSound("weapons/greelyshot");
+                    A_StartSound("weapons/greelyblast", 9, CHANF_DEFAULT, 0.1);
                     firecount = 0;
                 }
                 else{
@@ -278,6 +281,11 @@ class GreelyShortgunner : HDHumanoid {
                 }
             }
             #### E 1 A_SetTics(random(2, 6));
+            #### E 1 {
+			    A_ShoutAlert(0.1,SAF_SILENT);
+				double ato=angleto(target)+randompick(-90,90);
+				vel+=((cos(ato),sin(ato))*speed,0.6);
+			}
             #### E 0 A_Jump(127, "see");
             goto roam;
 
