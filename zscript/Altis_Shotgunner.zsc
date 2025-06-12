@@ -1,8 +1,15 @@
 class AltisShotgunner : JackAndJillboot {
+
+    int slug;
+
     default {
         //$Category "Monsters/Hideous Destructor"
         //$Title "Shotgun Guy (Altis O/U)"
         //$Sprite "SPOUA1"
+        tag "$cc_altisshotgunner";
+
+        obituary "$OB_ALTISJACKBOOT";
+        hitobituary "OB_ALTISJACKBOOTHIT";
     }
 
     // Taken from mob_zombshotgun.zs
@@ -81,27 +88,29 @@ class AltisShotgunner : JackAndJillboot {
             SPOU A 0;
             goto spawn2;
 
-        // TODO: Implement Altis Shells/Slugs Firing
-        // shootssg:
-        //     #### F 1 bright light("SHOT"){
-        //         A_StartSound("weapons/slayersingle",CHAN_WEAPON);
-        //         if(gunloaded>1&&!random(0,5)){
-        //             //both barrels
-        //             A_StartSound("weapons/slayersingle",CHAN_WEAPON,CHANF_OVERLAP);
-        //             gunspent=2;
-        //             gunloaded=0;
-        //             Slayer.Fire(self,0,(choke&(1|2|4)));
-        //             Slayer.Fire(self,1,(choke>>3));
-        //         }else{
-        //             //single barrel
-        //             gunspent++;
-        //             gunloaded--;
-        //             if(gunspent)Slayer.Fire(self,1,(choke>>3));
-        //             else Slayer.Fire(self,0,(choke&(1|2|4)));
-        //         }
-        //     }
-        //     #### E 1 A_SetTics(random(2,4));
-        //     #### E 0 A_Jump(192,"see");
-        //     goto roam;
+        shootssg:
+            #### F 1 bright light("SHOT"){
+                if(gunloaded>1&&slug==1){
+                    //slug
+                    A_StartSound("weapons/ouslug",CHAN_WEAPON,CHANF_OVERLAP);
+                    //console.printf("slug: "..slug..".");
+                    gunspent++;
+                    gunloaded--;
+                    slug=0;
+                    HDBulletActor.FireBullet(self, "HDB_Slug", 3, 1.2);
+                }else{
+                    //single barrel
+                    A_StartSound("weapons/ousingle",CHAN_WEAPON);
+                    //console.printf("shell: "..slug..".");
+                    gunspent++;
+                    gunloaded--;
+                    slug=1;
+                    if(gunspent)Slayer.Fire(self,1,(choke>>3));
+                    else Slayer.Fire(self,0,(choke&(1|2|4)));
+                }
+            }
+            #### E 1 A_SetTics(random(2,4));
+            #### E 0 A_Jump(192,"see");
+            goto roam;
     }
 }

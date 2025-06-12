@@ -1,10 +1,12 @@
 # Hideous-MiscMons
 
 ## What does this mod do?
+
 This is a monster pack intended on expanding the zombieman roster to use more of the community created weapons, without adding __intentionally__ overpowered enemies.
 
 ## Usage
-Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/HideousDestructor)** and whichever weapon pack you wish to run with it. 
+
+Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/HideousDestructor)** and whichever weapon pack you wish to run with it.
 
 ## Currently supported mods
 
@@ -14,9 +16,9 @@ Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/Hid
 ### Current Feature Plans
 
 - Improve on the unique identity of these enemies.
-- Make the greely use Slug rounds, ideally in a Slug-Buck-Buck-Buck pattern every time.
-- Get unique sprites for the PD-42 and UMP zombies.
+- Get unique sprites for all of the enemies.
 - Make a public release. Idiot.
+- Give all of the enemies sounds unique to them.
 
 ## Credits
 
