@@ -8,6 +8,9 @@ class ZombieTrogtrooper : HDHumanoid {
     int mag;
     int firemode;
 
+    bool glLoaded;
+    int remainingNades;
+
     Default {
         //$Category "Monsters/Hideous Destructor"
         //$Title "Zombieman"
@@ -36,11 +39,24 @@ class ZombieTrogtrooper : HDHumanoid {
         mag = random(1, 30);
         maxtargetrange = 6000;
 
+        glLoaded = true;
+        remainingNades = random(2, 8);
+
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("POSS");
             A_SetTranslation("FreedoomGreycoat");
         }
     }
+
+	actor A_ZomGl() {
+		actor mmm = spawn("RocketGrenade", (pos.xy, pos.z + gunheight), ALLOW_REPLACE);
+
+		mmm.pitch = pitch + frandom(0, spread) - frandom(0, spread);
+		mmm.angle = angle + frandom(0, spread) - frandom(0, spread);
+		mmm.target = self;
+
+		return mmm;
+	}
 
     void A_ZomFrag() {
         bool garbage;
@@ -87,6 +103,8 @@ class ZombieTrogtrooper : HDHumanoid {
                     wpn.weaponstatus[1] = mag;                   // TROGS_MAG
                     wpn.weaponstatus[2] = clamp(firemode, 0, 1); // TROGS_AUTO
                 }
+
+                for(int i = 0; i < remainingNades; i++) DropNewItem(random(0, 2) ? 'HDRocketAmmo' : 'DudRocket', 96);
 
                 DropNewItem(magName, 96);
             } else {
@@ -161,7 +179,7 @@ class ZombieTrogtrooper : HDHumanoid {
         missile:
             #### A 0 {
                 if (!target) {
-                    setstatelabel("spawn2");
+                    SetStateLabel("spawn2");
                     return;
                 }
 
@@ -172,24 +190,35 @@ class ZombieTrogtrooper : HDHumanoid {
                     && dt > 200
                     && dt < 1000
                 ) {
-                    setstatelabel("frag");
+                    SetStateLabel("frag");
                 }
             }
             #### ABCD 3 A_TurnToAim(40, shootstate: "aiming");
             loop;
+
         aiming:
             #### E 3 A_FaceLastTargetPos(30);
             #### E 1 A_StartAim(maxspread: 20, maxtics: random(0, 35));
-            //fallthrough to shoot
         shoot:
             #### E 0 {
                 pitch += frandom(-spread, spread);
                 angle += frandom(-spread, spread);
+
+                //grenade
+                if(
+                    remainingNades > 0
+                    && lasttargetdist < HDCONST_ONEMETRE * 144.0
+                    && lasttargetdist > HDCONST_ONEMETRE * 7.0
+                    && ( glLoaded && !random(0, 31) )
+                ){
+                    SetStateLabel("shootgl");
+                    return;
+                }
             }
         fire:
             #### F 1 bright light("SHOT") {
                 if (mag < 1) {
-                    setstatelabel("ohforfuckssake");
+                    SetStateLabel("ohforfuckssake");
                     return;
                 }
 
@@ -207,21 +236,20 @@ class ZombieTrogtrooper : HDHumanoid {
                     !firemode
                     || mag < 1
                 ) {
-                    setstatelabel("postshot");
+                    SetStateLabel("postshot");
                 } else {
                     spread++;
                 }
             }
             #### A 0 A_Jump(120, "shoot");
-            //fallthrough to postshot
         postshot:
-            #### E 5{
+            #### E 5 {
                 if (!random(0, 127)) {
                     A_Vocalize(activesound);
                 }
                 
                 if (mag < 1) {
-                    setstatelabel("reload");
+                    SetStateLabel("reload");
                     return;
                 }
 
@@ -235,7 +263,29 @@ class ZombieTrogtrooper : HDHumanoid {
             #### E 3 A_FaceTarget(10, 10);
             #### E 0 A_Jump(30, "see");  //even if in los,occasionally stop shooting anyway
             goto coverfire;
+            
+        shootgl:
+            #### E 1;
+            #### E 2 {
+                A_LeadTarget(lasttargetdist / getdefaultbytype("RocketGrenade").speed, randompick(0, 0, 0, 1));
 
+                // everything else assumes you're aiming for centre, try ground instead
+                double aaa = angle;
+                A_FaceLastTargetPos(10, targetheight: 1.0);
+                angle = aaa;
+
+                HDMobAI.DropAdjust(self, "RocketGrenade", lasttargetdist);
+            }
+            #### F 0 A_JumpIf(!glLoaded, "ohforfuckssake");
+            #### F 1 bright {
+                glLoaded = false;
+
+                A_StartSound("weapons/grenadeshot", CHAN_WEAPON);
+                A_ZomGl();
+            }
+            #### E 4;
+            goto see;
+            
         coverfire:
             #### E 1 {
                 spread = 2;
@@ -269,6 +319,26 @@ class ZombieTrogtrooper : HDHumanoid {
         ohforfuckssake:
             #### E 8;
         reload:
+            #### E 8{
+                if (mag < 1) SetStateLabel("reloadmag");
+                else if (remainingNades > 0 && !glLoaded) SetStateLabel("reloadgl");
+            }
+            goto see;
+
+        reloadgl:
+            #### A 0 A_StartSound("weapons/grenopen", 8);
+            #### ABCD 3 A_HDChase(null, null, CHF_FLEE);
+            #### AB 2 A_StartSound("weapons/rockreload", 8);
+            #### C 3 {
+                A_StartSound("weapons/grenopen", CHAN_WEAPON, CHANF_OVERLAP);
+                A_HDChase("melee", null);
+                glLoaded = true;
+                remainingNades--;
+            }
+            #### D 4;
+            goto see;
+
+        reloadmag:
             ---- A 0 A_JumpIf(mag < 0, "unloadedreload");
             ---- A 4 A_StartSound("weapons/trogclick2");
             #### AA 1 A_HDChase("melee", null, flags: CHF_FLEE);
@@ -276,8 +346,7 @@ class ZombieTrogtrooper : HDHumanoid {
                 A_StartSound("weapons/trogunload");
                 
                 name magName = 'HDTrogMag';
-                Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-                if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
+                if (HDCore.CheckClassExists(magName)) HDMagAmmo.SpawnMag(self, magName, 0);
 
                 mag = -1;
             }
@@ -339,14 +408,14 @@ class ZombieTrogtrooper : HDHumanoid {
                 spread = 4;
             }
             #### ABCD 3 A_HDChase();
-            ---- A 0 setstatelabel("see");
+            ---- A 0 SetStateLabel("see");
         pain:
             #### G 2;
             #### G 3 A_Vocalize(painsound);
             #### G 0{
                 A_ShoutAlert(0.1, SAF_SILENT);
                 if (target && distance3d(target) < 100) {
-                    setstatelabel("see");
+                    SetStateLabel("see");
                 }
             }
             #### ABCD 2 A_HDChase(flags: CHF_FLEE);
