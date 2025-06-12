@@ -59,7 +59,7 @@ class UMPZombie : HDHumanoid {
             }
 
         } else if (!bHASDROPPED) {
-            DropNewItem("HDHandgunRandomDrop");
+            DropNewItem("HDSMG");
         }
     }
 
