@@ -89,12 +89,8 @@ class ZombieTrogtrooper : HDHumanoid {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDTROGRifle';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
         name magName = 'HDTrogMag';
-        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-
-        if (wpnCls && magCls) {
+        if (HDCore.CheckClassExists(wpnName) && HDCore.CheckClassExists(magName)) {
         
             if (!bHASDROPPED) {
 

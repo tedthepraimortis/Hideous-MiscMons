@@ -48,9 +48,7 @@ class AltisShotgunner : JackAndJillboot {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDAltis';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
-        if (wpnCls) {
+        if (HDCore.CheckClassExists(wpnName)) {
 
             if (!bHASDROPPED) {
 

@@ -79,12 +79,8 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDPDFour';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
         name magName = 'HDPDFourMag';
-        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-
-        if (wpnCls && magCls) {
+        if (HDCore.CheckClassExists(wpnName) && HDCore.CheckClassExists(magName)) {
 
             if (!bHASDROPPED) {
                 
@@ -323,8 +319,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
                 A_StartSound("PD42/MagOut", CHAN_WEAPON);
 
                 name magName = 'HDPDFourMag';
-                Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-                if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
+                if (HDCore.CheckClassExists(magName)) HDMagAmmo.SpawnMag(self, magName, 0);
 
                 mag = -1;
             }

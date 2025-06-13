@@ -108,12 +108,8 @@ class USPHomeboy : HDHumanoid {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDUSP';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
         name magName = 'HDUSPMag';
-        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-
-        if (wpnCls && magCls) {
+        if (HDCore.CheckClassExists(wpnName) && HDCore.CheckClassExists(magName)) {
 
             if (!bHASDROPPED) {
 
@@ -139,8 +135,7 @@ class USPHomeboy : HDHumanoid {
             A_StartSound("USP/MagOut", 8);
 
             name magName = 'HDUSPMag';
-            Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-            if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
+            if (HDCore.CheckClassExists(magName)) HDMagAmmo.SpawnMag(self, magName, 0);
         }
 
         thismag = -1;
