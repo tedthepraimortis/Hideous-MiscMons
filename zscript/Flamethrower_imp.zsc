@@ -55,12 +55,10 @@ class FlamerImp:HDMobBase{
 		maxstepheight=bplayingid?24:36;
 	}
     void A_FlamerImpShot() {
-        console.printf("in shoot"..burstcount);
         //abort if burst is over
         if (burstcount < 1) {
             burstcount = random(5, 10);
             setstatelabel("postshot");
-            console.printf("returning from burst"..burstcount);
             return;
         };
 
@@ -68,7 +66,6 @@ class FlamerImp:HDMobBase{
             A_SpawnProjectile("HDFireCone",gunheight,0,frandom(-1,2),CMF_AIMDIRECTION,pitch+frandom(-1,1.2));
         }
         burstcount--;
-        console.printf("just shot"..burstcount);
     }
 	override void CheckFootStepSound(){
 		if(bplayingid)HDHumanoid.FootStepSound(self,0.2,drysound:"imp/step");
