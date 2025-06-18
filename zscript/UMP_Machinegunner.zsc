@@ -34,12 +34,8 @@ class UMPZombie : HDHumanoid {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDUMP';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
         name magName = 'HDUMPMag';
-        Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-
-        if (wpnCls && magCls) {
+        if (HDCore.CheckClassExists(wpnName) && HDCore.CheckClassExists(magName)) {
 
             if (!bHASDROPPED) {
                 
@@ -159,8 +155,7 @@ class UMPZombie : HDHumanoid {
                 A_StartSound("UMP/MagOut", 8);
 
                 name magName = 'HDUMPMag';
-                Class<HDMagAmmo> magCls = (Class<HDMagAmmo>)(magName);
-                if (magCls) HDMagAmmo.SpawnMag(self, magName, 0);
+                if (HDCore.CheckClassExists(magName)) HDMagAmmo.SpawnMag(self, magName, 0);
 
                 gunloaded = -1;
             }

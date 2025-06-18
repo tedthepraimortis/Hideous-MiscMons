@@ -36,8 +36,10 @@ class AltisShotgunner : JackAndJillboot {
         super.tick();
 
         // Visual Zombies tryin' to make me a normal SSG Zombieman...
-        if (CountInv('VisualJackboot_Updater')) {
-            TakeInventory('VisualJackboot_Updater', 100);
+        name visJackbootTokenName = 'VisualJackboot_Updater';
+        class<Inventory> visJackbootToken = visJackbootTokenName;
+        if (visJackbootToken && CountInv(visJackbootToken)) {
+            TakeInventory(visJackbootToken, 100);
             sprite = GetSpriteIndex("SPOUA1");
         }
     }
@@ -46,9 +48,7 @@ class AltisShotgunner : JackAndJillboot {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDAltis';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
-        if (wpnCls) {
+        if (HDCore.CheckClassExists(wpnName)) {
 
             if (!bHASDROPPED) {
 

@@ -100,9 +100,7 @@ class VeraZombie : HDHumanoid {
         if (bHASDROPPED && bFRIENDLY) return;
 
         name wpnName = 'HDVera';
-        Class<HDWeapon> wpnCls = (Class<HDWeapon>)(wpnName);
-
-        if (wpnCls) {
+        if (HDCore.CheckClassExists(wpnName)) {
 
             if (!bHASDROPPED) {
 

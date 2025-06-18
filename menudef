@@ -8,21 +8,22 @@ OptionMenu MiscMonsMenu
     StaticText ""
 
     StaticText "Zombiemen", "Green"
-    ScaleSlider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
-    ScaleSlider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
-    ScaleSlider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    Slider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Undead Homeboys", "Yellow"
-    ScaleSlider "USP-45 Homeboy Spawn Chance:", "uspzombie_homeboy_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_homeboy_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Shotgunners", "Red"
-    ScaleSlider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    Slider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Chaingunners", "Blue"
-    ScaleSlider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", -1, 999, 1, "$MENU_REPLACEALL", "$MENU_DISABLED"
+    Slider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
     StaticText ""
 
