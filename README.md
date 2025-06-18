@@ -24,6 +24,6 @@ Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/Hid
 
 - Majority of the original code: mc776/Matt
 - ZSpecOps Rifleman (UMP & PD42 Zombiemen) Sprites: Xim, Vegeta, Ghastly_dragon, MagicWazard, edited from Id Software sprites. Hosted on Realm667.
-- ZSpecOps Shotgunner (Greely Shotgunner) Sprites: Mark Quinn, Vegeta, Ghastly_dragon and MagicWazard, edited from Id Software sprites. Hosted on Realm667.
+- Cyborg Shotgunner (Greely Shotgunner) Sprites: HorrorMovieRei, Pandut, Velocity, tsran, hosted on Realm667.
 - Chaingun Major (Vera Chaingunner) Sprites: Vader. Hosted on Realm667.
 - Alits O/U Shotgunner Sprites: TommyGalano5, Skelegant, DavidG (ItsNatureToDie), edited from Id Software sprites.

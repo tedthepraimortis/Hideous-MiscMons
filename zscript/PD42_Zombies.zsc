@@ -5,6 +5,32 @@
 // No sprites yet for this dude. Probably something tech-y and I'll likely give them armor.
 // ZSpecOps with a tan gun would go well though... - [Ted]
 
+//a mortal man doomed to die
+class OldWraithLight:PointLight{
+	default{
+		+dynamiclight.subtractive
+	}
+	override void postbeginplay(){
+		super.postbeginplay();
+		args[0]=66;
+		args[1]=17;
+		args[2]=13;
+		args[3]=0;
+		args[4]=0;
+	}
+	override void tick(){
+		if(!target){
+			args[3]+=random(-5,2);
+			if(args[3]<1)destroy();
+		}else{
+			setorigin(target.pos,true);
+			if(target.bmissile)args[3]=random(32,40);
+			else args[3]=random(48,64);
+		}
+	}
+}
+
+
 class PeeDeeFourtyTrooper : HDHumanoid {
     
     double turnamount;
@@ -33,10 +59,18 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         painchance 250;
         obituary "$OB_ZOMBPD42";
         hitobituary "$OB_ZOMBPD42_HIT";
+
+        hdmobbase.shields 500;
+        health 255;
+        +hdmobbase.noincap
+        +shadow
     }
 
     override void postbeginplay() {
         super.postbeginplay();
+        bshadow=true;
+
+        A_SpawnItemEx("OldWraithLight",flags:SXF_SETTARGET);
 
         slugthrower = !random(0, 2);
         slugchamber = slugthrower ? random (0, 2) : 0;
@@ -48,6 +82,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             sprite = getspriteindex("POSS");
             A_SetTranslation("FreedoomGreycoat");
         }
+        givearmour(1., 0.12, 0.6);
     }
 
     void A_ZomFrag() {
@@ -114,7 +149,39 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         } else if (!bHASDROPPED) {
             DropNewItem("ZM66AssaultRifle");
         }
+        A_SetRenderStyle(1,STYLE_Normal);
+        if(bshadow){
+            if(random(0,3))A_DropItem("HDBlurSphere");
+            bshadow=false;
+        }
     }
+        
+    int invisticker;
+	override void Tick(){
+		super.Tick();
+		if(
+			isFrozen()
+			||!bshadow
+		)return;
+		if(frame==5)invisticker=8;
+		else if(invisticker>0)invisticker--;
+		bool invis=!invisticker&&(level.time&(1|2|4));
+		if(
+			!invisticker
+			&&frame<5
+			&&(
+				abs(vel.x)<2
+				&&abs(vel.y)<2
+			)
+		)invis=true;
+		if(invis){
+			bspecialfiredamage=true;
+			A_SetRenderStyle(0,STYLE_None);
+		}else{
+			bspecialfiredamage=false;
+			A_SetRenderStyle(1,STYLE_Fuzzy);
+		}
+	}
 
     States {
         Spawn:

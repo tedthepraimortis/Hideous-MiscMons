@@ -1,0 +1,235 @@
+// A_FireProjectile("HDFireCone", frandom(-3, 3), spawnheight: (3.5 * cos(-pitch)) * player.crouchfactor);
+
+const flamerdist = 7.0;
+
+class FlamerImp:HDMobBase{
+
+    int burstcount;
+	
+    default{
+		//$Category "Monsters/Hideous Destructor"
+		//$Title "Imp Fighter"
+		//$Sprite "TROOA1"
+
+		+hdmobbase.chasealert
+
+		mass 100;
+		+floorclip
+		+hdmobbase.climber
+		seesound "imp/sight";
+		painsound "imp/pain";
+		deathsound "imp/death";
+		activesound "imp/active";
+		meleesound "imp/melee";
+		hdmobbase.downedframe 12;
+		tag "$CC_FLAMERIMP";
+
+		damagefactor "hot",0.66;
+		health 100;
+
+		radius 14;
+		height 56;
+		hdmobbase.gunheight 36;
+		deathheight 15;
+		speed 12;
+		maxdropoffheight 128;
+
+		damage 5;
+		meleedamage 3;
+
+		painchance 80;
+		translation "MediumImp";
+		obituary "$OB_IMP";
+		hitobituary "$OB_IMP_HIT";
+	}
+	override void postbeginplay(){
+		super.postbeginplay();
+		if(bplayingid){
+			bsmallhead=true;
+			bbiped=true;
+			A_SetSize(13,54);
+		}
+		resize(0.8,1.1);
+		voicepitch=frandom(0.9,1.1);
+
+		maxstepheight=bplayingid?24:36;
+	}
+    void A_FlamerImpShot() {
+        //abort if burst is over
+        if (burstcount < 1) {
+            burstcount = random(5, 10);
+            setstatelabel("postshot");
+            return;
+        };
+
+        for(int i = 2; i <=3; i++) {
+            A_SpawnProjectile("HDFireCone",gunheight,0,frandom(-1,2),CMF_AIMDIRECTION,pitch+frandom(-1,1.2));
+        }
+        burstcount--;
+    }
+	override void CheckFootStepSound(){
+		if(bplayingid)HDHumanoid.FootStepSound(self,0.2,drysound:"imp/step");
+		else A_StartSound("serpentipede/step",88,CHANF_OVERLAP);
+	}
+	override void deathdrop(){
+		if(!bfriendly)DropNewItem("HDHandgunRandomDrop");
+	}
+	bool strafeleft;
+	void A_Strafe(){
+		A_FaceLastTargetPos(10);
+		strafeleft=(random(0,2))?blefthanded:!blefthanded;
+		vector2 newdir=angletovector((strafeleft?angle+90:angle-90)+frandom(-20,20),frandom(0.5,2.5));
+		vel.xy+=newdir;
+		if(floorz==pos.z)vel.z+=randompick(-2.,1.);
+	}
+	states{
+	spawn:
+		TROO A 0;
+	idle:
+		#### AAABBCCCDD 8 A_HDLook();
+		#### A 0 A_SetAngle(angle+random(-4,4));
+		#### A 1 A_SetTics(random(1,3));
+		---- A 0 A_Jump(216,2);
+		---- A 0 A_Vocalize(activesound);
+		#### A 0 A_JumpIf(bambush,"idle");
+		#### A 0 A_Jump(32,"spawn2");
+		loop;
+	spawn2:
+		#### ABCD 4 A_HDWander(CHF_LOOK);
+		#### A 0 A_Jump(198,"spawn2");
+		#### A 0 {vel.xy-=(cos(angle),sin(angle))*0.4;}
+		#### A 0 A_Jump(64,"idle");
+		loop;
+
+	see:
+		#### ABCD 4 A_HDChase();
+		#### A 0 A_Jump(116,"roam","roam","roam","roam2","roam2");
+		loop;
+	roam:
+		#### AABB 3 A_Watch();
+		#### A 0 A_Jump(60,"roam");
+	roam2:
+		#### A 0 A_JumpIf(targetinsight||!random(0,31),"see");
+		#### ABCD 6 A_HDChase(speedmult:0.6);
+		#### A 0 A_Jump(80,"roam");
+		loop;
+
+	missile:
+		#### ABCD 4{
+			A_Strafe();
+			A_TurnToAim(40,gunheight);
+		}
+		loop;
+	shoot:
+		#### E 0 A_Jump(16,"hork");
+		goto lead;
+
+	lead:
+		#### E 0 A_Strafe();
+		#### E 1 A_FaceLastTargetPos(40,gunheight,lasttargetheight);
+		#### F 0 A_LeadTarget(lasttargetdist*(1./12.),delay:4);
+		#### F 0 A_JumpIf(!hdmobai.TryShoot(self,32,512,10,10,flags:HDMobAI.TS_GEOMETRYOK),"see");
+        #### F 0 A_JumpIf(lasttargetdist > HDCONST_ONEMETRE * flamerdist, "see");
+		#### F 0 bright A_FlamerImpShot();
+		---- A 0 A_JumpIfTargetInsideMeleeRange("melee");
+		#### E 0 A_Jump(16,"see");
+		#### E 0 A_Jump(140,"coverfire");
+		---- A 0 setstatelabel("see");
+        loop;
+
+	spam:
+		#### E 1 A_SetTics(random(1,2));
+		#### EF 2 A_Strafe();
+        #### F 0 A_JumpIf(lasttargetdist > HDCONST_ONEMETRE * flamerdist, "see");
+		#### F 0 A_LeadTarget(lasttargetdist*(1./12.),delay:4);
+		#### F 0 bright A_FlamerImpShot();
+		#### F 0 A_JumpIf(firefatigue>HDCONST_MAXFIREFATIGUE,"pain");
+        loop;
+	coverfire:
+		---- A 0 A_JumpIfTargetInLOS("see");
+		#### EEEEE 3 A_Coverfire("coverdecide");
+		---- A 0 setstatelabel("see");
+    postshot:
+	coverdecide:
+		#### E 0 A_JumpIf(!hdmobai.TryShoot(self,32,512,10,10,flags:HDMobAI.TS_FARGEOMETRYOK),"see");
+		---- A 0 A_Jump(180,"spam");
+		---- A 0 A_Jump(90,"hork");
+		---- A 0 setstatelabel("missile");
+	hork:
+		#### E 0 A_Jump(156,"spam");
+		---- A 0 A_FaceLastTargetPos(40,gunheight,lasttargetheight);
+		#### E 2 A_Strafe();
+		#### E 0 A_Vocalize(seesound);
+		#### EEEEE 2 A_SpawnItemEx("ReverseImpBallTail",4,24,gunheight,1,0,0,0,160);
+		#### EF 2 A_Strafe();
+		#### G 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-2,10)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
+		#### G 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-4,4)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
+		#### G 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-2,-10)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
+		#### GGFE 5 A_SetTics(random(4,6));
+		#### E 0 A_JumpIf(!hdmobai.TryShoot(self,32,256,10,10,flags:HDMobAI.TS_GEOMETRYOK),"see");
+		#### E 0 A_Watch();
+		---- A 0 setstatelabel("see");
+	melee:
+		#### EE 4 A_FaceLastTargetPos();
+		#### F 2;
+		#### G 8 A_FireballerScratch("HDImpBall",random(10,30));
+		#### F 4;
+		---- A 0 setstatelabel("see");
+	pain:
+		#### H 3 A_GiveInventory("HDFireEnder",3);
+		#### H 3 A_Vocalize(painsound);
+		---- A 0 A_ShoutAlert(0.4,SAF_SILENT);
+		#### A 2 A_FaceTarget();
+		#### BCD 2 A_FastChase();
+		#### A 0 A_JumpIf(firefatigue>(HDCONST_MAXFIREFATIGUE*1.6),"see");
+		goto missile;
+	death:
+		#### I 6 A_Gravity();
+		#### J 6 A_Vocalize(deathsound);
+		#### KL 5;
+	dead:
+	death.spawndead:
+		#### L 3 canraise A_JumpIf(abs(vel.z)<2,1);
+		loop;
+		#### M 5 canraise A_JumpIf(abs(vel.z)>=2,"Dead");
+		loop;
+	gib:
+		---- A 0 A_Gravity();
+		#### N 0 A_GibSplatter();
+		#### O 5 A_XScream();
+		#### O 0 A_GibSplatter();
+		#### P 5 A_GibSplatter();
+		#### QRS 5;
+		#### T 5;
+	gibbed:
+		#### T 5 canraise A_JumpIf(abs(vel.z)<2,1);
+		wait;
+		#### U 5 canraise A_JumpIf(abs(vel.z)>=2,"gibbed");
+		wait;
+	raise:
+		#### M 4;
+		#### ML 6;
+		#### KJI 4;
+		---- A 0 setstatelabel("see");
+	ungib:
+		#### U 6;
+		#### UT 8;
+		#### SRQ 6;
+		#### PONH 4;
+		---- A 0 setstatelabel("pain");
+	falldown:
+		#### H 5;
+		#### I 5 A_Vocalize(deathsound);
+		#### JJKKL 2 A_SetSize(-1,max(deathheight,height-10));
+		#### L 2 A_SetSize(-1,deathheight);
+		#### M 10 A_KnockedDown();
+		wait;
+	standup:
+		#### LK 5;
+		#### J 0 A_Jump(64,2);
+		#### J 0 A_Vocalize(seesound);
+		#### JI 4 {vel.xy-=(cos(angle),sin(angle))*0.3;}
+		#### HE 5;
+		---- A 0 setstatelabel("see");
+	}
+}
