@@ -26,3 +26,6 @@ addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisS
 
 // Vera Chaingunner
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
+
+// Former Frontiersmen
+addSpawnTableSingleEntry => { "tableName": "OperatorReplaces", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
