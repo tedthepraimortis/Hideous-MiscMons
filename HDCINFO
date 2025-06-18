@@ -1,14 +1,16 @@
 // TROG Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-// addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // PD-42 Zombieman Spawn Pools
-addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-// addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "SpectreReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+
+newSpawnTable => { "spawnName": "HDOperator", "tableName": "OperatorReplaces"}
+addSpawnTableSingleEntry => { "tableName": "OperatorReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // UMP Zombieman
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-// addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // USP Zombieman
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "USPHomeboy", "weight": "#uspzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
