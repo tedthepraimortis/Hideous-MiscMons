@@ -22,8 +22,13 @@ OptionMenu MiscMonsMenu
     Slider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
+    StaticText "Demons", "Orange"
+    Slider "Winged Babuin Spawn Chance:", "wingedbab_demon_spawn_bias", 0.0, 100, .01, 2
+    StaticText ""
+
     StaticText "Chaingunners", "Blue"
     Slider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", 0.0, 100, .01, 2
+    Slider "Frontiersmen Spawn Chance:", "frontiersman_operator_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
     StaticText ""
 

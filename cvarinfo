@@ -15,7 +15,11 @@ server float greely_shotgunner_spawn_bias = 22.6;
 server float altis_shotgunner_spawn_bias = 22.6;
 
 // Chaingunners
-server float verazombie_chaingunner_spawn_bias = 1.0;
+server float verazombie_chaingunner_spawn_bias = 5.0;
+server float frontiersman_operator_spawn_bias = 5.0;
+
+// Demons
+server float wingedbab_demon_spawn_bias = 30.0;
 
 // Global Enemy CVARs
 server bool enemy_persistent_spawning = false;

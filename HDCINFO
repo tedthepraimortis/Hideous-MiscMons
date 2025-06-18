@@ -1,3 +1,5 @@
+// Spawn Tables - [Ted]
+
 // TROG Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
@@ -29,3 +31,18 @@ addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZ
 
 // Former Frontiersmen
 addSpawnTableSingleEntry => { "tableName": "OperatorReplaces", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
+
+// Winged Babuins
+addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+
+// Bounty Targets - [Ted]
+
+newMerchantBountyTarget => { "name": "WingedBab", "value": "250" }
+newMerchantBountyTarget => { "name": "ZombieTrogTrooper", "value": "200" }
+newMerchantBountyTarget => { "name": "PeeDeeFourtyTrooper", "value": "600" }
+newMerchantBountyTarget => { "name": "UMPZombie", "value": "200" }
+newMerchantBountyTarget => { "name": "USPHomeboy", "value": "200" }
+newMerchantBountyTarget => { "name": "GreelyShortgunner", "value": "200" }
+newMerchantBountyTarget => { "name": "AltisShotgunner", "value": "200" }
+newMerchantBountyTarget => { "name": "VeraZombie", "value": "300" }
+newMerchantBountyTarget => { "name": "FrontiersmanZombie", "value": "500" }
