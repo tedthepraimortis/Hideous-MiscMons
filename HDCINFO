@@ -7,8 +7,7 @@ addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieT
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "SpectreReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
-newSpawnTable => { "spawnName": "HDOperator", "tableName": "OperatorReplaces"}
-addSpawnTableSingleEntry => { "tableName": "OperatorReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // UMP Zombieman
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
