@@ -7,8 +7,6 @@ addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieT
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "SpectreReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
-addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
 // UMP Zombieman
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
@@ -29,7 +27,7 @@ addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisS
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // Former Frontiersmen
-addSpawnTableSingleEntry => { "tableName": "OperatorReplaces", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // Winged Babuins
 addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}

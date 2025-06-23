@@ -13,7 +13,7 @@ class FrontiersmanZombie : HDHumanoid {
     Default {
         //$Category "Monsters/Hideous Destructor"
         //$Title "Shotgun Guy"
-        //$Sprite "ZSP1A1"
+        //$Sprite "ZHRTA1"
 
         seesound "shotguy/sight";
         painsound "shotguy/pain";
@@ -93,7 +93,7 @@ class FrontiersmanZombie : HDHumanoid {
 
     States {
         spawn:
-            ZSP1 A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
+            ZHRT A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
             PLAY A 0;
         idle:
         spawn2:
