@@ -53,27 +53,43 @@ class USPHomeboy:HDHumanoid{
 		);
 		gg.vel+=self.vel;
 	}
-	override void deathdrop(){
-		if(bhasdropped&&bfriendly)return;
-		hdweapon wp=null;
-		if(!bhasdropped){
-			if(wp=DropNewWeapon("ZM66AssaultRifle")){
-				wp.weaponstatus[0]=ZM66F_NOLAUNCHER|(random(0,1)*ZM66F_CHAMBER);
-				if(firemode==-1)wp.weaponstatus[0]|=ZM66F_NOFIRESELECT;
-				if(mag>=50)wp.weaponstatus[ZM66S_MAG]=51;
-				else wp.weaponstatus[ZM66S_MAG]=mag;
-				wp.weaponstatus[ZM66S_ZOOM]=random(16,70);
-				if(jammed||!random(0,15))wp.weaponstatus[0]|=ZM66F_CHAMBERBROKEN;
-				else wp.weaponstatus[ZM66S_AUTO]=clamp(firemode,0,2);
+
+	override void deathdrop() {
+        if (bHASDROPPED && bFRIENDLY) return;
+
+        name wpnName = 'ZM66AssaultRifle';
+        name magName = 'HD4mMag';
+        name wpnName2 = 'HDUSP';
+		name magName2 = 'HDUSPMag';
+        
+        if (!bHASDROPPED) {
+
+            let wpn = DropNewWeapon(wpnName);
+        	if(wpn)
+			{
+				wpn.weaponstatus[0]=ZM66F_NOLAUNCHER|(random(0,1)*ZM66F_CHAMBER);
+				if(firemode==-1)wpn.weaponstatus[0]|=ZM66F_NOFIRESELECT;
+				if(mag>=50)wpn.weaponstatus[ZM66S_MAG]=51;
+				else wpn.weaponstatus[ZM66S_MAG]=mag;
+				wpn.weaponstatus[ZM66S_ZOOM]=random(16,70);
+				if(jammed||!random(0,15))wpn.weaponstatus[0]|=ZM66F_CHAMBERBROKEN;
+				else wpn.weaponstatus[ZM66S_AUTO]=clamp(firemode,0,2);
 			}
-		}else{
-			DropNewItem("HD4mMag",96);
-		}
-		if(!bhasdropped){
-			DropNewItem("HDHandgunRandomDrop");
-			bhasdropped=true;
-		}
-	}
+
+			if (HDCore.CheckClassExists(wpnName2))
+			{
+            	let wpn2 = DropNewWeapon(wpnName2);
+        		if(wpn2)
+				{
+					wpn.weaponstatus[1] = random(0,1); // USProp_Chamber
+            	    wpn.weaponstatus[2] = pismag;      // USProp_Mag
+				}
+			}
+            if(HDCore.CheckClassExists(magName)){DropNewItem(magName, 96);}
+			if(HDCore.CheckClassExists(magName2)){DropNewItem(magName2, 96);}
+        }
+    }
+	
 	void A_CheckFreedoomSprite(){
 		if(bplayingid)sprite=getspriteindex("VDDC");
 		else{
