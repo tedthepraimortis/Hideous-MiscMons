@@ -97,7 +97,6 @@ class ZombieTrogtrooper : HDHumanoid {
                 let wpn = DropNewWeapon(wpnName);
                 if (wpn) {
                     // TROGS_FLAGS
-                    wpn.weaponstatus[0] = 1;                     // TROGF_CHAMBER
                     if (glLoaded) wpn.weaponstatus[0] &= 2;      // TROGF_GRENADELOADED
 
                     wpn.weaponstatus[1] = mag;                   // TROGS_MAG
