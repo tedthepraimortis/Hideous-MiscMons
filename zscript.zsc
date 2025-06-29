@@ -5,6 +5,7 @@ version "4.14"
 #include "zscript/HLAR_Zombies.zsc"
 #include "zscript/Greely_Shotgunners.zsc"
 #include "zscript/Vera_Chaingunners.zsc"
+//#include "zscript/Aurorch_Zombiemen.zsc"
 
 // Icarus Innovations
 #include "zscript/PD42_Zombies.zsc"
@@ -16,3 +17,4 @@ version "4.14"
 #include "zscript/Altis_Shotgunner.zsc"
 #include "zscript/Winged_Babuins.zsc"
 #include "zscript/Flamethrower_imp.zsc"
+//#include "zscript/Behemoth.zsc"

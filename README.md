@@ -27,3 +27,4 @@ Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/Hid
 - Cyborg Shotgunner (Greely Shotgunner) Sprites: HorrorMovieRei, Pandut, Velocity, tsran, hosted on Realm667.
 - Chaingun Major (Vera Chaingunner) Sprites: Vader. Hosted on Realm667.
 - Alits O/U Shotgunner Sprites: TommyGalano5, Skelegant, DavidG (ItsNatureToDie), edited from Id Software sprites.
+- Behemoth Sprites: Amuscaria, hosted on Realm667 and uploaded by Flyingbrick
