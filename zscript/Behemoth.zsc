@@ -1,12 +1,13 @@
 // ------------------------------------------------------------
 // Behemoth
 // ------------------------------------------------------------
-class BehemothRobo:HDMobBase{
+class Behemoth:HDMobBase{
     double launcheroffset;
     default{
-        height 100;
-        radius 32;
+        height 129;
+        radius 93;
         missileheight 42;
+        scale 1.65;
         +boss 
         +nobouncesound
         +floorclip
@@ -16,30 +17,29 @@ class BehemothRobo:HDMobBase{
         painsound "cyber/pain";
         deathsound "cyber/death";
         activesound "cyber/active";
-        tag "$CC_CYBER";
+        tag "$CC_BEHEMOTH";
 
         +e1m8boss
         +avoidmelee +nofear
         +noblooddecals
-        +hdmobbase.smallhead
         +hdmobbase.biped
         +hdmobbase.noshootablecorpse
         +hdmobbase.chasealert
         +hdmobbase.nodeathdrop
         +hdmobbase.onlyscreamondeath
         damagefactor "hot", 0.5;
-        damagefactor "cold", 0.5;
+        damagefactor "cold", 1.5;
         hdmobbase.shields 8000;
         gibhealth 900;
-        health 4000;
+        health 6000;
         mass 12000;
-        speed 15;
-        deathheight 110;
+        speed 10;
+        deathheight 90;
         painchance 32;
         painthreshold 200;
         maxtargetrange 0;
         radiusdamagefactor 0.6;
-        obituary "$OB_CYBER";
+        obituary "$OB_BEHEMOTH";
         minmissilechance 196;
     }
     override double bulletresistance(double hitangle){
@@ -52,7 +52,7 @@ class BehemothRobo:HDMobBase{
             0,SXF_NOCHECKPOSITION
         );
     }
-    void A_SatanRoboAttack(double spread=0){
+    void A_BehemothAttack(double spread=0){
         A_StartSound("weapons/bronto",CHAN_WEAPON,CHANF_OVERLAP);
         if(shottype=="Roboball"){
             A_CyberGunSmoke();
@@ -112,7 +112,7 @@ class BehemothRobo:HDMobBase{
     }
     states{
     spawn:
-        LARD EEEE 10{
+        LARD AB 15{
             A_HDLook();
             angle+=frandom(-5,5);
         }
@@ -140,35 +140,52 @@ class BehemothRobo:HDMobBase{
             else A_HDChase();
         }
         LARD CDD 2 A_HDChase();
+        ---- A 1 A_Jump(64,"guard");
         loop;
+	guard:
+		LARD J 4 A_StartSound("fatso/raiseguns",CHAN_VOICE);
+	guard2:
+		LARD # 0 A_FaceLastTargetPos(20,32);
+		LARD ####### 3 A_Watch();
+		LARD # 0 A_Jump(64,"guard2");
+		goto see;
     pain:
         LARD G 7;
         LARD G 3{
             A_Pain();
             if(health<3500){
                 if(health<3000)minmissilechance-=5;
-                if(health>1000)speed++;else speed--;
                 speed=clamp(speed,random(1,8),random(20,30));
             }
         }---- A 0 setstatelabel("see");
     missile:
-        LARD A 4 A_TurnToAim(40,missileheight,shootstate:"inposition");
+        LARD A 4 A_TurnToAim(20,shootstate:"raiseshoot");
         LARD B 4{
-            A_TurnToAim(40,missileheight,shootstate:"inposition");
+            A_TurnToAim(20,shootstate:"raiseshoot");
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
             A_Recoil(-4);
         }
         LARD C 4{
-            A_TurnToAim(40,missileheight,shootstate:"inposition");
+            A_TurnToAim(20,shootstate:"raiseshoot");
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
             A_Recoil(-4);
         }
-        LARD D 4 A_TurnToAim(40,missileheight,shootstate:"inposition");
+        LARD D 4 A_TurnToAim(20,shootstate:"raiseshoot");
         LARD E random(15,25) A_Recoil(-4);
         LARD E 0 A_JumpIfTargetInLOS("missile");
         LARD E 0 A_Jump(128,"spray");
         ---- A 0 setstatelabel("see");
-    inposition:
+    raiseshoot:
+		LARD G 4{
+			A_StartSound("fatso/raiseguns",CHAN_VOICE);
+			A_FaceLastTargetPos(20,32);
+		}
+		LARD G 4 A_FaceLastTargetPos(20,32);
+		LARD GGGG 1 A_SpawnItemEx("HDSmoke",
+			16,randompick(24,-24),bplayingid?18:40,
+			random(2,4),flags:SXF_NOCHECKPOSITION
+		);
+    shoot:
         LARD E 4{
             A_Recoil(1);
             bfrightening=true;
@@ -195,7 +212,7 @@ class BehemothRobo:HDMobBase{
                 return;
             }
 
-            shottype="SatanBall";
+            shottype="MegaManJuice";
             bool ctis=CheckTargetInSight();
             double dist=lasttargetdist;
 
@@ -220,7 +237,7 @@ class BehemothRobo:HDMobBase{
             else setstatelabel("directshots");
         }
     leadtarget:
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack();
+        LARD F 3 bright light("ROCKET")A_BehemothAttack();
         LARD E 1 A_SetTics(random(1,4));
         LARD E 0 A_JumpIf(health>1600,3);
         LARD EE 0 A_CyberGunSmoke();
@@ -228,7 +245,7 @@ class BehemothRobo:HDMobBase{
         LARD E 8 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
         LARD F 3 bright light("ROCKET"){
             A_LeadTarget(lasttargetdist/(shottype=="Roboball"?20:15),randompick(0,0,1));
-            A_SatanRoboAttack(0.6);
+            A_BehemothAttack(0.6);
         }
         LARD E 1 A_SetTics(random(1,8));
         LARD E 0 A_JumpIf(health>1600,3);
@@ -237,29 +254,29 @@ class BehemothRobo:HDMobBase{
         LARD E 8 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
         LARD F 3 bright light("ROCKET"){
             A_LeadTarget(lasttargetdist/(shottype=="Roboball"?30:25),false);
-            A_SatanRoboAttack();
+            A_BehemothAttack();
         }
         goto fireend;
 
     single:
         #### E 1 A_StartAim(rate:0.7,dontlead:randompick(0,0,0,1));
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack();
+        LARD F 3 bright light("ROCKET")A_BehemothAttack();
         goto fireend;
 
     directshots:
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack();
+        LARD F 3 bright light("ROCKET")A_BehemothAttack();
         LARD E 8 A_FaceLastTargetPos(12,missileheight);
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack(0.3);
+        LARD F 3 bright light("ROCKET")A_BehemothAttack(0.3);
         LARD E 8 A_FaceLastTargetPos(12,missileheight);
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack(0.7);
+        LARD F 3 bright light("ROCKET")A_BehemothAttack(0.7);
         goto fireend;
 
     spray:
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack(1.);
+        LARD F 3 bright light("ROCKET")A_BehemothAttack(1.);
         LARD E 6 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack(2.);
+        LARD F 3 bright light("ROCKET")A_BehemothAttack(2.);
         LARD E 6 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
-        LARD F 3 bright light("ROCKET")A_SatanRoboAttack(3.);
+        LARD F 3 bright light("ROCKET")A_BehemothAttack(3.);
     fireend:
         LARD E 0 A_JumpIf(health>1600,3);
         LARD EE 2 A_CyberGunSmoke();
@@ -662,5 +679,73 @@ class BehemothGibs:HDActor{
         GIBS DDEEFFGG 2 A_BehemothGibsplat();
         GIBS H 6 A_CyberGibFade();
         wait;
+    }
+}
+
+
+class MegaManJuice:hdfireball{
+    default{
+        missiletype "manjuicesmoke";
+        missileheight 8;
+        damagetype "hot";
+        activesound "misc/firecrkl";
+        decal "scorch";
+        gravity HDCONST_GRAVITY*0.8;
+        speed CSLUG_BALLSPEED;
+        radius 7;
+        height 8;
+        hdfireball.firefatigue HDCONST_MAXFIREFATIGUE*0.2;
+    }
+    actor trailburner;
+    override void ondestroy(){
+        if(trailburner)trailburner.destroy();
+        super.ondestroy();
+    }
+    states{
+    spawn:
+        MANF A 0 nodelay{
+            actor mjl=spawn("manjuicelight",pos+(0,0,16),ALLOW_REPLACE);
+            mjl.target=self;
+        }
+        MANF ABAB 2 A_FBTail();
+    spawn2:
+        MANF A 2 A_FBFloat();
+        MANF B 2;
+        loop;
+    death:
+        MISL B 0{
+            vel.z+=1.;
+            A_HDBlast(
+                128,66,16,"hot",
+                immolateradius:92,random(60,150),48,
+                false
+            );
+            A_SpawnChunks("HDSmokeChunk",random(2,4),6,20);
+            A_StartSound("misc/fwoosh",CHAN_WEAPON);
+            scale=(0.9*randompick(-1,1),0.9);
+        }
+        MISL BBBB 1{
+            vel.z+=0.5;
+            scale*=1.05;
+        }
+        MISL CCCDDD 1{
+            alpha-=0.15;
+            scale*=1.01;
+        }
+        TNT1 A 0{
+            A_Immolate(tracer,target,80,requireSight:true);
+            addz(-20);
+        }
+        TNT1 AAAAAAAAAAAAAAA 4{
+            if(tracer){
+                setorigin((tracer.pos.xy,tracer.pos.z+frandom(0.1,tracer.height*0.4)),false);
+                vel=tracer.vel;
+            }
+            A_SpawnItemEx("HDSmoke",
+                frandom(-2,2),frandom(-2,2),frandom(0,2),
+                vel.x+frandom(2,-4),vel.y+frandom(-2,2),vel.z+frandom(1,4),
+                0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM
+            );
+        }stop;
     }
 }

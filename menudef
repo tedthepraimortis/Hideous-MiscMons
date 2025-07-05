@@ -9,6 +9,7 @@ OptionMenu MiscMonsMenu
 
     StaticText "Zombiemen", "Green"
     Slider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "HLAR Trooper Spawn Chance:", "hlartrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
@@ -34,6 +35,8 @@ OptionMenu MiscMonsMenu
 
     StaticText "Mass Persistency"
     Option "Enemy Persistent Spawns:", "enemy_persistent_spawning", "OnOff"
+    StaticText ""
+    SafeCommand "Reset All HMM Options", "HMM_ResetAll"
 }
 
 AddOptionMenu "OptionsMenu"
