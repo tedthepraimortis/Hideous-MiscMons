@@ -45,17 +45,25 @@ class Behemoth:HDMobBase{
     override double bulletresistance(double hitangle){
         return max(0,frandom(0.6,4.0)-hitangle*0.01);
     }
-    void A_CyberGunSmoke(){
+    void A_BehemothSmoke(){
         A_SpawnItemEx("HDSmoke",
             44,launcheroffset,50,
             frandom(3,7),frandom(-1,1),frandom(1,3),
             0,SXF_NOCHECKPOSITION
         );
     }
+    void A_BehemothDeathSmoke(){
+		Heat.Inflict(self,200);
+		A_SpawnItemEx("HDSmoke",
+			frandom(-4,4),frandom(-4,4),frandom(26,32),
+			0,0,frandom(1,4),
+			0,SXF_NOCHECKPOSITION
+		);
+	}
     void A_BehemothAttack(double spread=0){
         A_StartSound("weapons/bronto",CHAN_WEAPON,CHANF_OVERLAP);
         if(shottype=="Roboball"){
-            A_CyberGunSmoke();
+            A_BehemothSmoke();
             DistantNoise.Make(self,"cyber/rocketfar");
         }else{
             tics=max(1,tics-2);
@@ -143,15 +151,15 @@ class Behemoth:HDMobBase{
         ---- A 1 A_Jump(64,"guard");
         loop;
 	guard:
-		LARD J 4 A_StartSound("fatso/raiseguns",CHAN_VOICE);
+		LARD I 4 A_StartSound("fatso/raiseguns",CHAN_VOICE);
 	guard2:
 		LARD # 0 A_FaceLastTargetPos(20,32);
 		LARD ####### 3 A_Watch();
 		LARD # 0 A_Jump(64,"guard2");
 		goto see;
     pain:
-        LARD G 7;
-        LARD G 3{
+        LARD J 7;
+        LARD J 3{
             A_Pain();
             if(health<3500){
                 if(health<3000)minmissilechance-=5;
@@ -171,9 +179,9 @@ class Behemoth:HDMobBase{
             A_Recoil(-4);
         }
         LARD D 4 A_TurnToAim(20,shootstate:"raiseshoot");
-        LARD E random(15,25) A_Recoil(-4);
-        LARD E 0 A_JumpIfTargetInLOS("missile");
-        LARD E 0 A_Jump(128,"spray");
+        LARD G random(15,25) A_Recoil(-4);
+        LARD G 0 A_JumpIfTargetInLOS("missile");
+        LARD G 0 A_Jump(128,"spray");
         ---- A 0 setstatelabel("see");
     raiseshoot:
 		LARD G 4{
@@ -186,26 +194,26 @@ class Behemoth:HDMobBase{
 			random(2,4),flags:SXF_NOCHECKPOSITION
 		);
     shoot:
-        LARD E 4{
+        LARD G 4{
             A_Recoil(1);
             bfrightening=true;
             A_FaceLastTargetPos(12,missileheight);
         }
 
-        LARD E 0 A_JumpIf(health>1600,3);
-        LARD EE 2 A_CyberGunSmoke();
+        LARD G 0 A_JumpIf(health>1600,3);
+        LARD GG 2 A_BehemothSmoke();
 
-        LARD E 4;
+        LARD G 4;
 
-        LARD E 0 A_JumpIf(health>1600,3);
-        LARD EE 2 A_CyberGunSmoke();
+        LARD G 0 A_JumpIf(health>1600,3);
+        LARD GG 2 A_BehemothSmoke();
 
-        LARD E 4 A_FaceLastTargetPos(12,missileheight);
+        LARD G 4 A_FaceLastTargetPos(12,missileheight);
 
-        LARD E 0 A_JumpIf(health>1600,3);
-        LARD EE 2 A_CyberGunSmoke();
+        LARD G 0 A_JumpIf(health>1600,3);
+        LARD G 2 A_BehemothSmoke();
 
-        LARD E 4 A_SetTics(target?clamp(int(distance2d(target)*0.0003),4,random(4,24)):4);
+        LARD G 4 A_SetTics(target?clamp(int(distance2d(target)*0.0003),4,random(4,24)):4);
         LARD A 0{
             if(!target){
                 setstatelabel("fireend");
@@ -237,50 +245,50 @@ class Behemoth:HDMobBase{
             else setstatelabel("directshots");
         }
     leadtarget:
-        LARD F 3 bright light("ROCKET")A_BehemothAttack();
-        LARD E 1 A_SetTics(random(1,4));
-        LARD E 0 A_JumpIf(health>1600,3);
-        LARD EE 0 A_CyberGunSmoke();
+        LARD G 3 bright light("ROCKET")A_BehemothAttack();
+        LARD H 1 A_SetTics(random(1,4));
+        LARD H 0 A_JumpIf(health>1600,3);
+        LARD HH 0 A_BehemothSmoke();
     leadtarget2:
-        LARD E 8 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
-        LARD F 3 bright light("ROCKET"){
+        LARD G 8 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
+        LARD H 3 bright light("ROCKET"){
             A_LeadTarget(lasttargetdist/(shottype=="Roboball"?20:15),randompick(0,0,1));
             A_BehemothAttack(0.6);
         }
-        LARD E 1 A_SetTics(random(1,8));
-        LARD E 0 A_JumpIf(health>1600,3);
-        LARD EE 0 A_CyberGunSmoke();
+        LARD G 1 A_SetTics(random(1,8));
+        LARD G 0 A_JumpIf(health>1600,3);
+        LARD GG 0 A_BehemothSmoke();
     leadtarget3:
-        LARD E 8 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
-        LARD F 3 bright light("ROCKET"){
+        LARD H 8 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
+        LARD G 3 bright light("ROCKET"){
             A_LeadTarget(lasttargetdist/(shottype=="Roboball"?30:25),false);
             A_BehemothAttack();
         }
         goto fireend;
 
     single:
-        #### E 1 A_StartAim(rate:0.7,dontlead:randompick(0,0,0,1));
-        LARD F 3 bright light("ROCKET")A_BehemothAttack();
+        #### G 1 A_StartAim(rate:0.7,dontlead:randompick(0,0,0,1));
+        LARD H 3 bright light("ROCKET")A_BehemothAttack();
         goto fireend;
 
     directshots:
-        LARD F 3 bright light("ROCKET")A_BehemothAttack();
-        LARD E 8 A_FaceLastTargetPos(12,missileheight);
-        LARD F 3 bright light("ROCKET")A_BehemothAttack(0.3);
-        LARD E 8 A_FaceLastTargetPos(12,missileheight);
-        LARD F 3 bright light("ROCKET")A_BehemothAttack(0.7);
+        LARD H 3 bright light("ROCKET")A_BehemothAttack();
+        LARD G 8 A_FaceLastTargetPos(12,missileheight);
+        LARD H 3 bright light("ROCKET")A_BehemothAttack(0.3);
+        LARD G 8 A_FaceLastTargetPos(12,missileheight);
+        LARD H 3 bright light("ROCKET")A_BehemothAttack(0.7);
         goto fireend;
 
     spray:
-        LARD F 3 bright light("ROCKET")A_BehemothAttack(1.);
-        LARD E 6 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
-        LARD F 3 bright light("ROCKET")A_BehemothAttack(2.);
-        LARD E 6 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
-        LARD F 3 bright light("ROCKET")A_BehemothAttack(3.);
+        LARD H 3 bright light("ROCKET")A_BehemothAttack(1.);
+        LARD G 6 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
+        LARD H 3 bright light("ROCKET")A_BehemothAttack(2.);
+        LARD G 6 A_FaceLastTargetPos(12,missileheight,target?frandom(0,target.height):0);
+        LARD H 3 bright light("ROCKET")A_BehemothAttack(3.);
     fireend:
-        LARD E 0 A_JumpIf(health>1600,3);
-        LARD EE 2 A_CyberGunSmoke();
-        LARD E 17;
+        LARD G 0 A_JumpIf(health>1600,3);
+        LARD GG 2 A_BehemothSmoke();
+        LARD G 17;
         ---- A 0 setstatelabel("see");
 
     death:
@@ -335,6 +343,7 @@ class Behemoth:HDMobBase{
                 frandom(-26,26),frandom(-26,26),frandom(60,64),
                 frandom(-1,1),frandom(-1,1),frandom(1,3)
             );
+            A_BehemothDeathSmoke();
             A_SpawnItemEx("HDSmokeChunk",
                 frandom(-10,10),frandom(-10,10),frandom(38,60),
                 vel.x+frandom(-6,6),vel.y+frandom(-6,6),vel.z+random(1,4),
@@ -351,6 +360,7 @@ class Behemoth:HDMobBase{
             frandom(-26,26),frandom(-26,26),frandom(60,64),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
+        LARD D 1 A_BehemothDeathSmoke();
         LARD A 20 A_SpawnItemEx("HDSmokeChunk",
             frandom(-10,10),frandom(-10,10),frandom(38,60),
             vel.x+frandom(-6,6),vel.y+frandom(-6,6),vel.z+frandom(1,4),
@@ -367,33 +377,34 @@ class Behemoth:HDMobBase{
                 frandom(-26,26),frandom(-26,26),frandom(70,88),
                 frandom(-1,1),frandom(-1,1),frandom(1,3)
             );
+            A_BehemothDeathSmoke();
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
         }
-        LARD E 14{
+        LARD G 14{
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
         }
-        LARD EEEE 6 A_FaceLastTargetPos(10,missileheight);
-        LARD FF 0 A_SpawnItemEx("HDSmoke",54,launcheroffset,52,
+        LARD GGGG 6 A_FaceLastTargetPos(10,missileheight);
+        LARD II 0 A_SpawnItemEx("HDSmoke",54,launcheroffset,52,
             frandom(1,4),frandom(-1,1),frandom(2,4)
         );
-        LARD FFFFFF 0 A_SpawnItemEx("BigWallChunk",44,launcheroffset,52,
+        LARD IIIIII 0 A_SpawnItemEx("BigWallChunk",44,launcheroffset,52,
             frandom(4,14),frandom(-3,3),frandom(1,4),frandom(0,360)
         );
-        LARD FFFF 0 A_SpawnItemEx("HugeWallChunk",44,launcheroffset,52,
+        LARD IIII 0 A_SpawnItemEx("HugeWallChunk",44,launcheroffset,52,
             frandom(4,24),frandom(-3,3),frandom(1,4),frandom(0,360)
         );
-        LARD F 3 bright A_SpawnItemEx("HDExplosion",54,launcheroffset,52);
-        LARD E 56;
-        LARD E 0 {HDMobAI.Frighten(self,666);}
-        LARD EEEEEE 4 A_SpawnItemEx("HDSmoke",44,launcheroffset,52,
+        LARD I 3 bright A_SpawnItemEx("HDExplosion",54,launcheroffset,52);
+        LARD I 56;
+        LARD J 0 {HDMobAI.Frighten(self,666);}
+        LARD JJJJJJ 4 A_SpawnItemEx("HDSmoke",44,launcheroffset,52,
             frandom(1,4),frandom(-1,1),frandom(2,4)
         );
-        LARD E 0 {HDMobAI.Frighten(self,666);}
-        LARD EEEEEE 2 A_SpawnItemEx("HDSmoke",44,launcheroffset,52,
+        LARD I 0 {HDMobAI.Frighten(self,666);}
+        LARD JJJJJJ 2 A_SpawnItemEx("HDSmoke",44,launcheroffset,52,
             frandom(1,4),frandom(-1,1),frandom(3,6)
         );
     gib:
-        LARD EEEEEE 1 A_SpawnItemEx("HDSmoke",44,launcheroffset,52,
+        LARD JJJJJJ 1 A_SpawnItemEx("HDSmoke",44,launcheroffset,52,
             frandom(1,4),frandom(-1,1),frandom(4,8)
         );
         LARD H 0 A_HDBossScream();
@@ -405,6 +416,7 @@ class Behemoth:HDMobBase{
             frandom(-36,36),frandom(-36,36),frandom(40,46),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
+        LARD H 1 A_BehemothDeathSmoke();
         LARD H 1 bright A_SpawnItemEx("HDExplosion",
             frandom(-26,26),frandom(-46,46),frandom(30,36),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
@@ -425,6 +437,7 @@ class Behemoth:HDMobBase{
             frandom(-36,36),frandom(-26,26),frandom(60,78),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
+        LARD I 1 A_BehemothDeathSmoke();
         LARD I 2 bright A_SpawnItemEx("HDExplosion",
             frandom(-36,36),frandom(-26,26),frandom(50,68),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
@@ -443,7 +456,7 @@ class Behemoth:HDMobBase{
             frandom(-6,6),frandom(-6,6),frandom(6,12)
         );
 
-        LARD J 3 bright A_SpawnItemEx("HDExplosionBoss",
+        LARD K 3 bright A_SpawnItemEx("HDExplosionBoss",
             frandom(-26,26),frandom(-46,46),frandom(45,52),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
@@ -460,66 +473,68 @@ class Behemoth:HDMobBase{
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
 
-        LARD KK 0 A_SpawnItemEx("BehemothGibs",
+        LARD MM 0 A_SpawnItemEx("BehemothGibs",
             frandom(-10,10),frandom(-10,10),frandom(38,60),
             frandom(-6,6),frandom(-6,6),frandom(1,4)
         );
-        LARD KK 0 A_SpawnItemEx("HDSmokeChunk",
+        LARD MM 0 A_SpawnItemEx("HDSmokeChunk",
             frandom(-10,10),frandom(-10,10),frandom(38,60),
             frandom(-6,6),frandom(-6,6),frandom(1,4)
         );
 
-        LARD K 4 bright A_SpawnItemEx("HDExplosion",
+        LARD N 4 bright A_SpawnItemEx("HDExplosion",
             frandom(-36,36),frandom(-46,46),frandom(48,62),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
-        LARD K 4 A_SpawnItemEx("HDExplosionBoss",
+        LARD N 4 A_SpawnItemEx("HDExplosionBoss",
             frandom(-66,66),frandom(-66,66),frandom(15,42),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
 
-        LARD L 4 A_SpawnItemEx("HDExplosion",
+        LARD O 4 A_SpawnItemEx("HDExplosion",
             frandom(-36,36),frandom(-36,36),frandom(62,82),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
-        LARD L 1 A_SpawnItemEx("HDExplosionBoss",
+        LARD O 1 A_SpawnItemEx("HDExplosionBoss",
             frandom(-16,16),frandom(-16,16),frandom(75,82),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
+        LARD O 1 A_BehemothDeathSmoke();
 
-        LARD LL 0 A_SpawnItemEx("HDSmokeChunk",
+        LARD PP 0 A_SpawnItemEx("HDSmokeChunk",
             frandom(-10,10),frandom(-10,10),frandom(38,60),
             frandom(-6,6),frandom(-6,6),frandom(1,4)
         );
 
-        LARD LLLL 3 A_SpawnItemEx("HDSmoke",
+        LARD PPPP 3 A_SpawnItemEx("HDSmoke",
             frandom(-36,36),frandom(-36,36),frandom(24,80),
             frandom(-1,1),frandom(-1,1),frandom(3,6)
         );
 
-        LARD M 0 A_NoBlocking();
-        LARD MMMM 2 A_SpawnItemEx("HDSmoke",
+        LARD Q 0 A_NoBlocking();
+        LARD QQQQ 2 A_SpawnItemEx("HDSmoke",
             frandom(-20,20),frandom(-20,20),frandom(24,80),
             frandom(-1,1),frandom(-1,1),frandom(2,4)
         );
-        LARD O 0 a_spawnitemex("BehemothRemains",flags:SXF_NOCHECKPOSITION|SXF_SETMASTER);
+        LARD R 0 a_spawnitemex("BehemothRemains",flags:SXF_NOCHECKPOSITION|SXF_SETMASTER);
 
-        LARD PPPP 4 A_SpawnItemEx("HDSmoke",
+        LARD SSSS 4 A_SpawnItemEx("HDSmoke",
             frandom(-26,26),frandom(-26,26),frandom(12,40),
             frandom(-1,1),frandom(-1,1),frandom(1,3)
         );
-        LARD PPPPPPPPPPPPPPPPP 1 A_SpawnItemEx("HDSmoke",
+        LARD TTTTTTTTTTTTTTTTTP 1 A_SpawnItemEx("HDSmoke",
             frandom(-26,26),frandom(-26,26),frandom(32,60),
             frandom(-2,2),frandom(-2,2),frandom(1,6)
         );
-        LARD PPPPPPPPPPPPPPPP 5 A_SpawnItemEx("HDSmoke",
+        LARD TTTTTTTTTTTTTTTTT 5 A_SpawnItemEx("HDSmoke",
             frandom(-26,26),frandom(-26,26),frandom(1,14),
             frandom(-1,1),frandom(-1,1),frandom(1,4),frandom(0,255)
         );
-        LARD P 200{bnofear=false;}
+        LARD T 1 A_BehemothDeathSmoke();
+        LARD T 200{bnofear=false;}
     dead:
     gibbed:
-        LARD P -1;
+        LARD T -1;
         stop;
 
     //And see if there be any wicked way in me, and lead me in the way everlasting.
