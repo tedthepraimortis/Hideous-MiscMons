@@ -3,6 +3,7 @@
 // ------------------------------------------------------------
 class Behemoth:HDMobBase{
     double launcheroffset;
+    int attackloop;
     default{
         height 129;
         radius 93;
@@ -32,10 +33,10 @@ class Behemoth:HDMobBase{
         hdmobbase.shields 8000;
         gibhealth 900;
         health 6000;
-        mass 12000;
+        mass 16000;
         speed 10;
         deathheight 90;
-        painchance 32;
+        painchance 9;
         painthreshold 200;
         maxtargetrange 0;
         radiusdamagefactor 0.6;
@@ -134,6 +135,7 @@ class Behemoth:HDMobBase{
         LARD C 6{
             A_StartSound("cyber/hoof",15,CHANF_OVERLAP);
             A_HDWander(CHF_LOOK);
+            DistantQuaker.Quake(self,3.5);
         }
         LARD C 0 A_Jump(32,"spawn");
         loop;
@@ -148,12 +150,29 @@ class Behemoth:HDMobBase{
         }
         LARD C 3{
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
             if(health<1)setstatelabel("death");
             else A_HDChase();
         }
         LARD CDD 2 A_HDChase();
         ---- A 1 A_Jump(64,"guard");
         loop;
+    flamethrower:
+	    TNT1 A 0 A_JumpIf(target && Distance3D(target) > 300,"missile");
+	    TNT1 A 0 A_StartSound("Flamethrower/Start",7);
+	    LARD I 10;
+	    TNT1 A 0 A_StartSound("Flamethrower/Attack",1);
+    flamethrowerLoop:
+        LARD H 2 Bright Light("Rocket")
+            {
+            A_FaceTarget();
+            attackloop++;
+            A_SpawnProjectile("SentryFlame",43,17,frandom(-3,3));
+            }
+        TNT1 A 0 A_MonsterRefire(0,"guard2");
+        TNT1 A 0 A_JumpIf(attackloop < 30,"FlamethrowerLoop");
+        TNT1 A 0 A_JumpIf(target && Distance3D(target) > 400,"missile");
+    goto guard2;
 	guard:
 		LARD I 4 A_StartSound("fatso/raiseguns",CHAN_VOICE);
 	guard2:
@@ -171,6 +190,7 @@ class Behemoth:HDMobBase{
             }
         }---- A 0 setstatelabel("see");
     missile:
+	    TNT1 A 0 { attackloop = 0; }
         LARD A 4 A_TurnToAim(20,shootstate:"raiseshoot");
         LARD B 4{
             A_TurnToAim(20,shootstate:"raiseshoot");
@@ -181,6 +201,7 @@ class Behemoth:HDMobBase{
         LARD C 4{
             A_TurnToAim(20,shootstate:"raiseshoot");
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
             A_Recoil(-4);
         }
         LARD D 4 A_TurnToAim(20,shootstate:"raiseshoot");
@@ -199,6 +220,7 @@ class Behemoth:HDMobBase{
 			random(2,4),flags:SXF_NOCHECKPOSITION
 		);
     shoot:
+        TNT1 A 0 A_JumpIf(target && Distance3d(target) < 300,"flamethrower");
         LARD G 4{
             A_Recoil(1);
             bfrightening=true;
@@ -316,6 +338,7 @@ class Behemoth:HDMobBase{
         LARD C 12{
             A_FaceLastTargetPos(40,missileheight);
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
         }
         LARD A 0{
             A_FaceLastTargetPos(40,missileheight);
@@ -333,6 +356,7 @@ class Behemoth:HDMobBase{
                 0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM,144
             );
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
         }
         LARD D 0 A_SpawnItemEx("HDExplosionBoss",
             frandom(-12,12),frandom(-12,12),frandom(60,64),
@@ -342,6 +366,7 @@ class Behemoth:HDMobBase{
             A_FaceLastTargetPos(40,missileheight);
             angle+=random(-10,10);
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
         }
         LARD B 6 { 
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
@@ -363,6 +388,7 @@ class Behemoth:HDMobBase{
             A_FaceLastTargetPos(40,missileheight);
             angle+=frandom(-10,10);
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
         }
         LARD DD 6 A_Recoil(-2);
         LARD D 6 A_SpawnItemEx("HDExplosionBoss",
@@ -389,6 +415,7 @@ class Behemoth:HDMobBase{
             );
             A_BehemothDeathSmoke();
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
+            DistantQuaker.Quake(self,3.5);
         }
         LARD G 14{
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
@@ -773,5 +800,82 @@ class MegaManJuice:hdfireball{
                 0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM
             );
         }stop;
+    }
+}
+
+Class SentryFlame : SlowProjectile
+{
+  Default
+  {
+  Radius 7;
+  Height 8;
+  Speed 35;
+  RenderStyle "Add";
+  Alpha 0.8;
+  Scale 1.2;
+  Damagetype "Fire";
+  +THRUACTORS;
+  +ROLLSPRITE;
+  +BRIGHT;
+  }
+  bool fire;
+  int dmgtic;
+  actor trailburner;
+  States 
+  { 
+    death:
+        MISL B 0{
+            vel.z+=1.;
+            A_HDBlast(
+                128,66,16,"hot",
+                immolateradius:92,random(60,150),48,
+                false
+            );
+            A_SpawnChunks("HDSmokeChunk",random(2,4),6,20);
+            A_StartSound("misc/fwoosh",CHAN_WEAPON);
+            scale=(0.9*randompick(-1,1),0.9);
+        }
+        MISL BBBB 1{
+            vel.z+=0.5;
+            scale*=1.05;
+        }
+        MISL CCCDDD 1{
+            alpha-=0.15;
+            scale*=1.01;
+        }
+        TNT1 A 0{
+            A_Immolate(tracer,target,80,requireSight:true);
+            addz(-20);
+        }
+        TNT1 AAAAAAAAAAAAAAA 4{
+            if(tracer){
+                setorigin((tracer.pos.xy,tracer.pos.z+frandom(0.1,tracer.height*0.4)),false);
+                vel=tracer.vel;
+            }
+            A_SpawnItemEx("HDSmoke",
+                frandom(-2,2),frandom(-2,2),frandom(0,2),
+                vel.x+frandom(2,-4),vel.y+frandom(-2,2),vel.z+frandom(1,4),
+                0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM
+            );
+        }stop;
+  Spawn:
+    MANF AAAAAAAAAAAAAAA 1 Light("IMPBALL")
+        {
+        A_ScaleVelocity(0.98);
+        A_SetScale(Scale.X+0.03);
+        A_FadeOut(0.015);
+        dmgtic++;
+        if(dmgtic >= 3)
+            {
+            A_Explode(3,32,0,0,32);
+            dmgtic = 0;
+            }
+        }
+    }
+
+  override void PostBeginPlay()
+    {
+    Super.PostBeginPlay();
+    A_SetRoll(random(0,360));
     }
 }
