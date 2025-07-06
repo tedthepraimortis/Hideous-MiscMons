@@ -817,6 +817,7 @@ Class BehemothFlamer : HDFireball
     damagetype "hot";
     activesound "misc/firecrkl";
     decal "scorch";
+    gravity HDCONST_GRAVITY;
     +THRUACTORS;
     +ROLLSPRITE;
   }
@@ -851,11 +852,6 @@ Class BehemothFlamer : HDFireball
                 setorigin((tracer.pos.xy,tracer.pos.z+frandom(0.1,tracer.height*0.4)),false);
                 vel=tracer.vel;
             }
-            A_SpawnItemEx("HDSmoke",
-                frandom(-2,2),frandom(-2,2),frandom(0,2),
-                vel.x+frandom(2,-4),vel.y+frandom(-2,2),vel.z+frandom(1,4),
-                0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM
-            );
         }stop;
     }
 
