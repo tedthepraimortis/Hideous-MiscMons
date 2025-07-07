@@ -1,0 +1,163 @@
+// Lots of various decorative entities. - [Ted]
+
+class HDBlackEvilEye : EvilEye
+{
+    default
+    {
+        +forceybillboard
+        +dontthrust
+        +solid
+        height 54;
+        radius 16;
+        projectilepassheight -16;
+    }
+
+    States
+    {
+        active:
+	    inactive:
+	    	BAYE A 0 A_SetScale(-scalex,1);
+	    spawn:
+	    	BAYE A 2 bright Light("HDCANDLE");
+	    spawn2:
+	    	BAYE A 0 A_Jump(256,1,2,3);
+	    	BAYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
+	    	BAYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+	    	BAYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
+
+class HDBlueEvilEye : EvilEye
+{
+    default
+    {
+        +forceybillboard
+        +dontthrust
+        +solid
+        height 54;
+        radius 16;
+        projectilepassheight -16;
+    }
+
+    States
+    {
+        active:
+        inactive:
+            BEYE A 0 A_SetScale(-scalex,1);
+        spawn:
+            BEYE A 2 bright Light("HDCANDLE");
+        spawn2:
+            BEYE A 0 A_Jump(256,1,2,3);
+            BEYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
+            BEYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+            BEYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
+
+class HDGreyEvilEye : EvilEye
+{
+    default
+    {
+        +forceybillboard
+        +dontthrust
+        +solid
+        height 54;
+        radius 16;
+        projectilepassheight -16;
+    }
+
+    States
+    {
+        active:
+        inactive:
+            GEYE A 0 A_SetScale(-scalex,1);
+        spawn:
+            GEYE A 2 bright Light("HDCANDLE");
+        spawn2:
+            GEYE A 0 A_Jump(256,1,2,3);
+            GEYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
+            GEYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+            GEYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
+
+class HDPurpleEvilEye : EvilEye
+{
+    default
+    {
+        +forceybillboard
+        +dontthrust
+        +solid
+        height 54;
+        radius 16;
+        projectilepassheight -16;
+    }
+
+    States
+    {
+        active:
+	    inactive:
+	    	PEYE A 0 A_SetScale(-scalex,1);
+	    spawn:
+	    	PEYE A 2 bright Light("HDCANDLE");
+	    spawn2:
+	    	PEYE A 0 A_Jump(256,1,2,3);
+	    	PEYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
+	    	PEYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+	    	PEYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
+
+class HDRedEvilEye : EvilEye
+{
+    default
+    {
+        +forceybillboard
+        +dontthrust
+        +solid
+        height 54;
+        radius 16;
+        projectilepassheight -16;
+    }
+
+    States
+    {
+        active:
+	    inactive:
+	    	REYE A 0 A_SetScale(-scalex,1);
+	    spawn:
+	    	REYE A 2 bright Light("HDCANDLE");
+	    spawn2:
+	    	REYE A 0 A_Jump(256,1,2,3);
+	    	REYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
+	    	REYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+	    	REYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
+
+class HDYellowEvilEye : EvilEye
+{
+    default
+    {
+        +forceybillboard
+        +dontthrust
+        +solid
+        height 54;
+        radius 16;
+        projectilepassheight -16;
+    }
+
+    States
+    {
+        active:
+	    inactive:
+	    	YEYE A 0 A_SetScale(-scalex,1);
+	    spawn:
+	    	YEYE A 2 bright Light("HDCANDLE");
+	    spawn2:
+	    	YEYE A 0 A_Jump(256,1,2,3);
+	    	YEYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
+	    	YEYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+	    	YEYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
