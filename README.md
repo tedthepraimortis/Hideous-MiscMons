@@ -28,3 +28,14 @@ Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/Hid
 - Chaingun Major (Vera Chaingunner) Sprites: Vader. Hosted on Realm667.
 - Alits O/U Shotgunner Sprites: TommyGalano5, Skelegant, DavidG (ItsNatureToDie), edited from Id Software sprites.
 - Behemoth Sprites: Amuscaria, hosted on Realm667 and uploaded by Flyingbrick
+- Console doom gore: Gothic, Id Software, David A. Palmer Productions
+- Romero Doom Dump sprites: NaturalTvventy, Xaser, Jimmy, Minigunner, id Software
+- Evil Eye variations: Id Software, ChronoSeth, idea from Skulltag
+- Hanged Marines: ID Software, Captain Awesome, Anarchist, Captain Toenail, Lucario, The Innocent Crew, MDK, NMN
+- Hanged Player: Anarchist, Id Software
+- Hanging Corpses: ItsNatureToDie, Id Software
+- Hell Growth: Captain Toenail, Doom Beta sprites
+- Impaled Scientists: scalliano
+- Marble Columns: Captain Toenail, Gez, ShadesMaster, Shtbag667, id Software
+- Marble Urns: CaptainToenail, Hexen, Freesound.org/Kinoton
+- PSX Bloody Chain: Williams Entertainment
