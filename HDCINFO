@@ -39,7 +39,6 @@ addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "Fronti
 addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
 // Bounty Targets - [Ted]
-
 newMerchantBountyTarget => { "name": "WingedBab", "value": "250" }
 newMerchantBountyTarget => { "name": "ZombieTrogTrooper", "value": "200" }
 newMerchantBountyTarget => { "name": "PeeDeeFourtyTrooper", "value": "600" }
@@ -49,6 +48,17 @@ newMerchantBountyTarget => { "name": "GreelyShortgunner", "value": "200" }
 newMerchantBountyTarget => { "name": "AltisShotgunner", "value": "200" }
 newMerchantBountyTarget => { "name": "VeraZombie", "value": "300" }
 newMerchantBountyTarget => { "name": "FrontiersmanZombie", "value": "500" }
+
+// Ugly as Sin compat - [Ted]
+addFlashlightHumanClass => { "name": "AltisShotgunner" }
+addFlashlightHumanClass => { "name": "VeraZombie" }
+addFlashlightHumanClass => { "name": "USPHomeboy" }
+addFlashlightHumanClass => { "name": "UMPZombie" }
+addFlashlightHumanClass => { "name": "HLARTrooper" }
+addFlashlightHumanClass => { "name": "ZombieTrogtrooper" }
+
+addFlashlightOtherClass => { "name": "Behemoth" }
+addFlashlightOtherClass => { "name": "GreelyShortgunner" }
 
 // -------
 // DECORATIONS

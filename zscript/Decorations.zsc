@@ -240,3 +240,119 @@ class HDHeadStickRedSolo : HDHeadStickBase
             CCPR J -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
     }
 }
+
+// Hanged Stuffs
+class HDMeat6 : HDActor
+{
+    default
+    {
+        radius 12;
+        height 68;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+    }
+    states
+    {
+        spawn: 
+            CCPR A -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDMeat7 : HDActor
+{
+    default
+    {
+        radius 12;
+        height 72;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+    }
+    states
+    {
+        spawn: 
+            CCPR B -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDMeat8 : HDActor
+{
+    default
+    {
+        radius 24;
+        height 76;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+    }
+    states
+    {
+        spawn: 
+            CCPR C -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDMeat9 : HDActor
+{
+    default
+    {
+        radius 12;
+        height 64;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+    }
+    states
+    {
+        spawn: 
+            CCPR G -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDMeat10 : HDActor
+{
+    default
+    {
+        radius 12;
+        height 64;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+    }
+    states
+    {
+        spawn: 
+            CCPR K -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
