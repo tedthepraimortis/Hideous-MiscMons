@@ -25,3 +25,11 @@ server float wingedbab_demon_spawn_bias = 1.0;
 // Global Enemy CVARs
 server bool enemy_persistent_spawning = false;
 server bool hmm_uniquesprites = true;
+
+// -------
+// DECORATIONS
+// -------
+
+server float coloredevileye_spawn_bias = 4.0;
+server float headonastick_spawn_bias = 4.0;
+server float headsonastick_spawn_bias = 4.0;
