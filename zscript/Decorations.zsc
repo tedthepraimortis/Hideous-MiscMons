@@ -1,5 +1,6 @@
 // Lots of various decorative entities. - [Ted]
 
+// Evil Eyes
 class HDBlackEvilEye : EvilEye
 {
     default
@@ -159,5 +160,83 @@ class HDYellowEvilEye : EvilEye
 	    	YEYE A 1 bright Light("HDCANDLE") A_SetTics(random(2,50)); loop;
 	    	YEYE B 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
 	    	YEYE C 1 bright Light("HDCANDLE") A_SetTics(random(2,20)); loop;
+    }
+}
+
+// Head Sticks
+class HDHeadStickBase : HDActor
+{
+    default
+    {
+        radius 2;
+        height 50;
+        projectilepassheight -16;
+        scale 0.75;
+        +dontthrust
+        +shootable
+        +nodamage
+        +noblood
+        +forceybillboard
+        +solid
+    }
+
+    states
+    {
+        spawn:
+            POL2 A -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDHeadStickEmpty : HDHeadStickBase
+{
+    states
+    {
+        spawn:
+            CCPR D -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDHeadStickFull : HDHeadStickBase
+{
+    states
+    {
+        spawn:
+            CCPR E -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDHeadStickSolo : HDHeadStickBase
+{
+    states
+    {
+        spawn:
+            CCPR F -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDHeadStickRedEmpty : HDHeadStickBase
+{
+    states
+    {
+        spawn:
+            CCPR H -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDHeadStickRedFull : HDHeadStickBase
+{
+    states
+    {
+        spawn:
+            CCPR I -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+    }
+}
+
+class HDHeadStickRedSolo : HDHeadStickBase
+{
+    states
+    {
+        spawn:
+            CCPR J -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
     }
 }
