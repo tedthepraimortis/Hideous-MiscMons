@@ -1,0 +1,155 @@
+class MiscMonsUrnHandler : EventHandler {
+
+    // List of Inventory Classes to add to Weapon Crate Spawns
+    Array<HDActor> urnWhitelist;
+
+    // List of Inventory Classes to remove from Weapon Crate Spawns
+    Array<HDActor> urnBlacklist;
+
+    bool initialized;
+
+    // Populates the blacklist.
+    void init() {
+
+        if (initialized) return;
+
+        urnWhitelist.clear();
+        urnBlacklist.clear();
+
+        let cmdReader = HDCoreInfoReader(StaticEventHandler.find('HDCoreInfoReader'));
+        
+        loadUrnLists(cmdReader.commands);
+
+        if (HDCore.ShouldLog('MiscMons', LOGGING_DEBUG)) {
+            let msg = "Urn Spawn Pool Whitelist:\n";
+
+            forEach(wl : urnWhitelist) msg = msg.." * "..wl.getClassName().."\n";
+
+            HDCore.Log('MiscMons', LOGGING_DEBUG, msg);
+
+
+            msg = "Urn Spawn Pool Blacklist:\n";
+
+            forEach(bl : urnBlacklist) msg = msg.." * "..bl.getClassName().."\n";
+
+            HDCore.Log('MiscMons', LOGGING_DEBUG, msg);
+        }
+
+        initialized = true;
+    }
+
+    void loadUrnLists(Array<HDCoreCommand> cmds) {
+        forEach (cmd : cmds) {
+            switch (cmd.command) {
+                case 'addUrnFilter': {
+                    // FIXME: Find a better command/logic to handle existing CVARs
+
+                    let item = cmd.getNameParam("name");
+                    Class<HDActor> itmCls = item;
+
+                    if (!itmCls) break;
+
+                    // If the filter entry is allowed, remove from blacklist,
+                    // Otherwise add to blacklist.
+                    let index = urnBlacklist.find(itmCls);
+                    if (cmd.getBoolParam("allowed")) {
+                        if (index < urnBlacklist.size()) urnBlacklist.delete(index);
+                    } else {
+                        if (index >= urnBlacklist.size()) urnBlacklist.push(itmCls);
+                    }
+
+                    break;
+                }
+                case 'addUrnWhitelist': {
+                    let item = cmd.getNameParam("name");
+                    Class<HDActor> itmCls = item;
+
+                    if (!itmCls) break;
+
+                    if (urnWhitelist.find(itmCls) >= urnWhitelist.size()) urnWhitelist.push(itmCls);
+
+                    break;
+                }
+                case 'removeUrnWhitelist': {
+                    let item = cmd.getNameParam("name");
+                    Class<HDActor> itmCls = item;
+
+                    if (!itmCls) break;
+
+                    let index = urnWhitelist.find(itmCls);
+                    if (index < urnWhitelist.size()) urnWhitelist.delete(index);
+
+                    break;
+                }
+                case 'clearUrnWhitelist': {
+                    urnWhitelist.clear();
+                    break;
+                }
+                case 'addUrnBlacklist': {
+                    let item = cmd.getNameParam("name");
+                    Class<HDActor> itmCls = item;
+
+                    if (!itmCls) break;
+
+                    if (urnBlacklist.find(itmCls) >= urnBlacklist.size()) urnBlacklist.push(itmCls);
+
+                    break;
+                }
+                case 'removeUrnBlacklist': {
+                    let item = cmd.getNameParam("name");
+                    Class<HDActor> itmCls = item;
+
+                    if (!itmCls) break;
+
+                    let index = urnBlacklist.find(itmCls);
+                    if (index < urnBlacklist.size()) urnBlacklist.delete(index);
+
+                    break;
+                }
+                case 'clearUrnBlacklist': {
+                    urnBlacklist.clear();
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    }
+
+    override void worldLoaded(WorldEvent e) {
+
+        // Populates the main arrays if they haven't been already.
+        if (!initialized) init();
+
+        // If the Weapon Crate Whitelist and Blacklist are both empty, quit.
+        if (!urnWhitelist.size() && !urnBlacklist.size()) return;
+
+        handleUrnLootTable();
+    }
+
+    private void handleUrnLootTable() {
+        
+        // Find the UrnSpawnPool Handler
+        UrnSpawnPool sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+
+        // If we somehow don't find it, quit.
+        if (!sp) return;
+
+        // If the spawn pool hasn't been initialized yet, do so.
+        // if (!sp.initialized) sp.BuildValidItemList();
+
+        // Add all "whitelisted" entries
+        foreach (wl : urnWhitelist) {
+            HDCore.Log('MiscMons', LOGGING_DEBUG, "Adding "..wl.getClassName().." to Urn Spawn Pool");
+
+            UrnSpawnPool.AddItem(wl);
+        }
+
+        // Remove all "blacklisted" entries
+        foreach (bl : urnBlacklist) {
+            HDCore.Log('MiscMons', LOGGING_DEBUG, "Removing "..bl.getClassName().." from Urn Spawn Pool");
+
+            UrnSpawnPool.removeItem(bl);
+        }
+    }
+}

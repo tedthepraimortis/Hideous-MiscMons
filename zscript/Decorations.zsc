@@ -1,4 +1,117 @@
 // Lots of various decorative entities. - [Ted]
+/*
+const HDCONST_USPEVENT = HDCONST_BPSPAWNPOOLEVENT + 1;
+
+class UrnSpawnPool : EventHandler {
+	private Array<class <HDActor> > ValidItems;
+	private bool Initialized;
+
+	override void OnRegister() {
+		// Ideally this should have the event handler run BEFORE any others.
+		// Modders: Any event handlers meant to run at world load should have
+		//          an order number of HDCONST_USPEVENT+1 or higher!
+		//          (default is zero so this should almost never be a problem)
+		SetOrder(HDCONST_USPEVENT);
+		Initialized = false;
+	}
+
+	override void WorldLoaded(worldevent e) {
+		BuildValidItemList();
+	}
+
+	private void BuildValidItemList() {
+		if (ValidItems.Size() > 0) { return; } // don't rebuild
+		Initialized = true;
+		for (int i = 0; i < AllActorClasses.Size(); ++i) {
+			let invitem = (class<HDActor>)(AllActorClasses[i]);
+			if (!invitem) { continue; }
+			AddItem(invitem);
+		}
+	}
+
+	// Runs all normal checks and adds the passed item class to the spawn pool.
+	//   Returns TRUE if the item class was successfully added.
+	//   Returns FALSE if the item class could not be added.
+	static bool AddItem(class<HDActor> cls) {
+		UrnSpawnPool sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+		if (!(sp && sp.Initialized)) {
+            HDCore.Log('MiscMons', LOGGING_ERROR, "AddItem(): Urn spawn pool not found or initialized!");
+
+			return false;
+		 }
+
+		if (CheckItem(cls) != -1) {
+            HDCore.Log('MiscMons', LOGGING_WARN, cls.GetClassName().." already in Urn spawn pool");
+
+			return false;
+		}
+
+		// All checks passed
+		sp.ValidItems.Push(cls);
+
+		HDCore.Log('MiscMons', LOGGING_DEBUG, "added "..cls.GetClassName().." to Urn spawn pool");
+
+		return true;
+	}
+
+	// Removes an item class from the spawn pool if it exists.
+	//   Returns TRUE if the item class was successfully removed.
+	//   Returns FALSE if for some reason the removal failed
+	static bool RemoveItem(class<HDActor> cls) {
+		UrnSpawnPool sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+		if (!(sp && sp.Initialized)) {
+            HDCore.Log('MiscMons', LOGGING_ERROR, "RemoveItem(): Urn spawn pool not found or initialized!");
+			
+			return false;
+		}
+
+		int index = CheckItem(cls);
+		if (index != -1) {
+			sp.ValidItems.Delete(index);
+            
+			HDCore.Log('MiscMons', LOGGING_DEBUG, "removed "..cls.GetClassName().." from Urn spawn pool");
+
+			return true;
+		}
+
+		return false;
+	}
+
+	// Checks if an item class already exists in the spawn pool
+	//   Returns ARRAY INDEX if the item class is found in the spawn pool
+	//   Returns -1 if the item class is not found in the spawn pool
+	static int CheckItem(class<HDActor> cls) {
+		UrnSpawnPool sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+		if (!(sp && sp.Initialized)) {
+            HDCore.Log('MiscMons', LOGGING_ERROR, "CheckItem(): Urn spawn pool not found or initialized!");
+			
+			return false;
+		}
+
+		for (int i=0; i<sp.ValidItems.Size(); i++) if (sp.ValidItems[i] is cls) return i;
+
+		return -1;
+	}
+
+	// Returns a random valid item class from the Urn spawn pool.
+	static class<HDActor> GetValidItem() {
+		UrnSpawnPool sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+		if (!(sp && sp.Initialized)) {
+            HDCore.Log('MiscMons', LOGGING_ERROR, "GetValidItem(): Urn spawn pool not found or initialized!");
+			
+			return null;
+		}
+
+		if (sp.ValidItems.Size() <= 0) {
+            HDCore.Log('MiscMons', LOGGING_WARN, "GetValidItem(): Urn spawn pool empty!");
+			
+			return null;
+		}
+
+		return sp.ValidItems[random(0, sp.ValidItems.Size() - 1)];
+	}
+}
+*/
 
 // Evil Eyes
 class HDBlackEvilEye : EvilEye
@@ -17,7 +130,7 @@ class HDBlackEvilEye : EvilEye
     {
         active:
 	    inactive:
-	    	BAYE A 0 A_SetScale(-scalex,1);
+	    	BAYE A 0 A_SetScale(-Scale.X,1);
 	    spawn:
 	    	BAYE A 2 bright Light("HDCANDLE");
 	    spawn2:
@@ -44,7 +157,7 @@ class HDBlueEvilEye : EvilEye
     {
         active:
         inactive:
-            BEYE A 0 A_SetScale(-scalex,1);
+            BEYE A 0 A_SetScale(-Scale.X,1);
         spawn:
             BEYE A 2 bright Light("HDCANDLE");
         spawn2:
@@ -71,7 +184,7 @@ class HDGreyEvilEye : EvilEye
     {
         active:
         inactive:
-            GEYE A 0 A_SetScale(-scalex,1);
+            GEYE A 0 A_SetScale(-Scale.X,1);
         spawn:
             GEYE A 2 bright Light("HDCANDLE");
         spawn2:
@@ -98,7 +211,7 @@ class HDPurpleEvilEye : EvilEye
     {
         active:
 	    inactive:
-	    	PEYE A 0 A_SetScale(-scalex,1);
+	    	PEYE A 0 A_SetScale(-Scale.X,1);
 	    spawn:
 	    	PEYE A 2 bright Light("HDCANDLE");
 	    spawn2:
@@ -125,7 +238,7 @@ class HDRedEvilEye : EvilEye
     {
         active:
 	    inactive:
-	    	REYE A 0 A_SetScale(-scalex,1);
+	    	REYE A 0 A_SetScale(-Scale.X,1);
 	    spawn:
 	    	REYE A 2 bright Light("HDCANDLE");
 	    spawn2:
@@ -152,7 +265,7 @@ class HDYellowEvilEye : EvilEye
     {
         active:
 	    inactive:
-	    	YEYE A 0 A_SetScale(-scalex,1);
+	    	YEYE A 0 A_SetScale(-Scale.X,1);
 	    spawn:
 	    	YEYE A 2 bright Light("HDCANDLE");
 	    spawn2:
@@ -164,7 +277,7 @@ class HDYellowEvilEye : EvilEye
 }
 
 // Head Sticks
-class HDHeadStickBase : HDActor
+class MMHeadStickbase : HDActor
 {
     default
     {
@@ -183,61 +296,61 @@ class HDHeadStickBase : HDActor
     states
     {
         spawn:
-            POL2 A -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            POL2 A -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
-class HDHeadStickEmpty : HDHeadStickBase
+class HDHeadStickEmpty : MMHeadStickbase
 {
     states
     {
         spawn:
-            CCPR D -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR D -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
-class HDHeadStickFull : HDHeadStickBase
+class HDHeadStickFull : MMHeadStickbase
 {
     states
     {
         spawn:
-            CCPR E -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR E -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
-class HDHeadStickSolo : HDHeadStickBase
+class HDHeadStickSolo : MMHeadStickbase
 {
     states
     {
         spawn:
-            CCPR F -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR F -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
-class HDHeadStickRedEmpty : HDHeadStickBase
+class HDHeadStickRedEmpty : MMHeadStickbase
 {
     states
     {
         spawn:
-            CCPR H -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR H -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
-class HDHeadStickRedFull : HDHeadStickBase
+class HDHeadStickRedFull : MMHeadStickbase
 {
     states
     {
         spawn:
-            CCPR I -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR I -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
-class HDHeadStickRedSolo : HDHeadStickBase
+class HDHeadStickRedSolo : MMHeadStickbase
 {
     states
     {
         spawn:
-            CCPR J -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR J -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
@@ -247,7 +360,7 @@ class HDMeat6 : HDActor
     default
     {
         radius 12;
-        height 68;
+        height 82;
         mass 20000;
         translation "none";
         +nogravity
@@ -261,7 +374,7 @@ class HDMeat6 : HDActor
     states
     {
         spawn: 
-            CCPR A -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR A -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
@@ -270,7 +383,7 @@ class HDMeat7 : HDActor
     default
     {
         radius 12;
-        height 72;
+        height 86;
         mass 20000;
         translation "none";
         +nogravity
@@ -284,7 +397,7 @@ class HDMeat7 : HDActor
     states
     {
         spawn: 
-            CCPR B -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR B -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
@@ -292,8 +405,8 @@ class HDMeat8 : HDActor
 {
     default
     {
-        radius 24;
-        height 76;
+        radius 28;
+        height 64;
         mass 20000;
         translation "none";
         +nogravity
@@ -307,7 +420,7 @@ class HDMeat8 : HDActor
     states
     {
         spawn: 
-            CCPR C -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR C -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
@@ -316,7 +429,7 @@ class HDMeat9 : HDActor
     default
     {
         radius 12;
-        height 64;
+        height 60;
         mass 20000;
         translation "none";
         +nogravity
@@ -330,7 +443,7 @@ class HDMeat9 : HDActor
     states
     {
         spawn: 
-            CCPR G -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR G -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
     }
 }
 
@@ -339,7 +452,7 @@ class HDMeat10 : HDActor
     default
     {
         radius 12;
-        height 64;
+        height 60;
         mass 20000;
         translation "none";
         +nogravity
@@ -353,6 +466,110 @@ class HDMeat10 : HDActor
     states
     {
         spawn: 
-            CCPR K -1 nodelay A_SetScale((random(0,1)*2-1)*scalex,scaley);
+            CCPR K -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
+    }
+}
+
+class HDPSXChain1 : HDActor
+{
+    default
+    {
+        radius 8;
+        height 88;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+        +noblood
+    }
+    states
+    {
+        spawn: 
+            BLCH A -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
+    }
+}
+
+class HDPSXChain2 : HDActor
+{
+    default
+    {
+        radius 8;
+        height 126;
+        mass 20000;
+        translation "none";
+        +nogravity
+        +spawnceiling
+        +dontthrust
+        +shootable
+        +nodamage
+        +forceybillboard
+        +solid
+        +noblood
+    }
+    states
+    {
+        spawn: 
+            BLCH B -1 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
+    }
+}
+
+/*class HDUrnBase : HDActor
+{
+    default
+    {
+        radius 12;
+        height 34;
+        mass 200;
+        health 10;
+        scale 0.9;
+        translation "none";
+        +dontthrust
+        +shootable
+        +noblood
+        +forceybillboard
+        +solid
+        +dontgib
+        +pushable
+    }
+    states
+    {
+        spawn:
+            MURN A 0 nodelay A_SetScale((random(0,1)*2-1)*Scale.X,Scale.Y);
+            Goto Spawn2;
+        spawn2:
+            MURN A -1;
+            Stop;
+        death:
+            TNT1 A 0
+            { 
+                A_PlaySound ("Urn/Broken");
+                A_SpawnChunks("BigWallChunk", 10);
+                A_NoBlocking;
+            }
+            TNT1 A 1
+            {
+                Class<Actor> PickedItem = UrnSpawnPool.GetValidItem();
+
+                HDCore.Log('MiscMons', LOGGING_DEBUG, "Dropping "..(PickedItem ? PickedItem.getClassName().."" : "Nothing"));
+
+                if (PickedItem) {
+                    A_SpawnItemEx (
+                        PickedItem,
+                        0, 0, 0,
+                        frandom(0.5, 1.0), 0, frandom(3.0, 6.0),
+                        random(0,359),
+                        SXF_NOCHECKPOSITION
+                    );
+                } else {
+                    SetStateLabel("Death");
+                    return;
+                }
+            }
+            Stop;
     }
 }

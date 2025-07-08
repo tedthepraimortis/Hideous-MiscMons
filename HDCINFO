@@ -91,3 +91,5 @@ addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHe
 addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHeadStickBase", "weight": "#headonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHeadStickBlack", "weight": "#headonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHeadStickOld", "weight": "#headonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
+
+addUrnFilter => { "name": "HDHealingPotion", "allowed": "true" }

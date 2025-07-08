@@ -129,13 +129,13 @@ class Behemoth:HDMobBase{
         LARD CDDAA 6 A_HDWander(CHF_LOOK);
         LARD B 0 {
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD BB 6 A_HDWander(CHF_LOOK);
         LARD C 6{
             A_StartSound("cyber/hoof",15,CHANF_OVERLAP);
             A_HDWander(CHF_LOOK);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD C 0 A_Jump(32,"spawn");
         loop;
@@ -143,14 +143,14 @@ class Behemoth:HDMobBase{
         LARD AAB 2 A_HDChase();
         LARD B 3{
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
             A_ShoutAlert(1.,SAF_SILENT);
             bfrightening=true;
             A_HDChase();
         }
         LARD C 3{
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
             if(health<1)setstatelabel("death");
             else A_HDChase();
         }
@@ -197,12 +197,12 @@ class Behemoth:HDMobBase{
             A_TurnToAim(20,shootstate:"raiseshoot");
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
             A_Recoil(-4);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD C 4{
             A_TurnToAim(20,shootstate:"raiseshoot");
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
             A_Recoil(-4);
         }
         LARD D 4 A_TurnToAim(20,shootstate:"raiseshoot");
@@ -333,13 +333,13 @@ class Behemoth:HDMobBase{
             A_FaceLastTargetPos(40,missileheight);
             A_SetAngle(angle+random(-10,10));
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD BB 6 A_Recoil(-2);
         LARD C 12{
             A_FaceLastTargetPos(40,missileheight);
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD A 0{
             A_FaceLastTargetPos(40,missileheight);
@@ -357,7 +357,7 @@ class Behemoth:HDMobBase{
                 0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM,144
             );
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD D 0 A_SpawnItemEx("HDExplosionBoss",
             frandom(-12,12),frandom(-12,12),frandom(60,64),
@@ -367,11 +367,11 @@ class Behemoth:HDMobBase{
             A_FaceLastTargetPos(40,missileheight);
             angle+=random(-10,10);
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD B 6 { 
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD B 6{
             A_SpawnItemEx("HDExplosionBoss",
@@ -389,7 +389,7 @@ class Behemoth:HDMobBase{
             A_FaceLastTargetPos(40,missileheight);
             angle+=frandom(-10,10);
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD DD 6 A_Recoil(-2);
         LARD D 6 A_SpawnItemEx("HDExplosionBoss",
@@ -406,7 +406,7 @@ class Behemoth:HDMobBase{
             A_FaceLastTargetPos(40,missileheight);
             angle+=random(-10,10);
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD BB 6 A_Recoil(-1);
         LARD C 24{
@@ -416,11 +416,11 @@ class Behemoth:HDMobBase{
             );
             A_BehemothDeathSmoke();
             A_StartSound("cyber/hoof",16,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD G 14{
             A_StartSound("cyber/walk",15,CHANF_OVERLAP);
-            DistantQuaker.Quake(self,3.5);
+            DistantQuaker.Quake(self,3);
         }
         LARD GGGG 6 A_FaceLastTargetPos(10,missileheight);
         LARD II 0 A_SpawnItemEx("HDSmoke",54,launcheroffset,52,
