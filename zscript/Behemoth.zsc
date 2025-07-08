@@ -5,8 +5,8 @@ class Behemoth:HDMobBase{
     double launcheroffset;
     int attackloop;
     default{
-        height 129;
-        radius 93;
+        height 140;
+        radius 90;
         missileheight 42;
         scale 1.65;
         +boss 
