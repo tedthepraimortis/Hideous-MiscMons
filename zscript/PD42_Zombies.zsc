@@ -86,6 +86,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         // mwahhahahaheradf asdfhjbjdfhdhjkasadhjk adfghjk k - [Evil, fucked up Ted]
         hdmobbase.shields 666;
         health 255;
+        dropitem "Yokai";
         +hdmobbase.noincap
         +shadow
         +avoidmelee
@@ -501,7 +502,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         death:
             #### H 5;
             #### I 5 A_Vocalize(deathsound);
-            #### JK 5;
+            #### JK 5 A_SpawnItemEx("BFGNecroShard",flags:SXF_TRANSFERPOINTERS|SXF_SETMASTER,240);
         dead:
             #### K 3 A_JumpIf(abs(vel.z) < 2, 1);
             loop;
