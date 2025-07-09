@@ -6,6 +6,8 @@ version "4.14"
 #include "zscript/Greely_Shotgunners.zsc"
 #include "zscript/Vera_Chaingunners.zsc"
 //#include "zscript/Aurorch_Zombiemen.zsc"
+#include "zscript/BPX_Riflemen.zsc"
+#include "zscript/DMR_Riflemen.zsc"
 
 // Icarus Innovations
 #include "zscript/PD42_Zombies.zsc"
