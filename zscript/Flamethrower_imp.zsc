@@ -1,7 +1,3 @@
-// A_FireProjectile("HDFireCone", frandom(-3, 3), spawnheight: (3.5 * cos(-pitch)) * player.crouchfactor);
-
-const flamerdist = 7.0;
-
 class FlamerImp:HDMobBase{
 
     int burstcount;
@@ -42,6 +38,7 @@ class FlamerImp:HDMobBase{
 		obituary "$OB_IMP";
 		hitobituary "$OB_IMP_HIT";
 	}
+	int attackloop;
 	override void postbeginplay(){
 		super.postbeginplay();
 		if(bplayingid){
@@ -54,19 +51,6 @@ class FlamerImp:HDMobBase{
 
 		maxstepheight=bplayingid?24:36;
 	}
-    void A_FlamerImpShot() {
-        //abort if burst is over
-        if (burstcount < 1) {
-            burstcount = random(5, 10);
-            setstatelabel("postshot");
-            return;
-        };
-
-        for(int i = 2; i <=3; i++) {
-            A_SpawnProjectile("HDFireCone",gunheight,0,frandom(-1,2),CMF_AIMDIRECTION,pitch+frandom(-1,1.2));
-        }
-        burstcount--;
-    }
 	override void CheckFootStepSound(){
 		if(bplayingid)HDHumanoid.FootStepSound(self,0.2,drysound:"imp/step");
 		else A_StartSound("serpentipede/step",88,CHANF_OVERLAP);
@@ -115,48 +99,32 @@ class FlamerImp:HDMobBase{
 		loop;
 
 	missile:
+	    #### A 10 { attackloop = 0; }
 		#### ABCD 4{
 			A_Strafe();
 			A_TurnToAim(40,gunheight);
+			A_JumpIf(target && Distance3D(target) < 400,"flamethrower");
 		}
 		loop;
+
+    flamethrower:
+	    #### A 0 A_JumpIf(target && Distance3D(target) > 400,"shoot");
+	    #### A 0 A_StartSound("Flamer/Start",7);
+	    #### I 10;
+    flamethrowerLoop:
+        #### H 2 Bright Light("Rocket")
+            {
+            A_FaceTarget();
+            attackloop++;
+            A_SpawnProjectile("ImpFlamer",28,1,frandom(-3,3));
+	        A_StartSound("Flamer/Loop",1);
+            }
+        #### A 0 A_MonsterRefire(0,"see");
+        #### A 0 A_JumpIf(attackloop < 5,"FlamethrowerLoop");
+        #### A 0 A_JumpIf(target && Distance3D(target) > 400,"see");
+    goto see;
 	shoot:
-		#### E 0 A_Jump(16,"hork");
-		goto lead;
-
-	lead:
-		#### E 0 A_Strafe();
-		#### E 1 A_FaceLastTargetPos(40,gunheight,lasttargetheight);
-		#### F 0 A_LeadTarget(lasttargetdist*(1./12.),delay:4);
-		#### F 0 A_JumpIf(!hdmobai.TryShoot(self,32,512,10,10,flags:HDMobAI.TS_GEOMETRYOK),"see");
-        #### F 0 A_JumpIf(lasttargetdist > HDCONST_ONEMETRE * flamerdist, "see");
-		#### F 0 bright A_FlamerImpShot();
-		---- A 0 A_JumpIfTargetInsideMeleeRange("melee");
-		#### E 0 A_Jump(16,"see");
-		#### E 0 A_Jump(140,"coverfire");
-		---- A 0 setstatelabel("see");
-        loop;
-
-	spam:
-		#### E 1 A_SetTics(random(1,2));
-		#### EF 2 A_Strafe();
-        #### F 0 A_JumpIf(lasttargetdist > HDCONST_ONEMETRE * flamerdist, "see");
-		#### F 0 A_LeadTarget(lasttargetdist*(1./12.),delay:4);
-		#### F 0 bright A_FlamerImpShot();
-		#### F 0 A_JumpIf(firefatigue>HDCONST_MAXFIREFATIGUE,"pain");
-        loop;
-	coverfire:
-		---- A 0 A_JumpIfTargetInLOS("see");
-		#### EEEEE 3 A_Coverfire("coverdecide");
-		---- A 0 setstatelabel("see");
-    postshot:
-	coverdecide:
-		#### E 0 A_JumpIf(!hdmobai.TryShoot(self,32,512,10,10,flags:HDMobAI.TS_FARGEOMETRYOK),"see");
-		---- A 0 A_Jump(180,"spam");
-		---- A 0 A_Jump(90,"hork");
-		---- A 0 setstatelabel("missile");
-	hork:
-		#### E 0 A_Jump(156,"spam");
+		#### A 0 A_JumpIf(target && Distance3D(target) < 400,"flamethrower");
 		---- A 0 A_FaceLastTargetPos(40,gunheight,lasttargetheight);
 		#### E 2 A_Strafe();
 		#### E 0 A_Vocalize(seesound);
@@ -169,6 +137,26 @@ class FlamerImp:HDMobBase{
 		#### E 0 A_JumpIf(!hdmobai.TryShoot(self,32,256,10,10,flags:HDMobAI.TS_GEOMETRYOK),"see");
 		#### E 0 A_Watch();
 		---- A 0 setstatelabel("see");
+	lead:
+		#### E 0 A_Strafe();
+		#### E 1 A_FaceLastTargetPos(40,gunheight,lasttargetheight);
+		#### F 0 A_LeadTarget(lasttargetdist*(1./12.),delay:4);
+		#### F 0 A_JumpIf(!hdmobai.TryShoot(self,32,512,10,10,flags:HDMobAI.TS_GEOMETRYOK),"see");
+		---- A 0 A_JumpIfTargetInsideMeleeRange("melee");
+		#### E 0 A_Jump(16,"see");
+		#### E 0 A_Jump(140,"coverfire");
+		---- A 0 setstatelabel("see");
+        loop;
+
+	coverfire:
+		---- A 0 A_JumpIfTargetInLOS("see");
+		#### EEEEE 3 A_Coverfire("coverdecide");
+		---- A 0 setstatelabel("see");
+    postshot:
+	coverdecide:
+		#### E 0 A_JumpIf(!hdmobai.TryShoot(self,32,512,10,10,flags:HDMobAI.TS_FARGEOMETRYOK),"see");
+		---- A 0 A_Jump(90,"hork");
+		---- A 0 setstatelabel("missile");
 	melee:
 		#### EE 4 A_FaceLastTargetPos();
 		#### F 2;
@@ -181,7 +169,6 @@ class FlamerImp:HDMobBase{
 		---- A 0 A_ShoutAlert(0.4,SAF_SILENT);
 		#### A 2 A_FaceTarget();
 		#### BCD 2 A_FastChase();
-		#### A 0 A_JumpIf(firefatigue>(HDCONST_MAXFIREFATIGUE*1.6),"see");
 		goto missile;
 	death:
 		#### I 6 A_Gravity();
@@ -231,5 +218,57 @@ class FlamerImp:HDMobBase{
 		#### JI 4 {vel.xy-=(cos(angle),sin(angle))*0.3;}
 		#### HE 5;
 		---- A 0 setstatelabel("see");
+	}
+}
+
+class ImpFlamer : HDActor
+{
+	
+	default
+	{
+		Projectile;
+		Height 10;
+		Speed 20;
+		Gravity 0;
+		SeeSound "Flamer/Loop";
+		DamageFunction (0);
+		Alpha 0.5;
+		Scale 0.25;
+		Radius 0.6;
+		RenderStyle "Add";
+		Decal "Scorch";
+		+RIPPER
+		+BLOODLESSIMPACT
+		+FORCEXYBILLBOARD
+		+ROLLSPRITE
+		+ROLLCENTER
+		+BRIGHT
+	}
+
+	States
+	{
+		Spawn:
+			FLMP ABCDEFGHIJKLMNOP 2 bright
+			{
+				scale+=(0.1, 0.1);
+				A_FadeOut(0.1);
+
+				let burnRange = HDCONST_ONEMETRE * clamp(max(scale.x, 0.65) * 1.5, 1.0, 3.5);
+
+				BlockThingsIterator it = BlockThingsIterator.Create(self, burnRange);
+				while (it.Next()) if (Distance3D(it.thing) <= burnRange && it.thing.bshootable) A_Immolate(it.thing, target, 5);
+			}
+			stop;
+		Death:
+			FLMP ABCDEFGHIJKLMNOP 1 bright
+			{
+				scale.x+=0.1;
+				scale.y+=0.1;
+			}
+			TNT1 A 1
+			{
+				A_SpawnItemEx("HDSmoke", random(-2,2), random(-2,2), random(-2,2), frandom(2,-4), frandom(-2,2), frandom(1,4), 0, SXF_NOCHECKPOSITION);
+			}
+			Stop;
 	}
 }
