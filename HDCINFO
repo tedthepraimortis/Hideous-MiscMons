@@ -50,7 +50,6 @@ addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDAnni
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDHarbringer", "weight": "#harbringer_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDCyberGunner", "weight": "#cybergunner_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "Behemoth", "weight": "#behemoth_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
-//addSpawnTableSingleEntry => { "tableName": "MancubusReplaces", "name": "HDHectebus", "weight": "#hectebus_mancubus_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
 // Bounty Targets - [Ted]
 newMerchantBountyTarget => { "name": "WingedBab", "value": "300" }

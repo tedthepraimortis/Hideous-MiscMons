@@ -34,10 +34,6 @@ OptionMenu MiscMonsMenu
     Slider "Frontiersmen Spawn Weight:", "frontiersman_operator_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
-    StaticText "Mancubi", "Brown"
-    //Slider "Hectebus Spawn Weight:", "hectebus_mancubus_spawn_bias", 0.0, 100, .01, 2
-    StaticText ""
-
     StaticText "Bosses", "Grey"
     Slider "Cybergunner Spawn Weight:", "cybergunner_cyberdemon_spawn_bias", 0.0, 100, .01, 2
     Slider "Harbringer Spawn Weight:", "harbringer_cyberdemon_spawn_bias", 0.0, 100, .01, 2
