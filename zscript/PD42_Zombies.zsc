@@ -86,7 +86,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         // mwahhahahaheradf asdfhjbjdfhdhjkasadhjk adfghjk k - [Evil, fucked up Ted]
         hdmobbase.shields 666;
         health 255;
-        dropitem "Yokai";
+        dropitem "Yokai",25;
         +hdmobbase.noincap
         +shadow
         +avoidmelee
