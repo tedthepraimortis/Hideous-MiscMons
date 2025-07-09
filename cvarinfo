@@ -1,30 +1,25 @@
 // Most of these are server variables so in a multiplayer session they can be synced to other players.
 // Every weapon has a comment before it's cvars based on it's name in-game for organization. - [Ted]
 
-// Zombiemen
+// Zombies
 server float trogtrooper_zombieman_spawn_bias = 4.666;
 server float hlartrooper_zombieman_spawn_bias = 4.666;
 server float bpxtrooper_zombieman_spawn_bias = 4.666;
 server float dmrtrooper_zombieman_spawn_bias = 4.666;
 server float pd42zombie_zombieman_spawn_bias = 0.666;
 server float umpzombie_zombieman_spawn_bias = 3.25;
-
-// Homeboys
 server float uspzombie_zombieman_spawn_bias = 3.5;
 server float uspzombie_homeboy_spawn_bias = 1.0;
-
-// Shotgunners
 server float greely_shotgunner_spawn_bias = 4.6;
 server float altis_shotgunner_spawn_bias = 4.6;
-
-// Chaingunners
 server float verazombie_chaingunner_spawn_bias = 2.0;
 server float frontiersman_operator_spawn_bias = 0.5;
 
 // Demons
 server float wingedbab_demon_spawn_bias = 1.0;
+server float flamerimp_imp_spawn_bias = 1.0;
 
-// Cyberdemons
+// Bosses
 server float annihilator_cyberdemon_spawn_bias = 0.5;
 server float harbringer_cyberdemon_spawn_bias = 0.5;
 server float cybergunner_cyberdemon_spawn_bias = 0.5;

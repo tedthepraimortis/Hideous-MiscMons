@@ -4,7 +4,7 @@ class HDHarbinger:SatanRobo{
         height 100;
         radius 32;
         +boss 
-        +missilemore
+        +nobouncesound
         +floorclip
         +dontmorph
         +bossdeath
@@ -16,7 +16,7 @@ class HDHarbinger:SatanRobo{
         hdmobbase.stepsound "harbinger/step";
         tag "$TAG_HARBINGER";
 
-        +avoidmelee +nofear +nodropoff +missilemore
+        +avoidmelee +nofear +nodropoff +nobouncesound
         -noradiusdmg
         +noblooddecals
         +hdmobbase.smallhead

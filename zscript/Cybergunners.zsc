@@ -80,7 +80,7 @@ class HDCyberGunner:HDMobBase{ //smh my head
         height 100;
         radius 32;
         +boss 
-        +missilemore
+        +nobouncesound
         +floorclip
         +dontmorph
         +bossdeath
@@ -336,8 +336,10 @@ class HDCyberGunner:HDMobBase{ //smh my head
 
     directshots:
         ZYBR F 0{
-            if(brontoselected=1)
-            setstatelabel("directshots2");
+            if(brontoselected==1)
+            {
+                setstatelabel("directshots2");
+            }
         }
         ZYBR FEFEFE 2 bright light("SPIDF"){
             A_StartSound("weapons/bigrifle",CHAN_WEAPON,CHANF_OVERLAP);
@@ -368,8 +370,10 @@ class HDCyberGunner:HDMobBase{ //smh my head
 
     spray:
         ZYBR F 0{
-            if(brontoselected=1)
-            setstatelabel("spray2");
+            if(brontoselected==1)
+            {
+                setstatelabel("spray2");
+            }
         }
         ZYBR FEFEFE 2 bright light("SPIDF"){
             A_StartSound("weapons/bigrifle",CHAN_WEAPON,CHANF_OVERLAP);
@@ -404,12 +408,15 @@ class HDCyberGunner:HDMobBase{ //smh my head
         ZYBR Y 17;
         ZYBR A 10{
             A_Recoil(-1);
-        }---- A 0 setstatelabel("see");
+        }
+        ---- A 0 setstatelabel("see");
 
     coverfire:
         ZYBR F 0{
-            if(brontoselected=1)
-            setstatelabel("coverfire2");
+            if(brontoselected==1)
+            {
+                setstatelabel("coverfire2");
+            }
         }
         ZYBR FEFEFE 2 bright light("SPIDF"){
             A_StartSound("weapons/bigrifle",CHAN_WEAPON,CHANF_OVERLAP);

@@ -4,48 +4,26 @@
 // MONSTERS
 // -------
 
-// TROG Zombieman Spawn Pools
+// Zombies
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// HLAR Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "HLARTrooper", "weight": "#hlartrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// BPX Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "BPXTrooper", "weight": "#bpxtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// DMR Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "DMRTrooper", "weight": "#dmrtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// PD-42 Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "SpectreReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// UMP Zombieman
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "UMPZombie", "weight": "#umpzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// USP Zombieman
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "USPHomeboy", "weight": "#uspzombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-//newSpawnTable => { "spawnName": "UndeadHomeboy", "addOriginalThing": "true", "persists": "true" }
-//addSpawnTableSingleEntry => { "tableName": "UndeadHomeboy", "name": "USPHomeboy", "weight": "#uspzombie_homeboy_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// Greely Shotgunner
-addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "GreelyShortgunner", "weight": "#greely_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// Altis O/U Shotgunner
-addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisShotgunner", "weight": "#altis_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// Vera Chaingunner
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
-
-// Former Frontiersmen
+addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisShotgunner", "weight": "#altis_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "GreelyShortgunner", "weight": "#greely_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
-// Winged Babuins
+// Demons
 addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+addSpawnTableSingleEntry => { "tableName": "ImpReplaces", "name": "FlamerImp", "weight": "#flamerimp_imp_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
-// High Tiers
+// Bosses
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDAnnihilator", "weight": "#annihilator_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDHarbringer", "weight": "#harbringer_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDCyberGunner", "weight": "#cybergunner_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
@@ -63,7 +41,6 @@ newMerchantBountyTarget => { "name": "GreelyShortgunner", "value": "200" }
 newMerchantBountyTarget => { "name": "AltisShotgunner", "value": "200" }
 newMerchantBountyTarget => { "name": "VeraZombie", "value": "300" }
 newMerchantBountyTarget => { "name": "FrontiersmanZombie", "value": "500" }
-newMerchantBountyTarget => { "name": "HDHectebus", "value": "750" }
 newMerchantBountyTarget => { "name": "HDCybergunner", "value": "2500" }
 newMerchantBountyTarget => { "name": "HDAnnihilator", "value": "3000" }
 newMerchantBountyTarget => { "name": "HDHarbringer", "value": "3500" }

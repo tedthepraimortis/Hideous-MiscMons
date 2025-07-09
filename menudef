@@ -7,7 +7,7 @@ OptionMenu MiscMonsMenu
     Option "Unique Sprites: ", "hmm_uniquesprites", "OffOn"
     StaticText ""
 
-    StaticText "Zombiemen", "Green"
+    StaticText "Zombies", "Green"
     Slider "Trog Rifle Veteran Spawn Weight:", "trogtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "HLAR Trooper Spawn Weight:", "hlartrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "BPX Rifleman Spawn Weight:", "bpxtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
@@ -15,26 +15,17 @@ OptionMenu MiscMonsMenu
     Slider "PD-42 Rifleman Spawn Weight:", "pd42zombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "USP-45 Homeboy Spawn Weight:", "uspzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "UMP-45 Jackboot Spawn Weight:", "umpzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
-    StaticText ""
-
-    StaticText "Undead Homeboys", "Yellow"
+    Slider "Vera Machinegunner Spawn Weight:", "verazombie_chaingunner_spawn_bias", 0.0, 100, .01, 2
+    Slider "Frontiersmen Spawn Weight:", "frontiersman_operator_spawn_bias", 0.0, 100, .01, 2
     Slider "USP-45 Homeboy Spawn Weight:", "uspzombie_homeboy_spawn_bias", 0.0, 100, .01, 2
-    StaticText ""
-
-    StaticText "Shotgunners", "Red"
     Slider "Greely Jackboot Spawn Weight:", "greely_shotgunner_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
-    StaticText "Demons", "Orange"
+    StaticText "Demons", "Red"
     Slider "Winged Babuin Spawn Weight:", "wingedbab_demon_spawn_bias", 0.0, 100, .01, 2
-    StaticText ""
+    Slider "Flamethrowing Imps Spawn Weight:", "flamerimp_imp_spawn_bias", 0.0, 100, .01, 2
 
-    StaticText "Chaingunners", "Blue"
-    Slider "Vera Machinegunner Spawn Weight:", "verazombie_chaingunner_spawn_bias", 0.0, 100, .01, 2
-    Slider "Frontiersmen Spawn Weight:", "frontiersman_operator_spawn_bias", 0.0, 100, .01, 2
-    StaticText ""
-
-    StaticText "Bosses", "Grey"
+    StaticText "Bosses", "Gold"
     Slider "Cybergunner Spawn Weight:", "cybergunner_cyberdemon_spawn_bias", 0.0, 100, .01, 2
     Slider "Harbringer Spawn Weight:", "harbringer_cyberdemon_spawn_bias", 0.0, 100, .01, 2
     Slider "Annihilator Spawn Weight:", "annihilator_cyberdemon_spawn_bias", 0.0, 100, .01, 2
