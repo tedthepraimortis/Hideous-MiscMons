@@ -1,7 +1,4 @@
 class FlamerImp:HDMobBase{
-
-    int burstcount;
-	
     default{
 		//$Category "Monsters/Hideous Destructor"
 		//$Title "Imp Fighter"
@@ -23,8 +20,9 @@ class FlamerImp:HDMobBase{
 		damagefactor "hot",0.66;
 		health 100;
 
-		radius 14;
-		height 56;
+		radius 32;
+		height 66;
+		scale 1.3;
 		hdmobbase.gunheight 36;
 		deathheight 15;
 		speed 12;
@@ -34,11 +32,12 @@ class FlamerImp:HDMobBase{
 		meleedamage 3;
 
 		painchance 80;
-		translation "MediumImp";
+		translation "FlamerImp";
 		obituary "$OB_IMP";
 		hitobituary "$OB_IMP_HIT";
 	}
 	int attackloop;
+	const flamerdist = 250;
 	override void postbeginplay(){
 		super.postbeginplay();
 		if(bplayingid){
@@ -103,16 +102,16 @@ class FlamerImp:HDMobBase{
 		#### ABCD 4{
 			A_Strafe();
 			A_TurnToAim(40,gunheight);
-			A_JumpIf(target && Distance3D(target) < 400,"flamethrower");
+			A_JumpIf(target && Distance3D(target) < flamerdist,"flamethrower");
 		}
 		loop;
 
     flamethrower:
-	    #### A 0 A_JumpIf(target && Distance3D(target) > 400,"shoot");
+	    #### A 0 A_JumpIf(target && Distance3D(target) > flamerdist,"shoot");
 	    #### A 0 A_StartSound("Flamer/Start",7);
-	    #### I 10;
+	    #### G 10;
     flamethrowerLoop:
-        #### H 2 Bright Light("Rocket")
+        #### G 2 Bright Light("Rocket")
             {
             A_FaceTarget();
             attackloop++;
@@ -121,18 +120,18 @@ class FlamerImp:HDMobBase{
             }
         #### A 0 A_MonsterRefire(0,"see");
         #### A 0 A_JumpIf(attackloop < 5,"FlamethrowerLoop");
-        #### A 0 A_JumpIf(target && Distance3D(target) > 400,"see");
+        #### A 0 A_JumpIf(target && Distance3D(target) > flamerdist,"see");
     goto see;
 	shoot:
-		#### A 0 A_JumpIf(target && Distance3D(target) < 400,"flamethrower");
+		#### A 0 A_JumpIf(target && Distance3D(target) < flamerdist,"flamethrower");
 		---- A 0 A_FaceLastTargetPos(40,gunheight,lasttargetheight);
 		#### E 2 A_Strafe();
 		#### E 0 A_Vocalize(seesound);
 		#### EEEEE 2 A_SpawnItemEx("ReverseImpBallTail",4,24,gunheight,1,0,0,0,160);
 		#### EF 2 A_Strafe();
-		#### G 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-2,10)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
-		#### G 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-4,4)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
-		#### G 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-2,-10)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
+		#### F 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-2,10)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
+		#### F 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-4,4)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
+		#### F 0 A_SpawnProjectile("HDImpBall",gunheight,0,(frandom(-2,-10)),CMF_AIMDIRECTION,pitch+frandom(-4,3.6));
 		#### GGFE 5 A_SetTics(random(4,6));
 		#### E 0 A_JumpIf(!hdmobai.TryShoot(self,32,256,10,10,flags:HDMobAI.TS_GEOMETRYOK),"see");
 		#### E 0 A_Watch();
