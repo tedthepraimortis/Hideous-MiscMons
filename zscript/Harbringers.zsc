@@ -1,0 +1,493 @@
+class HDHarbinger:SatanRobo{
+    int attacksmade;
+    default{
+        height 100;
+        radius 32;
+        +boss 
+        +missilemore
+        +floorclip
+        +dontmorph
+        +bossdeath
+        +quicktoretaliate
+        seesound "harbinger/sight";
+        painsound "harbinger/pain";
+        deathsound "harbinger/death";
+        activesound "harbinger/active";
+        hdmobbase.stepsound "harbinger/step";
+        tag "$TAG_HARBINGER";
+
+        +avoidmelee +nofear +nodropoff +missilemore
+        -noradiusdmg
+        +noblooddecals
+        +hdmobbase.smallhead
+        +hdmobbase.biped
+        +hdmobbase.noshootablecorpse
+        +hdmobbase.chasealert
+        +hdmobbase.nodeathdrop
+        damagefactor "hot", 0.5;
+        damagefactor "cold", 0.5;
+        hdmobbase.shields 5000;
+        gibhealth 1000;
+        health 3500;
+        mass 12000;
+        speed 24;
+        deathheight 38;
+        painchance 32;
+        painthreshold 200;
+        maxtargetrange 0;
+        radiusdamagefactor 0.6;
+        obituary "$OB_HARBINGER";
+        hitobituary "$OB_HARBINGER_MELEE";
+        minmissilechance 196;
+    }
+    override double bulletresistance(double hitangle){
+        return max(0,frandom(0.6,4.0)-hitangle*0.01);
+    }
+
+    override void CheckFootStepSound(){
+        HDHumanoid.FootStepSound(self,drysound:"harbinger/step");
+    }
+
+    override void tick(){
+        hdmobbase.tick();
+    }
+
+    override int damagemobj(
+        actor inflictor,actor source,int damage,
+        name mod,int flags,double angle
+    ){
+        //cheat
+        if(source==self)return 0;
+
+        //Search me, O God, and know my heart; try me, and know my thoughts.
+        if(damage==TELEFRAG_DAMAGE)
+            return super.damagemobj(inflictor,source,TELEFRAG_DAMAGE,"Telefrag");
+
+        return super.damagemobj(
+            inflictor,source,damage,mod,flags,angle
+        );
+    }
+
+    states{
+    spawn:
+        SUPR BBBB 10{
+            A_HDLook();
+            angle+=frandom(-5,5);
+        }
+    spawn2:
+        SUPR CDDAA 6 A_HDWander();
+        SUPR BB 6 A_HDWander(CHF_LOOK);
+        SUPR C 6 A_HDWander(CHF_LOOK);
+        SUPR C 0 A_Jump(32,"spawn");
+        loop;
+    see:
+        SUPR E 0{
+            A_ShoutAlert(1.,SAF_SILENT);
+            if(health<1)setstatelabel("death");
+            bfrightening=true;
+        }
+        SUPR ABCD 5 A_HDChase();
+        loop;
+    pain:
+        SUPR H 10{
+            A_Pain();
+            if(health<3500){
+                if(health<3000)minmissilechance-=5;
+                if(health>1000)speed++;else speed--;
+                speed=clamp(speed,random(1,8),random(20,30));
+            }
+        }---- A 0 setstatelabel("see");
+    missile:
+        SUPR ABCD 3 A_TurnToAim(30);
+        loop;
+
+    shoot:
+        ---- A 0 A_Jump(48,"burst");
+        ---- A 0 A_Jump(128,"Bale","Sweep");
+        ---- A 0{attacksmade=0;}
+    fireball:
+        SUPR FE 2 A_FaceLastTargetPos(30,32);
+        SUPR E 3 A_FaceLastTargetPos(6,32);
+        SUPR F 1 A_LeadTarget(lasttargetdist*0.06,false,45);
+        SUPR G 4{
+
+            hdmobai.DropAdjust(self,"ManJuice");
+
+            vector3 shotpos=(pos.xy,pos.z+32);
+
+            if(lasttargetdist<1000){
+                A_LeadTarget(lasttargetdist*(1./CSLUG_BALLSPEED),true);
+                angle+=frandom(-1,1)*max(0,1000-lasttargetdist)*0.01;
+            }
+
+            attacksmade++;
+            //lead target
+            let bbb=spawn("manjuice",(shotpos));
+            bbb.pitch=pitch;
+            bbb.angle=angle;
+            bbb.target=self;
+            bbb.vel=vel+(cos(pitch)*(cos(angle),sin(angle)),-sin(pitch))*CSLUG_BALLSPEED;
+        }
+        SUPR GF 5;
+        SUPR A 0 A_JumpIf(attacksmade<random(0,3),"fireball");
+        ---- A 0 setstatelabel("see");
+
+//:bale:
+    bale:
+        SUPR H 16 A_FaceLastTargetPos(20,20);
+        SUPR H 0 bright A_SpawnProjectile("RedBaleBall",66,0,2,0,0);
+        SUPR H 6 bright A_SpawnProjectile("RedBaleBall",66,0,-2,0,0);
+        SUPR H 0 bright A_SpawnProjectile("RedBaleBall",72,0,9,2,0);
+        SUPR H 6 bright A_SpawnProjectile("RedBaleBall",72,0,-9,2,0);
+        SUPR H 0 bright A_SpawnProjectile("RedBaleBall",82,0,17,2,4);
+        SUPR H 6 bright A_SpawnProjectile("RedBaleBall",82,0,-17,2,4);
+        SUPR H 0 bright A_SpawnProjectile("RedBaleBall",92,0,24,2,7);
+        SUPR H 6 bright A_SpawnProjectile("RedBaleBall",92,0,-24,2,7);
+        SUPR H 12;
+        ---- A 0 setstatelabel("see");
+
+    Sweep:
+        SUPR F 4 A_FaceLastTargetPos(20,20);
+        SUPR E 6;
+        SUPR E 2 A_SpawnProjectile("RedBaleBall",56,-6,-6,CMF_AIMDIRECTION,pitch);
+        SUPR F 2 A_SpawnProjectile("RedBaleBall",46,-4,-3,CMF_AIMDIRECTION,pitch);
+        SUPR F 2 A_SpawnProjectile("RedBaleBall",38,0,-1,CMF_AIMDIRECTION,pitch);
+        SUPR G 2 A_SpawnProjectile("RedBaleBall",32,0,1,CMF_AIMDIRECTION,pitch);
+        SUPR G 2 A_SpawnProjectile("RedBaleBall",32,0,3,CMF_AIMDIRECTION,pitch);
+        SUPR G 2 A_SpawnProjectile("RedBaleBall",32,0,6,CMF_AIMDIRECTION,pitch);
+        SUPR GF 3;
+        SUPR E 2 A_Jump(256,"see");
+        loop;
+
+    burst:
+        ---- A 0 A_PlaySound("weapons/bfgf",CHAN_VOICE);
+        SUPR ABCDAB 4{
+            A_FaceLastTargetPos(30);
+        }
+        SUPR TS 4 A_FaceLastTargetPos(10,10);
+        SUPR T 6;
+        SUPR U 2{
+            A_SpawnItemEx("ExplosionEffectHarbinger",24,0,32,flags:SXF_NOCHECKPOSITION);
+            for(int i=0;i<20;i++){
+                let balls=A_SpawnProjectile("RedBaleBall",frandom(30,33),angle:frandom(-6,6),flags:CMF_AIMDIRECTION,pitch:pitch);
+                    if(balls)
+                        balls.vel=vel+(cos(pitch)*(cos(angle),sin(angle)),-sin(pitch))*CSLUG_BALLSPEED;
+                }
+            for(int i=0;i<5;i++){
+                let humpyomum=A_SpawnProjectile("Manjuice",frandom(30.5,32.5),angle:frandom(-3,3),flags:CMF_AIMDIRECTION,pitch:pitch);
+                    if(humpyomum){
+                        humpyomum.tracer=null;
+                        humpyomum.vel=vel+(cos(pitch)*(cos(angle),sin(angle)),-sin(pitch))*CSLUG_BALLSPEED;
+                    }
+                }
+            }
+        SUPR H 4;
+        ---- A 0 setstatelabel("see");
+
+    melee:
+        ---- A 0 A_Jump(128,"grabcheck");
+        SUPR F 6 A_FaceTarget();
+        SUPR E 6 A_FaceTarget();
+        SUPR F 2;
+        SUPR G 6 A_CustomMeleeAttack(random(50,100),"harbinger/melee","","claws",true);
+        SUPR F 5;
+        ---- A 0 setstatelabel("see");
+    grabcheck:
+        SUPR F 6 A_FaceTarget();
+        SUPR E 1 A_FaceTarget();
+        SUPR F 2;
+        SUPR G 6 A_JumpIfTargetInsideMeleeRange("grab");
+        SUPR F 1;
+        ---- A 0 setstatelabel("see");
+
+    grab:
+        SUPR GGGGFFFF 1{if(target){target.A_Stop();target.setorigin((target.pos.xy,target.pos.z+4),false);}}
+        SUPR FFFFFFFFFFFFFFFF 1{if(target)target.A_Stop();}
+        SUPR F 0 A_Jump(64,"Squish");
+    YEET:
+        SUPR F 2{
+        target.vel.xy = (cos(angle),sin(angle))*(2250/target.mass);
+        target.vel.z+=16;
+        }
+        SUPR E 6;
+        SUPR F 5;
+        ---- A 0 setstatelabel("see");
+
+//S Q U I S H -clance
+    squish:
+        SUPR G 0{
+if(target is 'SatanRobo'||target is 'technorantula'||target is 'HDHarbinger'){setstatelabel("see");return;}
+}
+        SUPR G 1{if(target)target.damagemobj(self,self,1000,"claws",DMG_NO_ARMOR);}
+        SUPR G 5;
+        SUPR F 5;
+        ---- A 0 setstatelabel("see");
+
+
+    death.bleedout:
+    xdeath:
+    death:
+        SUPR I 8;
+        SUPR II 0 A_SpawnItemEx("MegaBloodSplatter",
+            random(-10,10),random(-10,10),random(38,60),
+            random(-6,6),random(-6,6),random(3,12)
+        );
+        TNT1 AAAA 0 A_SpawnItemEx("MegaBloodSplatter",
+            random(-32,32),random(-32,32),random(46,96),
+            0,0,random(2,4),0,160,64
+        );
+        SUPR JJ 0 A_SpawnItemEx("MegaBloodSplatter",
+            random(-10,10),random(-10,10),random(38,60),
+            random(-6,6),random(-6,6),random(3,12)
+        );
+        SUPR J 8 A_HDBossScream();
+        TNT1 AAAA 0 A_SpawnItemEx("MegaBloodSplatter",
+            random(-32,32),random(-32,32),random(46,96),
+            0,0,random(2,4),0,160,64
+        );
+        SUPR K 2 A_SpawnProjectile ("SuperDemonArm", frandom(50,56), -50, -50);
+        SUPR K 2 A_SpawnProjectile ("SuperDemonLeg", frandom(20,26), 50, 25);
+        SUPR LM 4 A_SpawnProjectile("Blood",0,0,random(-80,-100),2,random(45,80));
+        TNT1 AAAA 0 A_SpawnItemEx("MegaBloodSplatter",
+            random(-32,32),random(-32,32),random(46,96),
+            0,0,random(2,4),0,160,64
+        );
+        SUPR N 6;
+        SUPR O 6 A_SpawnItemEx("MegaBloodSplatter",
+            random(-10,10),random(-10,10),random(38,60),
+            random(-6,6),random(-6,6),random(3,12)
+        );
+        TNT1 AAAA 0 A_SpawnItemEx("MegaBloodSplatter",
+            random(-32,32),random(-32,32),random(46,96),
+            0,0,random(2,4),0,160,64
+        );
+        SUPR P 200;
+        SUPR P -1 A_BossDeath();
+        stop;
+
+    death.telefrag:
+        CYBR H 0 A_HDBossScream();
+        XUPR AAAA 2 A_SpawnItemEx("HDExplosion",
+            frandom(-26,26),frandom(-26,26),frandom(56,64),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR A 3 A_SpawnItemEx("HDExplosionBoss",
+            frandom(-36,36),frandom(-36,36),frandom(40,46),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR A 1 A_SpawnItemEx("HDExplosion",
+            frandom(-26,26),frandom(-46,46),frandom(30,36),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR B 2{
+            A_UnSetSolid();
+            A_UnSetShootable();
+            A_Explode(512,16);
+            DistantQuaker.Quake(self,8,140,4096,7,400,666,256);
+        }
+
+        CYBR AAAAAAA 0 A_SpawnItemEx("HDSmokeChunk",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(1,4)
+        );
+        XUPR B 2 bright A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-36,36),frandom(-26,26),frandom(60,78),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR B 2 bright A_SpawnItemEx("HDExplosion",
+            frandom(-36,36),frandom(-26,26),frandom(50,68),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR B 3 bright A_SpawnItemEx("HDExplosion",
+            frandom(-26,26),frandom(-26,26),frandom(75,82),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+
+        CYBR AA 0 A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(1,4)
+        );
+        CYBR AA 0 A_SpawnItemEx("HDSmokeChunk",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(6,12)
+        );
+
+        XUPR C 3 bright A_SpawnItemEx("HDExplosionBoss",
+            frandom(-26,26),frandom(-46,46),frandom(45,52),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        CYBR AA 0 A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(1,4)
+        );
+        XUPR C 3 bright A_SpawnItemEx("HDExplosion",
+            frandom(-36,36),frandom(-26,26),frandom(64,82),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR C 3 bright A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-36,36),frandom(-26,26),frandom(45,82),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+
+        CYBR KK 0 A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(1,4)
+        );
+        CYBR KK 0 A_SpawnItemEx("HDSmokeChunk",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(1,4)
+        );
+
+        XUPR D 4 bright A_SpawnItemEx("HDExplosion",
+            frandom(-36,36),frandom(-46,46),frandom(48,62),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR D 4 A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-66,66),frandom(-66,66),frandom(15,42),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+
+        XUPR E 4 A_SpawnItemEx("HDExplosion",
+            frandom(-36,36),frandom(-36,36),frandom(62,82),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR E 1 A_SpawnItemEx("HDExplosionBoss",
+            frandom(-16,16),frandom(-16,16),frandom(75,82),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+
+        CYBR LL 0 A_SpawnItemEx("ExplosionEffectHarbinger",
+            frandom(-10,10),frandom(-10,10),frandom(38,60),
+            frandom(-6,6),frandom(-6,6),frandom(1,4)
+        );
+
+        XUPR EEEE 3 A_SpawnItemEx("HDSmoke",
+            frandom(-36,36),frandom(-36,36),frandom(24,80),
+            frandom(-1,1),frandom(-1,1),frandom(3,6)
+        );
+
+        CYBR M 0 A_NoBlocking();
+        XUPR FFFF 2 A_SpawnItemEx("HDSmoke",
+            frandom(-20,20),frandom(-20,20),frandom(24,80),
+            frandom(-1,1),frandom(-1,1),frandom(2,4)
+        );
+        XUPR GGGG 4 A_SpawnItemEx("HDSmoke",
+            frandom(-26,26),frandom(-26,26),frandom(12,40),
+            frandom(-1,1),frandom(-1,1),frandom(1,3)
+        );
+        XUPR GGGGGGGGGHHHHHHHH 1 A_SpawnItemEx("HDSmoke",
+            frandom(-26,26),frandom(-26,26),frandom(32,60),
+            frandom(-2,2),frandom(-2,2),frandom(1,6)
+        );
+        XUPR HHHHHHHHHHHHHHHH 5 A_SpawnItemEx("HDSmoke",
+            frandom(-26,26),frandom(-26,26),frandom(1,14),
+            frandom(-1,1),frandom(-1,1),frandom(1,4),frandom(0,255)
+
+        );
+        XUPR H 200{bnofear=false;}
+        XUPR H -1 A_BossDeath();
+        stop;
+        }
+    }
+
+class RedBaleBall:BaleBall{
+Default{
+Translation "112:127=176:191", "224:231=170:175", "168:168=170:170";
+        decal "RedBaleScorch";
+}
+    states{
+    spawn:
+        BAL7 A 0 nodelay{
+            actor bbl=spawn("RedBaleLight",pos,ALLOW_REPLACE);bbl.target=self;
+        }
+        BAL7 ABAB 3 A_FBTail();
+    spawn2:
+        BAL7 AB 3 A_FBFloat();
+        loop;
+        }
+}
+
+class RedBaleLight:PointLight{
+    override void postbeginplay(){
+        super.postbeginplay();
+        args[0]=66;
+        args[1]=17;
+        args[2]=13;
+        args[3]=0;
+        args[4]=0;
+    }
+    override void tick(){
+        if(!target){
+            args[3]+=random(-5,2);
+            if(args[3]<1)destroy();
+        }else{
+            setorigin(target.pos,true);
+            if(target.bmissile)args[3]=random(32,40);
+            else args[3]=random(48,64);
+        }
+    }
+}
+
+class ExplosionEffectHarbinger:IdleDummy{
+    default{
+        +bright
+Translation "112:127=176:191", "224:231=170:175", "168:168=170:170";
+        renderstyle "add";
+        deathsound "world/explode";
+        alpha 0.9;
+        height 6;
+        radius 6;
+        speed 10;
+        gravity 0;
+    }
+    states{
+    spawn:
+        TNT1 A 0;
+    death:
+        BFE1 A 2 A_Scream();
+        BFE1 B 2;
+        BFE1 B 4{
+            DistantQuaker.Quake(self,
+                6,100,16384,10,256,512,128
+            );
+            //DistantNoise.Make(self,"world/bfgfar");
+        }
+        TNT1 AAAAA 0 A_SpawnItemEx("HDSmokeChunk",random(-2,0),random(-3,3),random(-2,2),random(-5,0),random(-5,5),random(0,5),random(100,260),SXF_TRANSFERPOINTERS|SXF_NOCHECKPOSITION,16);
+        TNT1 AAAAA 0 A_SpawnItemEx("HarbingerExplosionRemains",-1,0,-12,0,0,0,SXF_TRANSFERPOINTERS|SXF_NOCHECKPOSITION,16);
+        BFE1 CCCC 2;
+        BFE1 CCC 0 A_SpawnItemEx("HDSmoke",random(-4,0),random(-3,3),random(0,4),random(-1,1),random(-1,1),random(1,3),0,SXF_TRANSFERPOINTERS|SXF_NOCHECKPOSITION,16);
+        BFE1 DEF 6;
+        BFE1 F 3 bright A_FadeOut(0.1);
+        wait;
+    }
+}
+
+class HarbingerExplosionRemains:IdleDummy{
+    string pcol;
+    states{
+    spawn:
+        TNT1 A 0 nodelay{
+            pcol="ff 55 88";
+            stamina=0;
+        }
+    spawn2:
+        TNT1 AAAA 1 A_SpawnParticle(
+            pcol,SPF_FULLBRIGHT,35,
+            size:frandom(1,8),0,
+            frandom(-16,16),frandom(-16,16),frandom(0,8),
+            frandom(-1,1),frandom(-1,1),frandom(1,2),
+            frandom(-0.1,0.1),frandom(-0.1,0.1),-0.05
+        );
+        TNT1 A 0 A_SpawnItemEx("HDSmoke",random(-3,3),random(-3,3),random(-3,3),random(-1,1),random(-1,1),random(1,3),0,SXF_TRANSFERPOINTERS|SXF_NOCHECKPOSITION);
+        TNT1 A 0{stamina++;}
+        TNT1 A 0 A_JumpIf(stamina<10,"spawn2");
+        TNT1 AAAAAA 2 A_SpawnParticle(
+            pcol,SPF_FULLBRIGHT,35,
+            size:frandom(1,8),0,
+            frandom(-16,16),frandom(-16,16),frandom(0,8),
+            frandom(-1,1),frandom(-1,1),frandom(1,2),
+            frandom(-0.1,0.1),frandom(-0.1,0.1),-0.05
+        );
+        stop;
+    }
+}

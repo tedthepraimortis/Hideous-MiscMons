@@ -22,3 +22,8 @@ version "4.14"
 #include "zscript/Behemoth.zsc"
 #include "zscript/Decorations.zsc"
 //#include "zscript/HDCoreLib_DropHandler.zsc"
+#include "zscript/Cybergunners.zsc"
+#include "zscript/Annihilators.zsc"
+#include "zscript/Harbringers.zsc"
+// Commented out until functional. - [Ted]
+//#include "zscript/Hectebus.zsc"

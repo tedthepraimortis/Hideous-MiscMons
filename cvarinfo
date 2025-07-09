@@ -4,7 +4,9 @@
 // Zombiemen
 server float trogtrooper_zombieman_spawn_bias = 4.666;
 server float hlartrooper_zombieman_spawn_bias = 4.666;
-server float pd42zombie_zombieman_spawn_bias = 4.666;
+server float bpxtrooper_zombieman_spawn_bias = 4.666;
+server float dmrtrooper_zombieman_spawn_bias = 4.666;
+server float pd42zombie_zombieman_spawn_bias = 0.666;
 server float umpzombie_zombieman_spawn_bias = 3.25;
 
 // Homeboys
@@ -21,6 +23,12 @@ server float frontiersman_operator_spawn_bias = 0.5;
 
 // Demons
 server float wingedbab_demon_spawn_bias = 1.0;
+
+// Cyberdemons
+server float annihilator_cyberdemon_spawn_bias = 0.5;
+server float harbringer_cyberdemon_spawn_bias = 0.5;
+server float cybergunner_cyberdemon_spawn_bias = 0.5;
+server float behemoth_cyberdemon_spawn_bias = 0.5;
 
 // Global Enemy CVARs
 server bool enemy_persistent_spawning = false;

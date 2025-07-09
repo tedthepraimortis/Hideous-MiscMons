@@ -8,28 +8,41 @@ OptionMenu MiscMonsMenu
     StaticText ""
 
     StaticText "Zombiemen", "Green"
-    Slider "Trog Rifle Veteran Spawn Chance:", "trogtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
-    Slider "HLAR Trooper Spawn Chance:", "hlartrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
-    Slider "PD-42 Rifleman Spawn Chance:", "pd42zombie_zombieman_spawn_bias", 0.0, 100, .01, 2
-    Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
-    Slider "UMP-45 Jackboot Spawn Chance:", "umpzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "Trog Rifle Veteran Spawn Weight:", "trogtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "HLAR Trooper Spawn Weight:", "hlartrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "BPX Rifleman Spawn Weight:", "bpxtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "DMR Zombieman Spawn Weight:", "dmrtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "PD-42 Rifleman Spawn Weight:", "pd42zombie_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "USP-45 Homeboy Spawn Weight:", "uspzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "UMP-45 Jackboot Spawn Weight:", "umpzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Undead Homeboys", "Yellow"
-    Slider "USP-45 Homeboy Spawn Chance:", "uspzombie_homeboy_spawn_bias", 0.0, 100, .01, 2
+    Slider "USP-45 Homeboy Spawn Weight:", "uspzombie_homeboy_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Shotgunners", "Red"
-    Slider "Greely Jackboot Spawn Chance:", "greely_shotgunner_spawn_bias", 0.0, 100, .01, 2
+    Slider "Greely Jackboot Spawn Weight:", "greely_shotgunner_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Demons", "Orange"
-    Slider "Winged Babuin Spawn Chance:", "wingedbab_demon_spawn_bias", 0.0, 100, .01, 2
+    Slider "Winged Babuin Spawn Weight:", "wingedbab_demon_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
 
     StaticText "Chaingunners", "Blue"
-    Slider "Vera Machinegunner Spawn Chance:", "verazombie_chaingunner_spawn_bias", 0.0, 100, .01, 2
-    Slider "Frontiersmen Spawn Chance:", "frontiersman_operator_spawn_bias", 0.0, 100, .01, 2
+    Slider "Vera Machinegunner Spawn Weight:", "verazombie_chaingunner_spawn_bias", 0.0, 100, .01, 2
+    Slider "Frontiersmen Spawn Weight:", "frontiersman_operator_spawn_bias", 0.0, 100, .01, 2
+    StaticText ""
+
+    StaticText "Mancubi", "Brown"
+    //Slider "Hectebus Spawn Weight:", "hectebus_mancubus_spawn_bias", 0.0, 100, .01, 2
+    StaticText ""
+
+    StaticText "Bosses", "Grey"
+    Slider "Cybergunner Spawn Weight:", "cybergunner_cyberdemon_spawn_bias", 0.0, 100, .01, 2
+    Slider "Harbringer Spawn Weight:", "harbringer_cyberdemon_spawn_bias", 0.0, 100, .01, 2
+    Slider "Annihilator Spawn Weight:", "annihilator_cyberdemon_spawn_bias", 0.0, 100, .01, 2
+    Slider "Behemoth Spawn Weight:", "behemoth_cyberdemon_spawn_bias", 0.0, 100, .01, 2
     StaticText ""
     StaticText ""
 

@@ -142,3 +142,473 @@ BrightMap Sprite ZSP1F5
 	Map BMZSP1F5
 	DisableFullBright
 }
+
+Pointlight AnnihilatorRocket1
+{
+Color 1.0 0.7 0.0
+Size 28
+}
+
+Pointlight AnnihilatorFire
+{
+Color 1.0 0.7 0.0
+Size 56
+}
+
+Object RoboboBall
+{
+Frame HMISA { Light AnnihilatorRocket1 }
+}
+
+Object HDAnnihilator
+{
+Frame ANNIF { Light AnnihilatorFire }
+}
+
+BrightMap Sprite ANNIA1C1
+{
+Map BANNIA1
+DisableFullBright
+}
+
+BrightMap Sprite ANNIA2C8
+{
+Map BANNIA2
+DisableFullBright
+}
+
+BrightMap Sprite ANNIA3C7
+{
+Map BANNIA3
+DisableFullBright
+}
+
+BrightMap Sprite ANNIA4C6
+{
+Map BANNIA4
+DisableFullBright
+}
+
+BrightMap Sprite ANNIA7C3
+{
+Map BANNIA7
+DisableFullBright
+}
+
+BrightMap Sprite ANNIA8C2
+{
+Map BANNIA8
+DisableFullBright
+}
+
+BrightMap Sprite ANNIB1D1
+{
+Map BANNIB1
+DisableFullBright
+}
+
+BrightMap Sprite ANNIB2D8
+{
+Map BANNIB2
+DisableFullBright
+}
+
+BrightMap Sprite ANNIB3D7
+{
+Map BANNIB3
+DisableFullBright
+}
+
+BrightMap Sprite ANNIB5D5
+{
+Map BANNIB5
+DisableFullBright
+}
+
+BrightMap Sprite ANNIB7D3
+{
+Map BANNIB7
+DisableFullBright
+}
+
+BrightMap Sprite ANNIB8D2
+{
+Map BANNIB8
+DisableFullBright
+}
+
+BrightMap Sprite ANNIE1
+{
+Map BANNIE1
+DisableFullBright
+}
+
+BrightMap Sprite ANNIE2E8
+{
+Map BANNIE2
+DisableFullBright
+}
+
+BrightMap Sprite ANNIE3E7
+{
+Map BANNIE3
+DisableFullBright
+}
+
+BrightMap Sprite ANNIF1
+{
+Map BANNIF1
+DisableFullBright
+}
+
+BrightMap Sprite ANNIF2F8
+{
+Map BANNIF2
+DisableFullBright
+}
+
+BrightMap Sprite ANNIF3F7
+{
+Map BANNIF3
+DisableFullBright
+}
+
+BrightMap Sprite ANNIF4F6
+{
+Map BANNIF4
+DisableFullBright
+}
+
+BrightMap Sprite ANNIF5
+{
+Map BANNIF5
+DisableFullBright
+}
+
+BrightMap Sprite ANNIG1
+{
+Map BANNIG1
+DisableFullBright
+}
+
+BrightMap Sprite ANNIG2G8
+{
+Map BANNIG2
+DisableFullBright
+}
+
+BrightMap Sprite ANNIH0
+{
+Map BANNIH0
+DisableFullBright
+}
+
+BrightMap Sprite ANNII0
+{
+Map BANNII0
+DisableFullBright
+}
+
+BrightMap Sprite ANNIJ0
+{
+Map BANNIJ0
+DisableFullBright
+}
+
+BrightMap Sprite ANNIK0
+{
+Map BANNIK0
+DisableFullBright
+}
+
+BrightMap Sprite ANNIL0
+{
+Map BANNIL0
+DisableFullBright
+}
+
+BrightMap Sprite ANNIM0
+{
+Map BANNIM0
+DisableFullBright
+}
+
+BrightMap Sprite ANNIN0
+{
+Map BANNIN0
+DisableFullBright
+}
+
+BrightMap Sprite ANNIO0
+{
+Map BANNIO0
+DisableFullBright
+}
+
+brightmap sprite HECTA1
+{
+
+	map "brightmaps/BMHECTA1.png"
+	//iwad
+}
+
+brightmap sprite HECTA2A8
+{
+	map "brightmaps/BMHECTA2A8.png"
+	//iwad
+}
+
+brightmap sprite HECTB1
+{
+	map "brightmaps/BMHECTB1.png"
+	//iwad
+}
+
+brightmap sprite HECTB2B8
+{
+	map "brightmaps/BMHECTB2B8.png"
+	//iwad
+}
+
+brightmap sprite HECTB3B7
+{
+	map "brightmaps/BMHECTB3B7.png"
+	//iwad
+}
+
+brightmap sprite HECTC1
+{
+	map "brightmaps/BMHECTC1.png"
+	//iwad
+}
+
+brightmap sprite HECTC2C8
+{
+	map "brightmaps/BMHECTC2C8.png"
+	//iwad
+}
+
+brightmap sprite HECTC3C7
+{
+	map "brightmaps/BMHECTC3C7.png"
+	//iwad
+}
+
+brightmap sprite HECTD1
+{
+	map "brightmaps/BMHECTD1.png"
+	//iwad
+}
+
+brightmap sprite HECTD2D8
+{
+	map "brightmaps/BMHECTD2D8.png"
+	//iwad
+}
+
+brightmap sprite HECTD3D7
+{
+	map "brightmaps/BMHECTD3D7.png"
+	//iwad
+}
+
+brightmap sprite HECTE1
+{
+	map "brightmaps/BMHECTE1.png"
+	//iwad
+}
+
+brightmap sprite HECTE2E8
+{
+	map "brightmaps/BMHECTE2E8.png"
+	//iwad
+}
+
+brightmap sprite HECTE3E7
+{
+	map "brightmaps/BMHECTE3E7.png"
+	//iwad
+}
+
+brightmap sprite HECTF1
+{
+	map "brightmaps/BMHECTF1.png"
+	//iwad
+}
+
+brightmap sprite HECTF2F8
+{
+	map "brightmaps/BMHECTF2F8.png"
+	//iwad
+}
+
+brightmap sprite HECTF3F7
+{
+	map "brightmaps/BMHECTF3F7.png"
+	//iwad
+}
+
+brightmap sprite HECTG1
+{
+	map "brightmaps/BMHECTG1.png"
+	//iwad
+}
+
+brightmap sprite HECTG2G8
+{
+	map "brightmaps/BMHECTG2G8.png"
+	//iwad
+}
+
+brightmap sprite HECTH1
+{
+	map "brightmaps/BMHECTH1.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTH2H8
+{
+	map "brightmaps/BMHECTH2.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTH3H7
+{
+	map "brightmaps/BMHECTH3.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTH4H6
+{
+	map "brightmaps/BMHECTH4.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTH5
+{
+	map "brightmaps/BMHECTH5.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTI1
+{
+	map "brightmaps/BMHECTI1.png"
+	//iwad
+}
+
+brightmap sprite HECTI2I8
+{
+	map "brightmaps/BMHECTI2.png"
+	//iwad
+}
+
+brightmap sprite HECTJ1
+{
+	map "brightmaps/BMHECTJ1.png"
+	//iwad
+}
+
+brightmap sprite HECTJ2
+{
+	map "brightmaps/BMHECTJ2.png"
+	//iwad
+}
+
+brightmap sprite HECTJ8
+{
+	map "brightmaps/BMHECTJ8.png"
+	//iwad
+}
+
+brightmap sprite HECTR0
+{
+	map "brightmaps/BMHECTR0.png"
+	//iwad
+}
+
+brightmap sprite HECTS0
+{
+	map "brightmaps/BMHECTS0.png"
+	//iwad
+}
+
+brightmap sprite HECTT0
+{
+	map "brightmaps/BMHECTT0.png"
+	//iwad
+}
+
+brightmap sprite HECTU1
+{
+	map "brightmaps/BMHECTU1.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTU2V8
+{
+	map "brightmaps/BMHECTU2.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTU3V7
+{
+	map "brightmaps/BMHECTU3.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTU3V6
+{
+	map "brightmaps/BMHECTU4.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTU5
+{
+	map "brightmaps/BMHECTU5.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTU6V4
+{
+	map "brightmaps/BMHECTU6.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECT73V3
+{
+	map "brightmaps/BMHECTU7.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTU8V2
+{
+	map "brightmaps/BMHECTU8.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTV1
+{
+	map "brightmaps/BMHECTV1.png"
+	//iwad
+	disablefullbright
+}
+
+brightmap sprite HECTV5
+{
+	map "brightmaps/BMHECTV5.png"
+	//iwad
+	disablefullbright
+}

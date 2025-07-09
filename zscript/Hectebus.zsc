@@ -1,0 +1,764 @@
+class hectejuicelight:PointLight{
+    override void postbeginplay(){
+        super.postbeginplay();
+        args[0]=18;
+        args[1]=164;
+        args[2]=66;
+        args[3]=0;
+        args[4]=0;
+    }
+    override void tick(){
+        if(!target){
+            args[3]+=random(-20,4);
+            if(args[3]<1)destroy();
+        }else{
+            setorigin(target.pos,true);
+            if(target.bmissile)args[3]=random(28,44);
+            else args[3]=random(32,64);
+        }
+    }
+}
+
+class HDHecteSmoke:HDSmoke{default{translation "green";}}
+
+class HecteFlame:IdleDummy{
+    default{
+        +forcexybillboard +bright
+        alpha 0.9;renderstyle "add";
+        deathsound "misc/firecrkl";
+        obituary "%o was incinerated by a Hectebus.";
+        gravity 0.5;
+    }
+    states{
+    spawn:
+    death:
+        HECF C 0 nodelay{
+            if(max(abs(pos.x),abs(pos.y),abs(pos.z))>=32768){destroy();return;}
+            if(!vel.x)vel.x+=CSLUG_BALLSPEED;
+            A_StartSound(deathsound,CHAN_BODY);
+            let xxx=spawn("hectejuicelight",pos);
+            xxx.target=self;
+        }
+        HECF CC 0 A_SpawnItemEx("ParticleWhiteSmall", 0,0,0, vel.x+random(-2,2),vel.y+random(-2,2),vel.z,0,SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS);
+    fade:
+        HECF C 1;
+        HECF CCCCC 1 A_Immolate(tracer,self,3);
+        HECF CCCCC 1{ A_Immolate(tracer,self,3); A_SpawnItemEx("HDHecteSmoke", 0,0,0, vel.x+frandom(-2,2),vel.y+frandom(-2,2),vel.z,0,SXF_ABSOLUTEMOMENTUM|SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS);}
+        HECF C 1{ A_FadeOut(0.1); A_Immolate(tracer,self,2);}
+        HECF D 1{ A_FadeOut(0.2); A_Immolate(tracer,self,2);}
+        HECF EE 1{ A_FadeOut(0.2); A_Immolate(tracer,self,1);}
+        TNT1 A 1;
+        stop;
+    }
+}
+
+class hectejuicesmoke:HDFireballTail{
+    default{
+        deathheight 0.9;
+        translation 2;
+        renderstyle "subtract";
+        gravity 0;
+    }
+    states{
+    spawn:
+        BAL7 C random(3,5);BAL7 C 0 A_SetScale(scale.y*2);
+        ---- CDE -1{frame=random(2,4);}wait;
+    }
+}
+class hectejuice:hdfireball{
+    default{
+        missiletype "hectejuicesmoke";
+        missileheight 8;
+        damagetype "balefire";
+        activesound "misc/firecrkl";
+        decal "HecteScorch";
+        gravity 0.1;
+        speed CSLUG_BALLSPEED;
+        radius 7;
+        height 8;
+        hdfireball.firefatigue HDCONST_MAXFIREFATIGUE*0.2;
+    }
+    actor trailburner;
+    override void ondestroy(){
+        if(trailburner)trailburner.destroy();
+        super.ondestroy();
+    }
+    states{
+    spawn:
+        HECF A 0 nodelay{
+            actor mjl=spawn("hectejuicelight",pos+(0,0,16),ALLOW_REPLACE);
+            mjl.target=self;
+        }
+        HECF ABAB 2 A_FBTail();
+    spawn2:
+        HECF A 2 A_FBFloat();
+        HECF B 2;
+        loop;
+    death:
+        HECF C 0{
+            vel.z+=1.;
+            A_HDBlast(
+                128,66,16,"balefire",
+                immolateradius:frandom(96,196),random(20,90),42,
+                false
+            );
+            A_SpawnChunks("HDSmokeChunk",random(2,4),6,20);
+            A_StartSound("misc/fwoosh",CHAN_WEAPON);
+            scale=(0.9*randompick(-1,1),0.9);
+        }
+        HECF CCCC 1{
+            vel.z+=0.5;
+            scale*=1.05;
+        }
+        HECF DDDEEE 1{
+            alpha-=0.15;
+            scale*=1.01;
+        }
+        TNT1 A 0{
+            A_Immolate(tracer,target,80);
+            addz(-20);
+        }
+        TNT1 AAAAAAAAAAAAAAA 4{
+            if(tracer){
+                setorigin((tracer.pos.xy,tracer.pos.z+frandom(0.1,tracer.height*0.4)),false);
+                vel=tracer.vel;
+            }
+            A_SpawnItemEx("HDSmoke",
+                frandom(-2,2),frandom(-2,2),frandom(0,2),
+                vel.x+frandom(2,-4),vel.y+frandom(-2,2),vel.z+frandom(1,4),
+                0,SXF_NOCHECKPOSITION|SXF_ABSOLUTEMOMENTUM
+            );
+        }stop;
+    }
+}
+
+class MiniHBBall:HDActor{
+    default{
+        +forcexybillboard
+        projectile;
+        +seekermissile
+        damagetype "balefire";
+        renderstyle "add";
+        decal "gooscorch";
+        alpha 0.8;
+        scale 0.6;
+        radius 4;
+        height 6;
+        gravity 0.1;
+        speed CSLUG_BALLSPEED;
+        damage 8;
+        seesound "baron/attack";
+        deathsound "baron/shotx";
+    }
+    int user_counter;
+    override void postbeginplay(){
+        super.postbeginplay();
+
+        let hdmb=hdmobbase(target);
+        if(hdmb)hdmb.firefatigue+=int(HDCONST_MAXFIREFATIGUE*0.1);
+    }
+    states{
+    spawn:
+        BAL7 EDC 1 bright;
+        BAL7 ABABA 2 bright;
+        BAL7 BAB 3 bright;
+    spawn2:
+        BAL7 A 2 bright;
+        BAL7 B 2 bright A_SpawnItemEx("MiniBBallTail",-3,0,3,3,0,random(1,2),0,161,0);
+
+        BAL7 A 2 bright;
+        BAL7 B 2 bright A_SpawnItemEx("MiniBBallTail",-3,0,3,3,0,random(1,2),0,161,0);
+        BAL7 A 2 bright;
+        BAL7 B 2 bright A_SpawnItemEx("MiniBBallTail",-3,0,3,3,0,random(1,2),0,161,0);
+        BAL7 A 2 bright;
+        BAL7 B 2 bright A_SpawnItemEx("MiniBBallTail",-3,0,3,3,0,random(1,2),0,161,0);
+    spawn3:
+        TNT1 A 0 A_JumpIf(user_counter>4,"spawn4");
+        TNT1 A 0 {user_counter++;}
+        BAL7 A 3 bright;
+        BAL7 B 3 bright A_SpawnItemEx("MiniBBallTail",-3,0,3,3,0,random(1,2),0,161,0);
+        loop;
+    spawn4:
+        BAL7 A 3 bright A_SpawnItemEx("MiniBBallTail",-3,0,3,3,0,random(1,2),0,161,0);
+        TNT1 A 0 A_JumpIf(pos.z-floorz<10,2);
+        BAL7 B 3 bright A_ChangeVelocity(frandom(-0.2,1),frandom(-1,1),frandom(-1,0.9),CVF_RELATIVE);
+        loop;
+        BAL7 B 3 bright A_ChangeVelocity(frandom(-0.2,1),frandom(-1,1),frandom(-0.6,1.9),CVF_RELATIVE);
+        loop;
+    death:
+        BAL7 CDE 4 bright A_FadeOut(0.2);
+        stop;
+    }
+}
+
+class HecteBaleBall:hdfireball{
+    default{
+        missiletype "zbbt";
+        damagetype "balefire";
+        activesound "baron/ballhum";
+        decal "gooscorch";
+        gravity 0.1;
+        speed CSLUG_BALLSPEED;
+        hdfireball.firefatigue int(HDCONST_MAXFIREFATIGUE*0.2);
+    }
+    actor lingerburner;
+    override void ondestroy(){
+        if(lingerburner)lingerburner.destroy();
+        super.ondestroy();
+    }
+    states{
+    spawn:
+        BAL7 A 0 nodelay{
+            actor bbl=spawn("BaronBallLight",pos,ALLOW_REPLACE);bbl.target=self;
+        }
+        BAL7 ABAB 3 A_FBTail();
+    spawn2:
+        BAL7 A 3 A_FBFloat();
+        BAL7 B 3;
+        loop;
+    death:
+        BAL7 A 0{
+            vel.z+=0.5;
+            if(!blockingmobj){
+                tracer=null;
+                setstatelabel("burn");
+
+                lingerburner=spawn("BaleBallBurner",pos,ALLOW_REPLACE);
+                lingerburner.target=target;lingerburner.master=self;
+                return;
+            }else if(
+                target
+                &&blockingmobj.health>0
+                &&target.health>0
+                &&blockingmobj.getspecies()==target.getspecies()
+                &&!(blockingmobj.ishostile(target))
+            )return;
+            else if(tracer&&blockingmobj==tracer){
+                vel.z=2;
+                tracer.damagemobj(self,target,random(16,32),"balefire");
+                alpha=1;scale*=1.2;
+                setstatelabel("burn");
+            }
+        }
+    splat:
+        BAL7 CDE 4;
+        stop;
+    burn:
+        BAL7 CDE 3{
+            A_FadeOut(0.05);
+            frame=random(2,4);roll=random(0,360);
+            if(!tracer){
+                addz(0.1);
+                return;
+            }
+
+            if(tracer is "HDPlayerPawn"&&tracer.health<1&&HDPlayerPawn(tracer).playercorpse){
+                tracer=HDPlayerPawn(tracer).playercorpse;
+            }
+
+            double trad=tracer.radius;double tht=tracer.height;
+            setxyz(tracer.pos+(frandom(-trad,trad),frandom(-trad,trad),frandom(tht*0.5,tht)));
+
+            if(alpha>0.3){
+                tracer.damagemobj(self,target,random(1,3),"balefire");
+            }else{
+                A_Immolate(tracer,target,random(10,20));
+                destroy();
+            }
+        }wait;
+    }
+}
+
+class HDHectebus:Mancubus{
+    default{
+        health 800;
+        mass 1010;
+        speed 8;
+        monster;
+        +floorclip
+        +bossdeath
+        +MAP07BOSS1
+        seesound "fatso/sight";
+        painsound "fatso/pain";
+        deathsound "fatso/death";
+        activesound "fatso/active";
+        tag "$cc_hectebus";
+        bloodcolor "darkred";
+        species "fatso";
+
+        +dontharmspecies
+        deathheight 20;
+        radius 28;
+        height 60;
+
+        meleerange 64;
+        meleethreshold 128;
+
+        damagefactor "hot", 0.5;
+        damagefactor "balefire", 0.5;
+        damagefactor "cold", 0.6;
+        hdmobbase.shields 750;
+        obituary "$OB_HECTEBUS";
+        hitobituary "$OB_HECTEBUS_MELEE"; //just in case you were somehow get killed by the actual melee part
+        painchance 40;
+    }
+    bool hasattacked;
+
+//trying to make them be fireproof
+    override void tick(){
+        super.tick();
+        if(isfrozen()||health<1)return;
+        A_GiveInventory("HDFireDouse",20);
+    }
+
+    override void beginplay(){
+        super.beginplay();
+        if(!random(0,7))
+        A_GiveInventory("ImmunityToFire",1);
+    }
+
+    states{
+    spawn:
+        HECT AB 15 A_HDLook();
+        loop;
+    see:
+        HECT ABCDEF 6 A_HDChase();
+        loop;
+    missile:
+        HECT ABCD 3{
+            A_FaceTarget(30,30);
+            if(A_JumpIfTargetInLOS("null",10))setstatelabel("raiseshoot");
+
+        }
+        HECT E 0 A_JumpIfTargetInLOS("raiseshoot",30);
+        HECT E 0 A_JumpIfTargetInLOS("missile");
+        ---- A 0 setstatelabel("see");
+    raiseshoot:
+        HECT G 4{
+            A_StartSound("fatso/raiseguns",CHAN_VOICE);
+            A_FaceTarget(40,40);
+        }
+        HECT G 4 A_FaceTarget(20,20);
+        HECT GGGG 1 A_SpawnItemEx("HDSmoke",
+            16,randompick(24,-24),bplayingid?18:40,
+            random(2,4),flags:SXF_NOCHECKPOSITION
+        );
+        HECT G 0 A_Jump(96,"SingleShot");
+    shoot:
+        HECT G 2{
+            A_FaceTarget(10,10);
+            A_SpawnItemEx("HDSmoke",
+                16,randompick(24,-24),18,
+                random(2,4),flags:SXF_NOCHECKPOSITION
+            );
+            if(!hdmobai.TryShoot(self,24,128,48,32))setstatelabel("see");
+        }
+        HECT G 1{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            firsttargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+        }
+        HECT G 2{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            secondtargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+
+            targdist=(target?max(1.,distance3d(target)):4096);
+
+            if(targdist>2000)leadoffset=(frandom(-2.,2),frandom(-1.,1.));
+            else leadoffset=(
+                deltaangle(firsttargetaim.x,secondtargetaim.x),
+                deltaangle(firsttargetaim.y,secondtargetaim.y)
+            )*targdist*frandom(0.021,0.070);
+
+            angle+=leadoffset.x;pitch+=leadoffset.y;
+        }
+        HECT H 10 bright{
+            if(!hasattacked)hasattacked=true;
+            A_StartSound("weapons/bronto",CHAN_WEAPON);
+
+            hdmobai.DropAdjust(self,"hectejuice");
+
+            //lead target
+            actor ppp;int bluh;
+            [bluh,ppp]=A_SpawnItemEx(
+                "hectejuice",0,24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+
+            //random
+            int opt=random(0,2);
+            A_FaceTarget(5,5);
+            if(opt==1){
+                leadoffset*=frandom(-0.6,1.);
+                angle+=leadoffset.x;
+                pitch+=leadoffset.y;
+            }else if(opt==2){
+                angle+=frandom(-10,10)/targdist;
+                pitch+=frandom(-1,1);
+            }
+            [bluh,ppp]=A_SpawnItemEx(
+                "hectejuice",0,-24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                -atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+        }
+        HECT G 6{
+            if(health<=675)A_SetTics(3);
+            }
+        HECT G 10{
+            if(health<=675)A_SetTics(5);
+            if(
+                accuracy<2
+                &&(!random(0,4-(!!target&&target.health>0)))
+            ){
+                accuracy++;
+                setstatelabel("shoot");
+            }else accuracy=0;
+        }
+        ---- A 0 setstatelabel("see");
+
+    singleshot:
+        HECT G 2{
+            A_FaceTarget(10,10);
+            A_SpawnItemEx("HDSmoke",
+                16,randompick(24,-24),18,
+                random(2,4),flags:SXF_NOCHECKPOSITION
+            );
+            if(!hdmobai.TryShoot(self,24,128,48,32))setstatelabel("see");
+        }
+        HECT G 1{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            firsttargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+        }
+        HECT G 0 A_Jump(128,"singleshotmini");
+    singleshotbale:
+        HECT G 1{
+            if(health<=675)A_SetTics(0);
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            firsttargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+        }
+        HECT G 1{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            secondtargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+
+            targdist=(target?max(1.,distance3d(target)):4096);
+
+            if(targdist>2000)leadoffset=(frandom(-2.,2),frandom(-1.,1.));
+            else leadoffset=(
+                deltaangle(firsttargetaim.x,secondtargetaim.x),
+                deltaangle(firsttargetaim.y,secondtargetaim.y)
+            )*targdist*frandom(0.021,0.070);
+
+            angle+=leadoffset.x;pitch+=leadoffset.y;
+        }
+        HECT U 5{
+            if(!hasattacked)hasattacked=true;
+            A_StartSound("weapons/bronto",CHAN_WEAPON);
+
+            hdmobai.DropAdjust(self,"HecteBaleBall");
+
+            //lead target
+            actor ppp;int bluh;
+            [bluh,ppp]=A_SpawnItemEx(
+                "HecteBaleBall",0,24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+
+            //random
+            int opt=random(0,2);
+            A_FaceTarget(5,5);
+
+            if(opt==1){
+                leadoffset*=frandom(-0.6,1.);
+
+                angle+=leadoffset.x;
+                pitch+=leadoffset.y;
+            }else if(opt==2){
+                angle+=frandom(-10,10)/targdist;
+                pitch+=frandom(-1,1);
+            }
+        }
+        HECT G 1{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            firsttargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+        }
+        HECT G 2{
+            if(health<=675)A_SetTics(1);
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            secondtargetaim=(angle,pitch);
+
+            angle=aimbak.x;pitch=aimbak.y;
+
+            targdist=(target?max(1.,distance3d(target)):4096);
+
+            if(targdist>2000)leadoffset=(frandom(-2.,2),frandom(-1.,1.));
+            else leadoffset=(
+                deltaangle(firsttargetaim.x,secondtargetaim.x),
+                deltaangle(firsttargetaim.y,secondtargetaim.y)
+            )*targdist*frandom(0.021,0.070);
+
+            angle+=leadoffset.x;pitch+=leadoffset.y;
+        }
+        HECT V 5{
+            A_StartSound("weapons/bronto",CHAN_WEAPON);
+
+            hdmobai.DropAdjust(self,"HecteBaleBall");
+
+            //lead target
+            actor ppp;int bluh;
+            [bluh,ppp]=A_SpawnItemEx(
+                "HecteBaleBall",0,-24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                -atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+
+            //random
+            int opt=random(0,2);
+            A_FaceTarget(5,5);
+            if(opt==1){
+                leadoffset*=frandom(-0.6,1.);
+                angle+=leadoffset.x;
+                pitch+=leadoffset.y;
+            }else if(opt==2){
+                angle+=frandom(-10,10)/targdist;
+                pitch+=frandom(-1,1);
+            }
+        }
+        HECT G random(3,6);
+        HECT G 0{
+            if(A_JumpIfTargetInLOS("null",90)&&random(0,3))setstatelabel("singleshotbale");
+        }
+    singleshotend:
+        HECT G 10;
+        ---- A 0 setstatelabel("see");
+
+    singleshotmini:
+        HECT G 1{
+            if(health<=675)A_SetTics(0);
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            firsttargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+        }
+        HECT G 1{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            secondtargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+
+            targdist=(target?max(1.,distance3d(target)):4096);
+
+            if(targdist>2000)leadoffset=(frandom(-2.,2),frandom(-1.,1.));
+            else leadoffset=(
+                deltaangle(firsttargetaim.x,secondtargetaim.x),
+                deltaangle(firsttargetaim.y,secondtargetaim.y)
+            )*targdist*frandom(0.021,0.070);
+
+            angle+=leadoffset.x;pitch+=leadoffset.y;
+        }
+        HECT U 5{
+            if(!hasattacked)hasattacked=true;
+            A_StartSound("weapons/bronto",CHAN_WEAPON);
+
+            hdmobai.DropAdjust(self,"MiniHBBall");
+
+            //lead target
+            actor ppp;int bluh;
+            [bluh,ppp]=A_SpawnItemEx(
+                "MiniHBBall",0,24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+            [bluh,ppp]=A_SpawnItemEx(
+                "MiniHBBall",0,24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+            [bluh,ppp]=A_SpawnItemEx(
+                "MiniHBBall",0,24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+
+            //random
+            int opt=random(0,2);
+            A_FaceTarget(5,5);
+            if(opt==1){
+                leadoffset*=frandom(-0.6,1.);
+                angle+=leadoffset.x;
+                pitch+=leadoffset.y;
+            }else if(opt==2){
+                angle+=frandom(-10,10)/targdist;
+                pitch+=frandom(-1,1);
+            }
+        }
+        HECT G 1{
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            firsttargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+        }
+        HECT G 2{
+            if(health<=675)A_SetTics(1);
+            vector2 aimbak=(angle,pitch);
+            A_FaceTarget(0,0);
+            secondtargetaim=(angle,pitch);
+            angle=aimbak.x;pitch=aimbak.y;
+
+            targdist=(target?max(1.,distance3d(target)):4096);
+
+            if(targdist>2000)leadoffset=(frandom(-2.,2),frandom(-1.,1.));
+            else leadoffset=(
+                deltaangle(firsttargetaim.x,secondtargetaim.x),
+                deltaangle(firsttargetaim.y,secondtargetaim.y)
+            )*targdist*frandom(0.021,0.070);
+
+            angle+=leadoffset.x;pitch+=leadoffset.y;
+        }
+        HECT V 5{
+            A_StartSound("weapons/bronto",CHAN_WEAPON);
+
+            hdmobai.DropAdjust(self,"MiniHBBall");
+
+            //lead target
+            actor ppp;int bluh;
+            [bluh,ppp]=A_SpawnItemEx(
+                "MiniHBBall",0,-24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                -atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+
+            [bluh,ppp]=A_SpawnItemEx(
+                "MiniHBBall",0,-24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                -atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+            [bluh,ppp]=A_SpawnItemEx(
+                "MiniHBBall",0,-24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                -atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_SETTARGET|SXF_TRANSFERPITCH
+            );
+
+            //random
+            int opt=random(0,2);
+            A_FaceTarget(5,5);
+            if(opt==1){
+                leadoffset*=frandom(-0.6,1.);
+                angle+=leadoffset.x;
+                pitch+=leadoffset.y;
+            }else if(opt==2){
+                angle+=frandom(-10,10)/targdist;
+                pitch+=frandom(-1,1);
+            }
+        }
+        HECT G random(3,6);
+        HECT G 0{
+            if(A_JumpIfTargetInLOS("null",90)&&random(0,3))setstatelabel("singleshotmini");
+        }
+        ---- A 0 setstatelabel("singleshotend");
+
+    melee:
+        HECT D 3 A_FaceTarget(0,0);
+        HECT E 2;
+        HECT G 3{
+            A_CustomMeleeAttack(random(10,50),
+            "weapons/smack","","bashing",true);
+
+            flinetracedata rlt;
+            LineTrace(
+                angle,meleerange,pitch,
+                TRF_ALLACTORS,
+                offsetz:height-6,
+                data:rlt
+            );
+            if(rlt.hitactor){
+            let lmao=rlt.hitactor;
+            double angoffset=absangle(angle,angleto(lmao));
+                    vector3 thr=lmao.pos-pos;
+                    thr*=(40-(angoffset))/lmao.mass;
+                    lmao.vel+=thr;
+            }
+        }
+        HECT G 0{if(!hasattacked)setstatelabel("meleeend");}
+        HECT G 7 A_StartSound("fatso/ignite",CHAN_WEAPON,CHANF_OVERLAP);
+        HECT H 1 bright;
+        HECT HHHHH 2 bright{
+            A_StartSound("fatso/attack",CHAN_WEAPON,CHANF_OVERLAP);
+            A_SpawnItemEx(
+                "hecteflame",0,24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS
+            );
+            A_SpawnItemEx(
+                "hecteflame",0,-24,32,
+                cos(pitch)*CSLUG_BALLSPEED,0,-sin(pitch)*CSLUG_BALLSPEED,
+                atan(24/targdist),
+                flags:SXF_NOCHECKPOSITION|SXF_TRANSFERPITCH|SXF_TRANSFERPOINTERS
+            );
+        }
+    meleeend:
+        HECT GFED 3;
+        HECT A 0 setstatelabel("see");
+
+    pain:
+        HECT J 3;
+        HECT J 3 A_Pain;
+        ---- A 0 setstatelabel("see");
+    death:
+        HECT K 6 A_SpawnItemEx("HDExplosion",0,0,36,flags:SXF_SETTARGET);
+        HECT L 6 A_Scream();
+        HECT MNOPQRS 6 A_SpawnItemEx("HDSmoke",
+            frandom(-4,4),frandom(-4,4),frandom(26,32),
+            0,0,frandom(1,4),
+            0,SXF_NOCHECKPOSITION
+        );
+        HECT TTT 8 A_SpawnItemEx("HDSmoke",
+            frandom(-4,4),frandom(-4,4),frandom(26,32),
+            0,0,frandom(1,4),
+            0,SXF_NOCHECKPOSITION
+        );
+        HECT T -1{
+            A_BossDeath();
+            balwaystelefrag=true; //not needed?
+            bodydamage+=1200;
+        }stop;
+    raise:
+        HECT ST 14 damagemobj(self,self,1,"maxhpdrain",DMG_NO_PAIN|DMG_FORCED|DMG_NO_FACTOR);
+        HECT TSR 10;
+        HECT QPONMLK 5;
+        ---- A 0 setstatelabel("see");
+    death.maxhpdrain:
+        HECT STST 14 A_SpawnItemEx("MegaBloodSplatter",
+            frandom(-1,1),frandom(-1,1),frandom(10,16),
+            vel.x,vel.y,vel.z,0,SXF_NOCHECKPOSITION
+        );
+        HECT T -1;
+        stop;
+    }
+}
+

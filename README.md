@@ -39,3 +39,7 @@ Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/Hid
 - Marble Columns: Captain Toenail, Gez, ShadesMaster, Shtbag667, id Software
 - Marble Urns: CaptainToenail, Hexen, Freesound.org/Kinoton
 - PSX Bloody Chain: Williams Entertainment
+- Annihilator: Sounds; id Software, Midway | Sprites; id Software, Raven Software, Wolfendoom | Sprite Edits; Eriance | Original Code: Benitez
+- Cybergunners: Original Code: Benitez
+- Harbringers: Original Code: Benitez
+- Hectebus: Sprites: Id Software, Midway | Sprite Edit: AgentSpork | Brightmaps: Sandypaper | Sounds: Project Brutality(?) | Original Code: Benitez

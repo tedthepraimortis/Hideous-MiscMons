@@ -6,8 +6,15 @@
 
 // TROG Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
-// TROG Zombieman Spawn Pools
+
+// HLAR Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "HLARTrooper", "weight": "#hlartrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+
+// BPX Zombieman Spawn Pools
+addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "BPXTrooper", "weight": "#bpxtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
+
+// DMR Zombieman Spawn Pools
+addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "DMRTrooper", "weight": "#dmrtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // PD-42 Zombieman Spawn Pools
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "PeeDeeFourtyTrooper", "weight": "#pd42zombie_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
@@ -38,9 +45,18 @@ addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "Fronti
 // Winged Babuins
 addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
+// High Tiers
+addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDAnnihilator", "weight": "#annihilator_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDHarbringer", "weight": "#harbringer_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDCyberGunner", "weight": "#cybergunner_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "Behemoth", "weight": "#behemoth_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+//addSpawnTableSingleEntry => { "tableName": "MancubusReplaces", "name": "HDHectebus", "weight": "#hectebus_mancubus_spawn_bias", "persists": "#enemy_persistent_spawning"}
+
 // Bounty Targets - [Ted]
-newMerchantBountyTarget => { "name": "WingedBab", "value": "250" }
+newMerchantBountyTarget => { "name": "WingedBab", "value": "300" }
 newMerchantBountyTarget => { "name": "ZombieTrogTrooper", "value": "200" }
+newMerchantBountyTarget => { "name": "BPXTrooper", "value": "200" }
+newMerchantBountyTarget => { "name": "DMRTrooper", "value": "200" }
 newMerchantBountyTarget => { "name": "PeeDeeFourtyTrooper", "value": "600" }
 newMerchantBountyTarget => { "name": "UMPZombie", "value": "200" }
 newMerchantBountyTarget => { "name": "USPHomeboy", "value": "200" }
@@ -48,6 +64,11 @@ newMerchantBountyTarget => { "name": "GreelyShortgunner", "value": "200" }
 newMerchantBountyTarget => { "name": "AltisShotgunner", "value": "200" }
 newMerchantBountyTarget => { "name": "VeraZombie", "value": "300" }
 newMerchantBountyTarget => { "name": "FrontiersmanZombie", "value": "500" }
+newMerchantBountyTarget => { "name": "HDHectebus", "value": "750" }
+newMerchantBountyTarget => { "name": "HDCybergunner", "value": "2500" }
+newMerchantBountyTarget => { "name": "HDAnnihilator", "value": "3000" }
+newMerchantBountyTarget => { "name": "HDHarbringer", "value": "3500" }
+newMerchantBountyTarget => { "name": "Behemoth", "value": "2500" }
 
 // Ugly as Sin compat - [Ted]
 addFlashlightHumanClass => { "name": "AltisShotgunner" }
@@ -56,8 +77,13 @@ addFlashlightHumanClass => { "name": "USPHomeboy" }
 addFlashlightHumanClass => { "name": "UMPZombie" }
 addFlashlightHumanClass => { "name": "HLARTrooper" }
 addFlashlightHumanClass => { "name": "ZombieTrogtrooper" }
+addFlashlightHumanClass => { "name": "BPXTrooper" }
+addFlashlightHumanClass => { "name": "DMRTrooper" }
 
 addFlashlightOtherClass => { "name": "Behemoth" }
+addFlashlightOtherClass => { "name": "HDCyberGunner" }
+addFlashlightOtherClass => { "name": "HDHarbringer" }
+addFlashlightOtherClass => { "name": "HDAnnihilator" }
 addFlashlightOtherClass => { "name": "GreelyShortgunner" }
 
 // -------

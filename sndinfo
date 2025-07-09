@@ -1,5 +1,23 @@
+// Urns - [Ted]
 DSURNSM1	DSURNSM1
 DSURNSM2	DSURNSM2
 DSURNSM3	DSURNSM3
 
 $random Urn/Broken	{ DSURNSM1 DSURNSM2 DSURNSM3 }
+
+// Annihilator - [Ted]
+annihilator/rocklf DSHRLFIR
+annihilator/walk DSANHOOF
+annihilator/sight DSANNSIT
+annihilator/active DSDMACT
+annihilator/pain DSDMPAIN
+annihilator/death DSANNDTH
+annihilator/explode DSHRLEXP
+
+// Harbringer - [Ted]
+harbinger/death sounds/harbinger_death.ogg
+$alias harbinger/sight cyber/sight
+$alias harbinger/active cyber/active
+$alias harbinger/pain cyber/pain
+$alias harbinger/melee baron/melee
+$alias harbinger/step cyber/hoof

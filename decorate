@@ -1,0 +1,48 @@
+// Replace with zscript eventually. - [Ted]
+ACTOR SuperDemonArm
+{
+   Radius 10
+   Height 8
+   Speed 1
+   Damage 1
+   Scale 1
+   PROJECTILE
+   -NOGRAVITY
+   +LOWGRAVITY
+   States
+   {
+   Spawn:
+      SUPH A 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      SUPH B 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      SUPH C 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      Goto Death
+   Death:
+      SUPH D 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      SUPH E -1 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      Stop
+   }
+}
+
+ACTOR SuperDemonLeg
+{
+   Radius 10
+   Height 8
+   Speed 1
+   Damage 1
+   Scale 1
+   PROJECTILE
+   -NOGRAVITY
+   +LOWGRAVITY
+   States
+   {
+   Spawn:
+      SUP2 A 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      SUP2 B 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      SUP2 C 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      Goto Death
+   Death:
+      SUP2 D 5 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      SUP2 E -1 A_CustomMissile("MegaBloodSplatter",0,0,random(-80,-100),2,random(45,80))
+      Stop
+   }
+}

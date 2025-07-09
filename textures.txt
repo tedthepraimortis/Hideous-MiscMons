@@ -1,0 +1,19 @@
+sprite ZYBRY1,99,110{
+	offset 50,110
+sprite "ZYBRY1",0,0
+}
+
+sprite ZYBRY2,94,110{
+	offset 47,112
+sprite "ZYBRY2",0,0
+}
+
+sprite ZYBRY8,130,110{
+	offset 65,112
+sprite "ZYBRY8",0,0
+}
+
+sprite REDBAL,45,40{
+	offset 23,20
+	sprite BAL7E0,0,0{Translation "112:127=176:191", "224:231=170:175", "168:168=170:170"}
+}

@@ -1,0 +1,44 @@
+decal RedBaleScorch
+{
+pic REDBAL
+x-scale 0.7
+y-scale 0.7
+add 0.6
+lowerdecal Scorch
+animator GoAway2
+}
+
+decal HDBFGLightning3
+{
+    pic BFGLITE1
+    shade "ff 20 20"
+    fullbright
+    randomflipx
+    animator BFGAway
+    lowerdecal BFGScorch
+}
+
+decal HDBFGLightning4{
+    pic BFGLITE2
+    shade "ff 20 20"
+    fullbright
+    randomflipy
+    animator BFGAway
+    lowerdecal BFGScorch
+}
+
+decalgroup HDBFGLightningRed
+{
+    HDBFGLightning3	1
+    HDBFGLightning4	1
+}
+
+decal HecteScorch
+{
+pic HECFD0
+x-scale 0.7
+y-scale 0.7
+add 0.6
+lowerdecal BigScorch
+animator GoAway2
+}
