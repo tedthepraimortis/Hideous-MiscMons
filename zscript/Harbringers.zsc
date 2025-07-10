@@ -160,7 +160,7 @@ class HDHarbinger:SatanRobo{
         loop;
 
     burst:
-        ---- A 0 A_PlaySound("weapons/bfgf",CHAN_VOICE);
+        ---- A 0 A_Vocalize("weapons/bfgf");
         SUPR ABCDAB 4{
             A_FaceLastTargetPos(30);
         }
