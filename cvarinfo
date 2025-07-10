@@ -20,6 +20,7 @@ server float wingedbab_demon_spawn_bias = 1.0;
 server float flamerimp_imp_spawn_bias = 1.0;
 
 // Bosses
+server float hectebus_mancubus_spawn_bias = 0.125;
 server float annihilator_cyberdemon_spawn_bias = 0.5;
 server float harbringer_cyberdemon_spawn_bias = 0.5;
 server float cybergunner_cyberdemon_spawn_bias = 0.5;

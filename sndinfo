@@ -5,6 +5,9 @@ DSURNSM3	DSURNSM3
 
 $random Urn/Broken	{ DSURNSM1 DSURNSM2 DSURNSM3 }
 
+// Hectebus
+fatso/ignite sounds/hecte_ignite.ogg
+
 // Annihilator - [Ted]
 annihilator/rocklf DSHRLFIR
 annihilator/walk DSANHOOF

@@ -24,6 +24,7 @@ addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab",
 addSpawnTableSingleEntry => { "tableName": "ImpReplaces", "name": "FlamerImp", "weight": "#flamerimp_imp_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
 // Bosses
+addSpawnTableSingleEntry => { "tableName": "FatsoReplaces", "name": "HDHectebus", "weight": "#hectebus_mancubus_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDAnnihilator", "weight": "#annihilator_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDHarbringer", "weight": "#harbringer_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDCyberGunner", "weight": "#cybergunner_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}

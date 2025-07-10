@@ -26,6 +26,7 @@ OptionMenu MiscMonsMenu
     Slider "Flamethrowing Imps Spawn Weight:", "flamerimp_imp_spawn_bias", 0.0, 100, .01, 2
 
     StaticText "Bosses", "Gold"
+    Slider "Hectebus Spawn Weight:", "hectebus_mancubus_spawn_bias", 0.0, 100, .01, 2
     Slider "Cybergunner Spawn Weight:", "cybergunner_cyberdemon_spawn_bias", 0.0, 100, .01, 2
     Slider "Harbringer Spawn Weight:", "harbringer_cyberdemon_spawn_bias", 0.0, 100, .01, 2
     Slider "Annihilator Spawn Weight:", "annihilator_cyberdemon_spawn_bias", 0.0, 100, .01, 2
