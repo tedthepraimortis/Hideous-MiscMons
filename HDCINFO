@@ -5,6 +5,7 @@
 // -------
 
 // Zombies
+newSpawnTable => { "spawnName": "DeathMatchSpawner", "tableName": "DeathmatchSpawns", "replaces": "false" }
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "HLARTrooper", "weight": "#hlartrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "BPXTrooper", "weight": "#bpxtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
@@ -17,7 +18,7 @@ addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "USPHome
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisShotgunner", "weight": "#altis_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "GreelyShortgunner", "weight": "#greely_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
-addSpawnTableSingleEntry => { "tableName": "DeadMarineReplaces", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "DeathmatchSpawns", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
 
 // Demons
 addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}
@@ -67,8 +68,6 @@ addFlashlightOtherClass => { "name": "GreelyShortgunner" }
 // DECORATIONS
 // -------
 
-newSpawnTable => { "spawnName": "HDEvilEye" }
-addSpawnTableNestedEntry => { "tableName": "EvilEyeReplaces", "name": "HDEvilEye", "persists": "true" }
 addSpawnTableSingleEntry => { "tableName": "EvilEyeReplaces", "name": "HDBlackEvilEye", "weight": "#coloredevileye_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "EvilEyeReplaces", "name": "HDBlueEvilEye", "weight": "#coloredevileye_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "EvilEyeReplaces", "name": "HDGreyEvilEye", "weight": "#coloredevileye_spawn_bias", "persists": "#enemy_persistent_spawning"}
@@ -76,8 +75,6 @@ addSpawnTableSingleEntry => { "tableName": "EvilEyeReplaces", "name": "HDPurpleE
 addSpawnTableSingleEntry => { "tableName": "EvilEyeReplaces", "name": "HDRedEvilEye", "weight": "#coloredevileye_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "EvilEyeReplaces", "name": "HDYellowEvilEye", "weight": "#coloredevileye_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
-newSpawnTable => { "spawnName": "HeadsOnAStick" }
-addSpawnTableNestedEntry => { "tableName": "HeadsOnAStick", "name": "HeadsOnAStickReplaces", "persists": "true" }
 addSpawnTableSingleEntry => { "tableName": "HeadsOnAStickReplaces", "name": "HDHeadStickEmpty", "weight": "#headsonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadsOnAStickReplaces", "name": "HDHeadStickFull", "weight": "#headsonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadsOnAStickReplaces", "name": "HDHeadStickRedEmpty", "weight": "#headsonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
@@ -85,8 +82,6 @@ addSpawnTableSingleEntry => { "tableName": "HeadsOnAStickReplaces", "name": "HDH
 addSpawnTableSingleEntry => { "tableName": "HeadsOnAStickReplaces", "name": "HDHeadsStickBase", "weight": "#headsonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadsOnAStickReplaces", "name": "HDHeadsStickOld", "weight": "#headsonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
-newSpawnTable => { "spawnName": "HeadOnAStick" }
-addSpawnTableNestedEntry => { "tableName": "HeadOnAStick", "name": "HeadOnAStickReplaces", "persists": "true" }
 addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHeadStickEmpty", "weight": "#headonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHeadStickSolo", "weight": "#headonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "HeadOnAStickReplaces", "name": "HDHeadStickRedEmpty", "weight": "#headonastick_spawn_bias", "persists": "#enemy_persistent_spawning"}
