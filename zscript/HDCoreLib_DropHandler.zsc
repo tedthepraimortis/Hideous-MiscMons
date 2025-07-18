@@ -1,4 +1,4 @@
-class MiscMonsUrnHandler : EventHandler {
+class MiscMonsUrnHandler : HDCoreEventHandler {
 
     // List of Inventory Classes to add to Weapon Crate Spawns
     Array<HDActor> urnWhitelist;
@@ -6,21 +6,95 @@ class MiscMonsUrnHandler : EventHandler {
     // List of Inventory Classes to remove from Weapon Crate Spawns
     Array<HDActor> urnBlacklist;
 
-    bool initialized;
+    private UrnSpawnPool sp;
 
-    // Populates the blacklist.
-    void init() {
-
-        if (initialized) return;
-
+    override void beforeProcessCommands() {
         urnWhitelist.clear();
         urnBlacklist.clear();
 
-        let cmdReader = HDCoreInfoReader(StaticEventHandler.find('HDCoreInfoReader'));
-        
-        loadUrnLists(cmdReader.commands);
+        // Find the UrnSpawnPool Handler
+        if (!sp) sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+    }
 
+    override void processCommand(HDCoreCommand cmd) {
+        switch (cmd.command) {
+            case 'addUrnFilter': {
+                // FIXME: Find a better command/logic to handle existing CVARs
+
+                let item = cmd.getNameParam("name");
+                Class<HDActor> itmCls = item;
+
+                if (!itmCls) break;
+
+                // If the filter entry is allowed, remove from blacklist,
+                // Otherwise add to blacklist.
+                let index = urnBlacklist.find(itmCls);
+                if (cmd.getBoolParam("allowed")) {
+                    if (index < urnBlacklist.size()) urnBlacklist.delete(index);
+                } else {
+                    if (index >= urnBlacklist.size()) urnBlacklist.push(itmCls);
+                }
+
+                break;
+            }
+            case 'addUrnWhitelist': {
+                let item = cmd.getNameParam("name");
+                Class<HDActor> itmCls = item;
+
+                if (!itmCls) break;
+
+                if (urnWhitelist.find(itmCls) >= urnWhitelist.size()) urnWhitelist.push(itmCls);
+
+                break;
+            }
+            case 'removeUrnWhitelist': {
+                let item = cmd.getNameParam("name");
+                Class<HDActor> itmCls = item;
+
+                if (!itmCls) break;
+
+                let index = urnWhitelist.find(itmCls);
+                if (index < urnWhitelist.size()) urnWhitelist.delete(index);
+
+                break;
+            }
+            case 'clearUrnWhitelist': {
+                urnWhitelist.clear();
+                break;
+            }
+            case 'addUrnBlacklist': {
+                let item = cmd.getNameParam("name");
+                Class<HDActor> itmCls = item;
+
+                if (!itmCls) break;
+
+                if (urnBlacklist.find(itmCls) >= urnBlacklist.size()) urnBlacklist.push(itmCls);
+
+                break;
+            }
+            case 'removeUrnBlacklist': {
+                let item = cmd.getNameParam("name");
+                Class<HDActor> itmCls = item;
+
+                if (!itmCls) break;
+
+                let index = urnBlacklist.find(itmCls);
+                if (index < urnBlacklist.size()) urnBlacklist.delete(index);
+
+                break;
+            }
+            case 'clearUrnBlacklist': {
+                urnBlacklist.clear();
+                break;
+            }
+            default:
+                break;
+        }
+    }
+
+    override void afterProcessCommands() {
         if (HDCore.ShouldLog('MiscMons', LOGGING_DEBUG)) {
+
             let msg = "Urn Spawn Pool Whitelist:\n";
 
             forEach(wl : urnWhitelist) msg = msg.." * "..wl.getClassName().."\n";
@@ -34,92 +108,11 @@ class MiscMonsUrnHandler : EventHandler {
 
             HDCore.Log('MiscMons', LOGGING_DEBUG, msg);
         }
-
-        initialized = true;
-    }
-
-    void loadUrnLists(Array<HDCoreCommand> cmds) {
-        forEach (cmd : cmds) {
-            switch (cmd.command) {
-                case 'addUrnFilter': {
-                    // FIXME: Find a better command/logic to handle existing CVARs
-
-                    let item = cmd.getNameParam("name");
-                    Class<HDActor> itmCls = item;
-
-                    if (!itmCls) break;
-
-                    // If the filter entry is allowed, remove from blacklist,
-                    // Otherwise add to blacklist.
-                    let index = urnBlacklist.find(itmCls);
-                    if (cmd.getBoolParam("allowed")) {
-                        if (index < urnBlacklist.size()) urnBlacklist.delete(index);
-                    } else {
-                        if (index >= urnBlacklist.size()) urnBlacklist.push(itmCls);
-                    }
-
-                    break;
-                }
-                case 'addUrnWhitelist': {
-                    let item = cmd.getNameParam("name");
-                    Class<HDActor> itmCls = item;
-
-                    if (!itmCls) break;
-
-                    if (urnWhitelist.find(itmCls) >= urnWhitelist.size()) urnWhitelist.push(itmCls);
-
-                    break;
-                }
-                case 'removeUrnWhitelist': {
-                    let item = cmd.getNameParam("name");
-                    Class<HDActor> itmCls = item;
-
-                    if (!itmCls) break;
-
-                    let index = urnWhitelist.find(itmCls);
-                    if (index < urnWhitelist.size()) urnWhitelist.delete(index);
-
-                    break;
-                }
-                case 'clearUrnWhitelist': {
-                    urnWhitelist.clear();
-                    break;
-                }
-                case 'addUrnBlacklist': {
-                    let item = cmd.getNameParam("name");
-                    Class<HDActor> itmCls = item;
-
-                    if (!itmCls) break;
-
-                    if (urnBlacklist.find(itmCls) >= urnBlacklist.size()) urnBlacklist.push(itmCls);
-
-                    break;
-                }
-                case 'removeUrnBlacklist': {
-                    let item = cmd.getNameParam("name");
-                    Class<HDActor> itmCls = item;
-
-                    if (!itmCls) break;
-
-                    let index = urnBlacklist.find(itmCls);
-                    if (index < urnBlacklist.size()) urnBlacklist.delete(index);
-
-                    break;
-                }
-                case 'clearUrnBlacklist': {
-                    urnBlacklist.clear();
-                    break;
-                }
-                default:
-                    break;
-            }
-        }
     }
 
     override void worldLoaded(WorldEvent e) {
 
-        // Populates the main arrays if they haven't been already.
-        if (!initialized) init();
+        super.worldLoaded(e);
 
         // If the Weapon Crate Whitelist and Blacklist are both empty, quit.
         if (!urnWhitelist.size() && !urnBlacklist.size()) return;
@@ -128,11 +121,8 @@ class MiscMonsUrnHandler : EventHandler {
     }
 
     private void handleUrnLootTable() {
-        
-        // Find the UrnSpawnPool Handler
-        UrnSpawnPool sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
 
-        // If we somehow don't find it, quit.
+        // If we don't have the Urn Spawn Pool, quit.
         if (!sp) return;
 
         // If the spawn pool hasn't been initialized yet, do so.
