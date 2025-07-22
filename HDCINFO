@@ -5,7 +5,7 @@
 // -------
 
 // Zombies
-newSpawnTable => { "spawnName": "DeathMatchSpawner", "tableName": "DeathmatchSpawns", "replaces": "false" }
+newSpawnTable => { "spawnName": "DeathMatchSpawner", "replaces": "false" }
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "ZombieTrogTrooper", "weight": "#trogtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "HLARTrooper", "weight": "#hlartrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "BPXTrooper", "weight": "#bpxtrooper_zombieman_spawn_bias", "persists": "#enemy_persistent_spawning" }
@@ -18,7 +18,7 @@ addSpawnTableSingleEntry => { "tableName": "ZombieManReplaces", "name": "USPHome
 addSpawnTableSingleEntry => { "tableName": "ChaingunGuyReplaces", "name": "VeraZombie", "weight": "#verazombie_chaingunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "AltisShotgunner", "weight": "#altis_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
 addSpawnTableSingleEntry => { "tableName": "ShotgunGuyReplaces", "name": "GreelyShortgunner", "weight": "#greely_shotgunner_spawn_bias", "persists": "#enemy_persistent_spawning" }
-addSpawnTableSingleEntry => { "tableName": "DeathmatchSpawns", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning" }
+addSpawnTableSingleEntry => { "tableName": "DeathmatchSpawner", "name": "FrontiersmanZombie", "weight": "#frontiersman_operator_spawn_bias", "persists": "#enemy_persistent_spawning", "replaces": "false" }
 
 // Demons
 addSpawnTableSingleEntry => { "tableName": "DemonReplaces", "name": "WingedBab", "weight": "#wingedbab_demon_spawn_bias", "persists": "#enemy_persistent_spawning"}
