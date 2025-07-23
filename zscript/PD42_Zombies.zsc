@@ -68,6 +68,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         //$Sprite "ZSP2A1"
 
         +floorclip
+        +hdmobbase.hashelmet
         seesound "grunt/sight";
         painsound "grunt/pain";
         deathsound "grunt/death";

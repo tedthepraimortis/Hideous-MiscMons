@@ -17,6 +17,7 @@ class HLARTrooper : HDHumanoid {
         //$Sprite "BPOSA1"
 
         +floorclip
+        +hdmobbase.hashelmet
         seesound "grunt/sight";
         painsound "grunt/pain";
         deathsound "grunt/death";

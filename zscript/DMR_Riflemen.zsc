@@ -9,6 +9,7 @@ class DMRTrooper:HDHumanoid{
         //$Sprite "UDM2A1"
 
         +floorclip
+        +hdmobbase.hashelmet
         seesound "grunt/sight";
         painsound "grunt/pain";
         deathsound "grunt/death";
