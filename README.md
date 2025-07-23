@@ -43,3 +43,5 @@ Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/Hid
 - Cybergunners: Original Code: Benitez
 - Harbringers: Original Code: Benitez
 - Hectebus: Sprites: Id Software, Midway | Sprite Edit: AgentSpork | Brightmaps: Sandypaper | Sounds: Project Brutality(?) | Original Code: Benitez
+- BPX Zombie: Sprites: Project Malice
+- DMR Zombie: Sprites: Project Malice
