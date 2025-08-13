@@ -27,6 +27,7 @@ class UMPZombie : HDHumanoid {
             sprite = getspriteindex("PLAY");
             A_SetTranslation("FreedoomGreycoat");
         }
+        else sprite = getspriteindex("ZSP2");
         givearmour(1.0);
     }
     
@@ -61,17 +62,17 @@ class UMPZombie : HDHumanoid {
 
     States {
         spawn:
-            ZSP2 EE 1 {
+            #### EE 1 {
                 A_HDLook();
                 A_Recoil(frandom(-0.1, 0.1));
                 A_SetTics(random(10, 40));
             }
-            ZSP2 B 0 A_Jump(16, "spawnstretch");
-            ZSP2 B 0 A_Jump(116, "spawnwander");
-            ZSP2 B 8 A_Recoil(frandom(-0.2, 0.2));
+            #### B 0 A_Jump(16, "spawnstretch");
+            #### B 0 A_Jump(116, "spawnwander");
+            #### B 8 A_Recoil(frandom(-0.2, 0.2));
             loop;
         spawnstretch:
-            ZSP2 E 1 {
+            #### E 1 {
                 A_Recoil(frandom(-0.4, 0.4));
                 A_SetTics(random(30, 80));
                 if (!random(0, 3)) {
@@ -80,23 +81,23 @@ class UMPZombie : HDHumanoid {
             }
             goto spawn;
         spawnstill:
-            ZSP2 A 0 A_HDLook();
-            ZSP2 A 0 A_Recoil(frandom(-0.4, 0.4));
-            ZSP2 CD 5 A_SetAngle(angle + frandom(-4.0, 4.0));
-            ZSP2 A 0 A_HDLook();
-            ZSP2 A 0 A_Jump(192, 2);
-            ZSP2 A 0 A_Vocalize("grunt/active");
-            ZSP2 AB 5 A_SetAngle(angle + frandom(-4.0, 4.0));
-            ZSP2 A 0 A_HDLook();
-            ZSP2 B 1 A_SetTics(random(10, 40));
+            #### A 0 A_HDLook();
+            #### A 0 A_Recoil(frandom(-0.4, 0.4));
+            #### CD 5 A_SetAngle(angle + frandom(-4.0, 4.0));
+            #### A 0 A_HDLook();
+            #### A 0 A_Jump(192, 2);
+            #### A 0 A_Vocalize("grunt/active");
+            #### AB 5 A_SetAngle(angle + frandom(-4.0, 4.0));
+            #### A 0 A_HDLook();
+            #### B 1 A_SetTics(random(10, 40));
             goto spawn;
         spawnwander:
-            ZSP2 CDAB 5 A_HDWander();
+            #### CDAB 5 A_HDWander();
             goto spawn;
         see:
-            ZSP2 A 0 A_Jumpif(gunloaded < 2, "reload");
-            ZSP2 ABCD 4 A_HDChase();
-            ZSP2 A 0 A_JumpIfTargetInLOS("see");
+            #### A 0 A_Jumpif(gunloaded < 2, "reload");
+            #### ABCD 4 A_HDChase();
+            #### A 0 A_JumpIfTargetInLOS("see");
             goto roam;
         roam:
             #### E 3 A_Jump(60, "roam2");
@@ -116,8 +117,8 @@ class UMPZombie : HDHumanoid {
             #### A 0 A_JumpIfTargetInLOS("see");
             loop;
         pain:
-            ZSP2 H 3;
-            ZSP2 H 3 A_Pain();
+            #### H 3;
+            #### H 3 A_Pain();
             goto see;
         missile:
             #### ABCD 3 A_TurnToAim(40, shootstate: "aiming");
@@ -127,7 +128,7 @@ class UMPZombie : HDHumanoid {
             #### E 1 A_StartAim(rate: 0.85, mintics: 0, maxtics: 35);
             //fallthrough to shoot
         shoot:
-            ZSP2 F 1 bright light("SHOT") {
+            #### F 1 bright light("SHOT") {
                 if (gunloaded < 1) {
                     setstatelabel("ohforfuckssake");
                     return;
@@ -140,18 +141,18 @@ class UMPZombie : HDHumanoid {
                 HDBulletActor.FireBullet(self, "HDB_45ACP", zofs: 35, spread: 1.0, speedfactor: frandom(0.69, 0.71));
                 gunloaded--;
             }
-            ZSP2 E 2 A_EjectSMGCasing();
-            ZSP2 E 0 A_Jump(128, "shoot");
+            #### E 2 A_EjectSMGCasing();
+            #### E 0 A_Jump(128, "shoot");
         shootend:
-            ZSP2 E 1 A_FaceTarget(0, 0);
-            ZSP2 E 4 A_Jump(132, "see");
-            ZSP2 EEEEE 4 A_CoverFire();
+            #### E 1 A_FaceTarget(0, 0);
+            #### E 4 A_Jump(132, "see");
+            #### EEEEE 4 A_CoverFire();
             loop;
         ohforfuckssake:
-            ZSP2 E 8;
+            #### E 8;
         reload:
-            ZSP2 A 3 A_HDChase("melee", null, CHF_FLEE);
-            ZSP2 B 4 {
+            #### A 3 A_HDChase("melee", null, CHF_FLEE);
+            #### B 4 {
                 A_StartSound("UMP/MagOut", 8);
 
                 name magName = 'HDUMPMag';
@@ -159,53 +160,53 @@ class UMPZombie : HDHumanoid {
 
                 gunloaded = -1;
             }
-            ZSP2 CD 3 A_HDChase("melee", null, CHF_FLEE);
-            ZSP2 E 4 {
+            #### CD 3 A_HDChase("melee", null, CHF_FLEE);
+            #### E 4 {
                 A_StartSound("weapons/rifleload", 8);
                 A_HDWander();
             }
-            ZSP2 E 3 {
+            #### E 3 {
                 A_StartSound("UMP/MagIn", 8);
                 gunloaded += 30;
                 A_HDWander();
             }
             goto see;
         death:
-            ZSP2 H 5;
-            ZSP2 I 5 A_Scream();
-            ZSP2 JK 5;
+            #### H 5;
+            #### I 5 A_Scream();
+            #### JK 5;
         dead:
-            ZSP2 K 3 A_Jumpif(abs(vel.z) < 2, 1);
+            #### K 3 A_Jumpif(abs(vel.z) < 2, 1);
             loop;
-            ZSP2 L 5 canraise A_Jumpif(abs(vel.z) >= 2, "dead");
+            #### L 5 canraise A_Jumpif(abs(vel.z) >= 2, "dead");
             loop;
         deadgib:
-            ZSP2 M 5;
-            ZSP2 N 5 A_XScream();
-            ZSP2 OPQRST 5;
+            #### M 5;
+            #### N 5 A_XScream();
+            #### OPQRST 5;
             goto gibbed;
         gib:
-            ZSP2 M 5 A_GibSplatter();
-            ZSP2 N 0 A_GibSplatter();
-            ZSP2 N 5 A_XScream();
-            ZSP2 O 5 A_GibSplatter();
-            ZSP2 P 0 A_GibSplatter();
-            ZSP2 PQRST 5;
+            #### M 5 A_GibSplatter();
+            #### N 0 A_GibSplatter();
+            #### N 5 A_XScream();
+            #### O 5 A_GibSplatter();
+            #### P 0 A_GibSplatter();
+            #### PQRST 5;
         gibbed:
-            ZSP2 T 3 canraise A_Jumpif(abs(vel.z) < 2, 1);
+            #### T 3 canraise A_Jumpif(abs(vel.z) < 2, 1);
             wait;
-            ZSP2 U 5 canraise A_Jumpif(abs(vel.z) >= 2, "gibbed");
+            #### U 5 canraise A_Jumpif(abs(vel.z) >= 2, "gibbed");
             wait;
         raise:
-            ZSP2 L 4;
-            ZSP2 LK 6;
-            ZSP2 JIH 4;
+            #### L 4;
+            #### LK 6;
+            #### JIH 4;
             goto see;
         ungib:
-            ZSP2 U 12;
-            ZSP2 T 8;
-            ZSP2 SRQ 6;
-            ZSP2 PON 4;
+            #### U 12;
+            #### T 8;
+            #### SRQ 6;
+            #### PON 4;
             goto see;
     }
 }

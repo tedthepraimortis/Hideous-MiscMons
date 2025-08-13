@@ -46,6 +46,7 @@ class ZombieTrogtrooper : HDHumanoid {
             sprite = getspriteindex("POSS");
             A_SetTranslation("FreedoomGreycoat");
         }
+        else sprite = getspriteindex("BPOS");
     }
 
 	actor A_ZomGl() {
@@ -120,7 +121,7 @@ class ZombieTrogtrooper : HDHumanoid {
 
     States {
         spawn:
-            BPOS A 0;
+            #### A 0;
         idle:
         spawn2:
             #### A 0 {

@@ -47,6 +47,7 @@ class HLARTrooper : HDHumanoid {
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("POSS");
         }
+        else sprite = getspriteindex("BPOS");
     }
 
     actor A_ZomGl() {
@@ -121,7 +122,7 @@ class HLARTrooper : HDHumanoid {
 
     States {
         spawn:
-            BPOS A 0;
+            #### A 0;
         idle:
         spawn2:
             #### A 0 {

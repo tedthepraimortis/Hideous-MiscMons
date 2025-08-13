@@ -46,6 +46,7 @@ class GreelyShortgunner : HDHumanoid {
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("PLAY");
         }
+        else sprite = getspriteindex("SHCY");
 
         givearmour(1.0, 0.0, 0.6);
     }
@@ -110,8 +111,8 @@ class GreelyShortgunner : HDHumanoid {
 
     States {
         spawn:
-            SHCY A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
-            PLAY A 0;
+            #### A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
+            #### A 0;
         idle:
         spawn2:
             #### EEEEEE 1 {

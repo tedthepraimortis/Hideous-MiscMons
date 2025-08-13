@@ -16,8 +16,12 @@ class AltisShotgunner : JackAndJillboot {
     override void postbeginplay() {
         super.postbeginplay();
 
-        sprite = GetSpriteIndex("SPOUA1");
-        // A_SetTranslation("ShotgunGuy");
+        if(hmm_uniquesprites)sprite = GetSpriteIndex("SPOU");
+        else 
+        {
+            sprite = GetSpriteIndex("SPOS");
+            A_SetTranslation("ShotgunGuy");
+        }
         gunloaded = random(1,2);
 
         if (random(0, 7)) {
@@ -40,7 +44,7 @@ class AltisShotgunner : JackAndJillboot {
         class<Inventory> visJackbootToken = visJackbootTokenName;
         if (visJackbootToken && CountInv(visJackbootToken)) {
             TakeInventory(visJackbootToken, 100);
-            sprite = GetSpriteIndex("SPOUA1");
+            sprite = GetSpriteIndex("SPOU");
         }
     }
 
@@ -85,7 +89,7 @@ class AltisShotgunner : JackAndJillboot {
 
     states {
         spawn:
-            SPOU A 0;
+            #### A 0;
             goto spawn2;
 
         shootssg:

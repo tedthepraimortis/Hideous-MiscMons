@@ -29,6 +29,12 @@ class DMRTrooper:HDHumanoid{
         super.postbeginplay();
         mag=random(1,50);
         maxtargetrange=12000;
+        
+        if(hmm_uniquesprites)sprite=getspriteindex("UDM2");
+        else{
+            sprite=getspriteindex("SPOS");
+            A_SetTranslation("FreedoomGreycoat");
+        }
     }
 
     override void deathdrop() {
@@ -57,17 +63,9 @@ class DMRTrooper:HDHumanoid{
             DropNewItem("HDHandgunRandomDrop");
         }
     }
-    void A_CheckFreedoomSprite(){
-        if(bplayingid)sprite=getspriteindex("UDM2");
-        else{
-            sprite=getspriteindex("SPOS");
-            A_SetTranslation("FreedoomGreycoat");
-        }
-    }
     states{
     spawn:
-        UDM2 A 0;
-        SPOS A 0 A_CheckFreedoomSprite();
+        #### A 0;
     idle:
     spawn2:
         #### A 0{
