@@ -14,7 +14,6 @@ Class MM_LargeMaggot : HDMobBase
         Obituary "%o was nibbled by a Maggot.";
         Species "Fodder";
         Monster;
-        DamageFactor "Caco", 0;
         +TOUCHY
         +NOBLOOD
         +DONTHARMCLASS
