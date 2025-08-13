@@ -4,7 +4,7 @@ OptionMenu MiscMonsMenu
     StaticText ""
 
     StaticText "Should the HMM monsters have unique sprites?"
-    Option "Unique Sprites: ", "hmm_uniquesprites", "OffOn"
+    Option "Unique Sprites: ", "hmm_uniquesprites", "OnOff"
     StaticText ""
 
     StaticText "Zombies", "Green"

@@ -30,11 +30,9 @@ class PD42Light:PointLight{
 
         int dir = randompick(-1, 1);
 
-        A_SpawnParticleEx
+        A_SpawnParticle
 		(
 			"Red",
-			TexMan.CheckForTexture ("DUSTA0"),
-			style: STYLE_ColorBlend,
 			lifetime: TICRATE,
 			size: 0.25,
 			xoff: frandom (24,-24),
@@ -45,10 +43,7 @@ class PD42Light:PointLight{
 			accelz: -0.001,
 			startalphaf: 1.25,
 			fadestepf: -0.002,
-			sizestep: 0.25,
-			startroll: 180/2,
-			rollvel: 0.5 * dir,
-			rollacc: 0.02 * dir
+			sizestep: 0.25
 		);
 	}
 }
@@ -106,7 +101,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         maxtargetrange = 6000;
 
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("POSS");
+            sprite = getspriteindex("PLAY");
             A_SetTranslation("FreedoomGreycoat");
         }
         givearmour(1., 0.12, 0.6);

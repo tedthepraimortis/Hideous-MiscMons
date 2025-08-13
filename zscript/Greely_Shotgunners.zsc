@@ -44,7 +44,7 @@ class GreelyShortgunner : HDHumanoid {
         super.postbeginplay();
 
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("SPOS");
+            sprite = getspriteindex("PLAY");
         }
 
         givearmour(1.0, 0.0, 0.6);
