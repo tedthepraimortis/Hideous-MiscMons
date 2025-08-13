@@ -111,6 +111,7 @@ class GreelyShortgunner : HDHumanoid {
 
     States {
         spawn:
+            SHCY A 0;
             #### A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
             #### A 0;
         idle:

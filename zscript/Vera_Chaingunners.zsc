@@ -34,7 +34,7 @@ class VeraZombie : HDHumanoid {
     override void postbeginplay() {
         super.postbeginplay();
 
-        If (hmm_uniquesprites == false) {
+        If (!hmm_uniquesprites) {
             sprite=getspriteindex("CPOS");
         }
         else sprite=getspriteindex("CPS2");

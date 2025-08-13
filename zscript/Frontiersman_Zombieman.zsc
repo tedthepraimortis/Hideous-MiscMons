@@ -42,6 +42,7 @@ class FrontiersmanZombie : HDHumanoid {
     override void postbeginplay() {
         super.postbeginplay();
         givearmour(1., 0.2, -0.4);
+        gunloaded = 5;
 
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("PLAY");
@@ -108,6 +109,18 @@ class FrontiersmanZombie : HDHumanoid {
             #### A 0;
         idle:
         spawn2:
+            #### A 1 
+            {
+                // Credits to Melodica for this. - [Ted]
+                double randtickerfloat;
+                randtickerfloat=frandom(0.0,1.0);
+                array<string>msgs;msgs.clear();
+				string msg=Wads.ReadLump(Wads.CheckNumForName("tangotexts",0));
+				msg.split(msgs,"\n");
+				msg=msgs[int(clamp(randtickerfloat*msgs.size(), 0, msgs.size()-1))];
+				A_Log(msg,false); 
+                return;
+            }
             #### EEEEEE 1 {
                 A_HDLook();
                 vel.xy -= (cos(angle), sin(angle)) * frandom(-0.1, 0.1);

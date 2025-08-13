@@ -89,6 +89,7 @@ class AltisShotgunner : JackAndJillboot {
 
     states {
         spawn:
+            SPOU A 0;
             #### A 0;
             goto spawn2;
 

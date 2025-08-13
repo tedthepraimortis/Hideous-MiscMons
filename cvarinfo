@@ -14,6 +14,7 @@ server float greely_shotgunner_spawn_bias = 4.6;
 server float altis_shotgunner_spawn_bias = 4.6;
 server float verazombie_chaingunner_spawn_bias = 2.0;
 server float frontiersman_operator_spawn_bias = 0.5;
+server int frontiersman_operator_spawn_chance = 35;
 
 // Demons
 server float wingedbab_demon_spawn_bias = 1.0;

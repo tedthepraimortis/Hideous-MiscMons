@@ -42,10 +42,9 @@ class ZombieTrogtrooper : HDHumanoid {
         glLoaded = true;
         remainingNades = random(2, 8);
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("SPOS");
-            A_SetTranslation("Redshirt");
+            sprite=getspriteindex("SPOS");
         }
-        else sprite = getspriteindex("BPOS");
+        else sprite=getspriteindex("BPOS");
     }
 
 	actor A_ZomGl() {
@@ -120,6 +119,7 @@ class ZombieTrogtrooper : HDHumanoid {
 
     States {
         spawn:
+            BPOS A 0;
             #### A 0;
         idle:
         spawn2:
@@ -296,13 +296,13 @@ class ZombieTrogtrooper : HDHumanoid {
             wait;
 
         frag:
-            ---- A 10 A_Vocalize(seesound);
-            ---- A 20 {
+            #### A 10 A_Vocalize(seesound);
+            #### A 20 {
                 A_StartSound("weapons/pocket", CHAN_WEAPON);
                 A_FaceTarget(0, 0);
                 pitch-=frandom(20, 40);
             }
-            ---- A 10 {
+            #### A 10 {
                 A_SpawnItemEx(
                     "HDFragSpoon",
                     cos(pitch) * 4, -1, height - 6 - sin(pitch) * 4,
@@ -314,7 +314,7 @@ class ZombieTrogtrooper : HDHumanoid {
                 );
                 A_ZomFrag();
             }
-            ---- A 0 A_JumpIf(mag < 1, "reload");
+            #### A 0 A_JumpIf(mag < 1, "reload");
             goto see;
 
         ohforfuckssake:
@@ -340,8 +340,8 @@ class ZombieTrogtrooper : HDHumanoid {
             goto see;
 
         reloadmag:
-            ---- A 0 A_JumpIf(mag < 0, "unloadedreload");
-            ---- A 4 A_StartSound("weapons/trogclick2");
+            #### A 0 A_JumpIf(mag < 0, "unloadedreload");
+            #### A 4 A_StartSound("weapons/trogclick2");
             #### AA 1 A_HDChase("melee", null, flags: CHF_FLEE);
             #### A 0 {
                 A_StartSound("weapons/trogunload");
@@ -409,7 +409,7 @@ class ZombieTrogtrooper : HDHumanoid {
                 spread = 4;
             }
             #### ABCD 3 A_HDChase();
-            ---- A 0 SetStateLabel("see");
+            #### A 0 SetStateLabel("see");
         pain:
             #### G 2;
             #### G 3 A_Vocalize(painsound);

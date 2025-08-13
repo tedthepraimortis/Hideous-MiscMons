@@ -29,12 +29,11 @@ class DMRTrooper:HDHumanoid{
         super.postbeginplay();
         mag=random(1,50);
         maxtargetrange=12000;
-        
-        if(hmm_uniquesprites)sprite=getspriteindex("UDM2");
-        else{
-            sprite=getspriteindex("SPOS");
+        If (!hmm_uniquesprites) {
+            sprite = getspriteindex("SPOS");
             A_SetTranslation("FreedoomGreycoat");
         }
+        else sprite = getspriteindex("UDM2");
     }
 
     override void deathdrop() {
@@ -65,6 +64,7 @@ class DMRTrooper:HDHumanoid{
     }
     states{
     spawn:
+        UDM2 A 0;
         #### A 0;
     idle:
     spawn2:

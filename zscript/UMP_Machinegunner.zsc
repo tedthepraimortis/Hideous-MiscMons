@@ -62,7 +62,7 @@ class UMPZombie : HDHumanoid {
 
     States {
         spawn:
-            #### EE 1 {
+            ZSP2 EE 1 {
                 A_HDLook();
                 A_Recoil(frandom(-0.1, 0.1));
                 A_SetTics(random(10, 40));
