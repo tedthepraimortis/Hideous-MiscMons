@@ -45,6 +45,7 @@ class FrontiersmanZombie : HDHumanoid {
 
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("PLAY");
+            A_SetTranslation("Redshirt");
         }
         else sprite = getspriteindex("ZHRT");
     }

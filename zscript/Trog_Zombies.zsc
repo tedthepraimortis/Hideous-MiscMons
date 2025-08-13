@@ -41,10 +41,9 @@ class ZombieTrogtrooper : HDHumanoid {
 
         glLoaded = true;
         remainingNades = random(2, 8);
-
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("POSS");
-            A_SetTranslation("FreedoomGreycoat");
+            sprite = getspriteindex("SPOS");
+            A_SetTranslation("Redshirt");
         }
         else sprite = getspriteindex("BPOS");
     }

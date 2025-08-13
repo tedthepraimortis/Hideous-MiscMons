@@ -43,9 +43,8 @@ class HLARTrooper : HDHumanoid {
         glLoaded = true;
         remainingNades = random(2, 8);
         A_SetTranslation("ZombieSMG");
-
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("POSS");
+            sprite = getspriteindex("SPOS");
         }
         else sprite = getspriteindex("BPOS");
     }
