@@ -115,7 +115,7 @@ class HDHectebus : Mancubus {
 		// painsound "fatso/pain";
 		// deathsound "fatso/death";
 		// activesound "fatso/active";
-		tag "Hectebus";
+		tag "$cc_hectebus";
 
         // +dontharmspecies
         // hdmobbase.onlyscreamondeath

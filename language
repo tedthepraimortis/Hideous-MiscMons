@@ -1,5 +1,7 @@
 [enu default]
 
+// Global stuff, usually menu things - [Ted]
+
 // Menu Lumps
 MISCMONS_MAINMENU = "\c[Yellow]Ⓜ\c- Hideous MiscMons";
 MISCMONS_TITLE = "------ Hideous MiscMons ------";
@@ -9,52 +11,3 @@ MENU_ENABLED = "Enabled";
 MENU_DISABLED = "Disabled";
 MENU_REPLACEALL = "Replace All";
 MENU_WITHALL = "With All";
-
-// Enemy Tags
-
-// Zombiemen
-cc_zombtrog = "Veteran Zombieman";
-cc_zombump = "UMP-45 Jackboot";
-cc_zombpd42 = "Spec-Ops Zombieman";
-
-// Jackboots/Shotgunners
-cc_greelyjackboot = "Jackboot Breacher";
-cc_frontiersmanzombie = "Former Frontiersman";
-
-// Undead Homeboys
-cc_zombusp = "Undead Officer";
-
-// Chaingunners
-cc_medium = "M64 Vera Machinegunner";
-
-// High Tiers
-cc_annihilator = "The Annihilator";
-TAG_HARBINGER="The Harbinger of Doom";
-
-// Obituaries
-
-// Zombiemen
-OB_ZOMBTROG = "%o was shown that old dogs don't need new tricks.";
-OB_ZOMBTROG_HIT = "%o was knocked down a peg.";
-OB_ZOMBPD42 = "%o was taken out back.";
-OB_ZOMBPD42 = "%o was shown that plastic can still hurt.";
-OB_ZOMBUMP = "%o was stopped right in their tracks.";
-
-// High Tiers
-OB_CYBERGUNNER = "%o had their organs forcefully rearranged by a cybergunner.";
-OB_ANNIHILATOR = "%o was experimented upon by $TAG twice.";
-OB_HARBINGER="%o didn't bring a spear with %h while fighting a harbinger.";
-OB_HARBINGER_MELEE="%o bowed on %p knees to a harbinger.";
-
-// Jackboots/Shotgunners
-OB_GREELYZOMBIE = "%o was shown that length doesn't matter.";
-OB_GREELYZOMB_HIT = "%o found the steel back of a Greely.";
-OB_FRONTIERSMANZOMBIE = "%o yee'd their last haw.";
-OB_FRONTIERSMANZOMB_HIT = "%o was shown that old dogs can learn new tricks.";
-
-// Undead Homeboys
-OB_ZOMBUSP = "%o was shown the might of .45.";
-OB_ZOMBUSP_HIT = "%o experienced build quality inspection.";
-
-// Chaingunners
-OB_VERAZOMBIE = "%o was turned to swiss cheese.";
