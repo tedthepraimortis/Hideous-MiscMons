@@ -109,18 +109,6 @@ class FrontiersmanZombie : HDHumanoid {
             #### A 0;
         idle:
         spawn2:
-            #### A 1 
-            {
-                // Credits to Melodica for this. - [Ted]
-                double randtickerfloat;
-                randtickerfloat=frandom(0.0,1.0);
-                array<string>msgs;msgs.clear();
-				string msg=Wads.ReadLump(Wads.CheckNumForName("tangotexts",0));
-				msg.split(msgs,"\n");
-				msg=msgs[int(clamp(randtickerfloat*msgs.size(), 0, msgs.size()-1))];
-				A_Log(msg,false); 
-                return;
-            }
             #### EEEEEE 1 {
                 A_HDLook();
                 vel.xy -= (cos(angle), sin(angle)) * frandom(-0.1, 0.1);
@@ -202,13 +190,13 @@ class FrontiersmanZombie : HDHumanoid {
             loop;
 
         missile:
-            #### ABCD 3 A_TurnToAim(40, shootstate: "aiming");
+            #### ABCD 5 A_TurnToAim(40, shootstate: "aiming");
             loop;
         aiming:
-            #### E 1 A_StartAim(rate: 0.88, maxtics: random(10, 40));
+            #### E 3 A_StartAim(rate: 0.88, maxtics: random(10, 40));
             //fallthrough to shoot
         shoot:
-            #### E 2 A_LeadTarget(tics);
+            #### E 4 A_LeadTarget(tics);
             #### E 0 {
                 if (gunloaded < 1) {
                     setstatelabel("ohforfuckssake");
@@ -228,7 +216,7 @@ class FrontiersmanZombie : HDHumanoid {
                     return;
                 }
 
-                HDBulletActor.FireBullet(self, "HDB_776",  spread: 6);
+                HDBulletActor.FireBullet(self, "HDB_776",  spread: 4, speedfactor: 0.75);
                 A_StartSound ("Weapons/BigRifle2", CHAN_WEAPON, pitch: 1.1);
                 gunspent = 1;
             }

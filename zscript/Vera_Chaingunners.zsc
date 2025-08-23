@@ -150,6 +150,7 @@ class VeraZombie : HDHumanoid {
 
     States {
         spawn:
+            CPS2 A 0 nodelay;
             #### B 1 nodelay {
                 A_HDLook();
                 A_Recoil(random(-1, 1) * 0.1);
