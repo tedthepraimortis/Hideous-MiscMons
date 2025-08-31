@@ -57,12 +57,13 @@ class UMPZombie : HDHumanoid {
 
         } else if (!bHASDROPPED) {
             DropNewItem("HDSMG");
+            DropNewItem("HD9mMag30");
         }
     }
 
     States {
         spawn:
-            ZSP2 EE 1 {
+            PLAY EE 1 {
                 A_HDLook();
                 A_Recoil(frandom(-0.1, 0.1));
                 A_SetTics(random(10, 40));

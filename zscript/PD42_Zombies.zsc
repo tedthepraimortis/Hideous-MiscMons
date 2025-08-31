@@ -169,12 +169,14 @@ class PeeDeeFourtyTrooper : HDHumanoid {
                 DropNewItem(magName, 96);
             }
 
-        } else if (!bHASDROPPED) {
-            DropNewItem("ZM66AssaultRifle");
         }
-        A_SetRenderStyle(1,STYLE_Normal);
+        else if (!bHASDROPPED) {
+            DropNewItem("ZM66AssaultRifle");
+            DropNewItem("HD4mMag");
+        }
         if(bshadow){
             if(random(0,3))A_DropItem("HDBlurSphere");
+            A_SetRenderStyle(1,STYLE_Normal);
             bshadow=false;
         }
     }
@@ -503,7 +505,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
         dead:
             #### K 3 A_JumpIf(abs(vel.z) < 2, 1);
             loop;
-            #### L 5 canraise A_JumpIf(abs(vel.z) >= 2, "dead");
+            #### L 5 A_JumpIf(abs(vel.z) >= 2, "dead");
             loop;
         deadgib:
             #### M 5;
@@ -520,20 +522,9 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             #### QRST 5;
             goto gibbed;
         gibbed:
-            #### T 3 canraise A_JumpIf(abs(vel.z) < 2, 1);
+            #### T 3 A_JumpIf(abs(vel.z) < 2, 1);
             wait;
-            #### U 5 canraise A_JumpIf(abs(vel.z) >= 2, "gibbed");
+            #### U 5 A_JumpIf(abs(vel.z) >= 2, "gibbed");
             wait;
-        raise:
-            #### L 4;
-            #### LK 6;
-            #### JIH 4;
-            goto see;
-        ungib:
-            #### U 12;
-            #### T 8;
-            #### SRQ 6;
-            #### PONM 4;
-            goto see;
     }
 }

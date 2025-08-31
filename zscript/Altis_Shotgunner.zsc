@@ -79,6 +79,7 @@ class AltisShotgunner : JackAndJillboot {
 
                 DropNewItem("ShellPickup", 200);
             } else {
+                DropNewItem("Slayer");
                 DropNewItem("ShellPickup", 200);
             }
 

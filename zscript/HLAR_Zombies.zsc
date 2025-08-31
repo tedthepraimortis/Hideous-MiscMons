@@ -121,7 +121,7 @@ class HLARTrooper : HDHumanoid {
 
     States {
         spawn:
-            CPOS A 0;
+            SPOS A 0;
             #### A 0;
         idle:
         spawn2:

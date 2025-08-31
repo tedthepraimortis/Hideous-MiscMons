@@ -61,6 +61,7 @@ class BPXTrooper:HDHumanoid{
             }
         
         } else if (!bHASDROPPED) {
+            DropNewItem(magname, 96);
             DropNewItem("HDHandgunRandomDrop");
         }
     }

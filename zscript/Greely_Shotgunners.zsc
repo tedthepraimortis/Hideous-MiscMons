@@ -93,10 +93,13 @@ class GreelyShortgunner : HDHumanoid {
                 DropNewItem("ShellPickup", 200);
             } else {
                 DropNewItem("ShellPickup", 200);
+                DropNewItem("HDHandgunRandomDrop");
             }
 
         } else if (!bHASDROPPED) {
+            DropNewItem("Hunter");
             DropNewItem("HDHandgunRandomDrop");
+            DropNewItem("ShellPickup", 200);
         }
     }
 

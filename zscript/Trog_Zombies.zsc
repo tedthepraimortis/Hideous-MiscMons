@@ -113,6 +113,8 @@ class ZombieTrogtrooper : HDHumanoid {
             }
         
         } else if (!bHASDROPPED) {
+            DropNewItem("ZM66AssaultRifle");
+            DropNewItem("HD4mMag");
             DropNewItem("HDHandgunRandomDrop");
         }
     }

@@ -144,6 +144,7 @@ class VeraZombie : HDHumanoid {
             }
 
         } else if (!bHASDROPPED) {
+            DropNewItem("Vulcanette");
             DropNewItem("HDHandgunRandomDrop");
         }
     }

@@ -59,6 +59,8 @@ class DMRTrooper:HDHumanoid{
             }
         
         } else if (!bHASDROPPED) {
+            DropNewItem("ZM66AssaultRifle");
+            DropNewItem(magName, 96);
             DropNewItem("HDHandgunRandomDrop");
         }
     }
