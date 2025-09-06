@@ -5,7 +5,7 @@ version "4.14"
 #include "zscript/HLAR_Zombies.zsc"
 #include "zscript/Greely_Shotgunners.zsc"
 #include "zscript/Vera_Chaingunners.zsc"
-//#include "zscript/Aurorch_Zombiemen.zsc"
+#include "zscript/Aurorch_Zombiemen.zsc"
 #include "zscript/BPX_Riflemen.zsc"
 #include "zscript/DMR_Riflemen.zsc"
 
