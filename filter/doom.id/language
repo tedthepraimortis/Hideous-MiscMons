@@ -9,6 +9,7 @@ cc_zombpd42 = "Spec-Ops Zombieman";
 cc_zombiebpx = "Carbine Zombieman";
 cc_zombhlar = "Grenadier Zombieman";
 cc_zombiedmr = "Marksman Zombieman";
+cc_zombieaurorch = "Revolver Zombieman";
 
 // Jackboots/Shotgunners
 cc_greelyjackboot = "Breaching Sergeant";

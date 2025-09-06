@@ -12,6 +12,10 @@ class HDAurorchZombieman:HDHumanoid{
 		cylinder=5;
 		spentrounds=0;
 		chamber=2;
+        If (!hmm_uniquesprites) {
+            sprite = getspriteindex("POSS");
+        }
+        else sprite = getspriteindex("VDDC");
 	}
 	
 	virtual bool noammo(){
@@ -50,6 +54,35 @@ class HDAurorchZombieman:HDHumanoid{
 		}
 		else chamber=0; //no ammo left, time to reload
 	}
+
+    override void deathdrop() {
+        if (bHASDROPPED && bFRIENDLY) return;
+
+        name wpnName = 'HDAurochs';
+        name ammoName = 'HDAurochsAmmo';
+        if (HDCore.CheckClassExists(wpnName) && HDCore.CheckClassExists(ammoName)) {
+        
+            if (!bHASDROPPED) {
+
+                let wpn = DropNewWeapon(wpnName);
+                if (wpn) {
+                    wpn.weaponstatus[0] = 1;
+                    wpn.weaponstatus[1] = 4;
+                    wpn.weaponstatus[2] = 4;
+                    wpn.weaponstatus[3] = 4;
+                    wpn.weaponstatus[4] = 4;
+                    wpn.weaponstatus[5] = 4;
+                }
+
+                DropNewItem(ammoName, 96);
+            } else {
+                DropNewItem(ammoName, 96);
+            }
+        
+        } else if (!bHASDROPPED) {
+            DropNewItem("HDHandgunRandomDrop");
+        }
+    }
 	
 	/*override void deathdrop(){
 		double cosp=cos(pitch);
@@ -142,7 +175,7 @@ class HDAurorchZombieman:HDHumanoid{
         painsound "grunt/pain";
         deathsound "grunt/death";
         activesound "grunt/active";
-		tag "Men In Black";
+		tag "$cc_zombieaurorch";
 
 		radius 10;
 		speed 12;
@@ -259,39 +292,36 @@ class HDAurorchZombieman:HDHumanoid{
 		}
 		#### ABCD 2 A_HDChase(flags:CHF_FLEE);
 		---- A 0 setstatelabel("see");
-	death:
-		#### H 5;
-		#### I 5 A_Vocalize(deathsound);
-		#### J 5 A_NoBlocking();
-		#### KLM 5;
-	dead:
-		#### M 3 canraise{if(abs(vel.z)<2.)frame++;}
-		#### N 5 canraise{if(abs(vel.z)>=2.)setstatelabel("dead");}
-		wait;
+    death:
+        #### H 5;
+        #### I 5 A_Vocalize(deathsound);
+        #### JK 5;
+    dead:
+        #### K 3 canraise{if(abs(vel.z)<2.)frame++;}
+        #### L 5 canraise{if(abs(vel.z)>=2.)setstatelabel("dead");}
+        wait;
 	gib:
-		#### O 5;
-		#### P 5{
-			A_GibSplatter();
-			A_XScream();
-		}
-		#### Q 0 A_NoBlocking();
-		#### QR 5 A_GibSplatter();
-		#### STU 5;
-		#### A 0 A_Jump(256,"gibbed");
+        #### M 5;
+        #### N 5{
+            A_GibSplatter();
+            A_XScream();
+        }
+        #### OP 5 A_GibSplatter();
+        #### QRST 5;
 	gibbed:
-		#### T 3 canraise{if(abs(vel.z)<2.)frame++;}
-		#### U 5 canraise A_JumpIf(abs(vel.z)>=2.,"gibbed");
-		wait;
-	raise:
-		#### NML 4;
-		#### LK 6;
-		#### JIH 4;
-		#### A 0 A_Jump(256,"see");
+        #### T 3 canraise A_JumpIf(abs(vel.z)<2.,1);
+        #### U 5 canraise A_JumpIf(abs(vel.z)>=2.,"gibbed");
+        wait;
+    raise:
+        #### L 4;
+        #### LK 6;
+        #### JIH 4;
+        #### A 0 A_Jump(256,"see");
 	ungib:
-		#### U 12;
-		#### T 8;
-		#### SRQ 6;
-		#### PONM 4;
-		#### A 0 A_Jump(256,"pain");
+        #### U 12;
+        #### T 8;
+        #### SRQ 6;
+        #### PONM 4;
+        #### A 0 A_Jump(256,"pain");
 	}
 }
