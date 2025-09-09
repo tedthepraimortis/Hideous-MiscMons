@@ -11,6 +11,7 @@ OptionMenu MiscMonsMenu
     Slider "Trog Rifle Veteran Spawn Weight:", "trogtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "HLAR Trooper Spawn Weight:", "hlartrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "BPX Rifleman Spawn Weight:", "bpxtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
+    Slider "Aurorch Highwayman Spawn Weight:", "auryzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "DMR Zombieman Spawn Weight:", "dmrtrooper_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "PD-42 Rifleman Spawn Weight:", "pd42zombie_zombieman_spawn_bias", 0.0, 100, .01, 2
     Slider "USP-45 Homeboy Spawn Weight:", "uspzombie_zombieman_spawn_bias", 0.0, 100, .01, 2
