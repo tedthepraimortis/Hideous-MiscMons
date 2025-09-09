@@ -43,6 +43,8 @@ OB_ZOMBPD42 = "%o was shown that plastic can still hurt.";
 OB_ZOMBUMP = "%o was stopped right in their tracks.";
 OB_ZOMBDMR = "%o was bagged by a marksman.";
 OB_ZOMBDMRHIT = "%o was shown close range prowess.";
+OB_AURORCHZOMBIE = "%o was stopped by a single zombie army.";
+OB_AURORCHZOMBIEHIT = "%o was sent back to the west.";
 
 // Jackboots/Shotgunners
 OB_GREELYZOMBIE = "%o was shown that length doesn't matter.";
