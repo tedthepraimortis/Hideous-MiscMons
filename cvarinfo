@@ -2,18 +2,18 @@
 // Every weapon has a comment before it's cvars based on it's name in-game for organization. - [Ted]
 
 // Zombies
-server float trogtrooper_zombieman_spawn_bias = 4.666;
-server float hlartrooper_zombieman_spawn_bias = 4.666;
-server float bpxtrooper_zombieman_spawn_bias = 4.666;
-server float dmrtrooper_zombieman_spawn_bias = 4.666;
-server float auryzombie_zombieman_spawn_bias = 4.666;
+server float trogtrooper_zombieman_spawn_bias = 46.666;
+server float hlartrooper_zombieman_spawn_bias = 46.666;
+server float bpxtrooper_zombieman_spawn_bias = 46.666;
+server float dmrtrooper_zombieman_spawn_bias = 46.666;
+server float auryzombie_zombieman_spawn_bias = 46.666;
 server float pd42zombie_zombieman_spawn_bias = 0.666;
-server float umpzombie_zombieman_spawn_bias = 3.25;
-server float uspzombie_zombieman_spawn_bias = 3.5;
+server float umpzombie_zombieman_spawn_bias = 23.5;
+server float uspzombie_zombieman_spawn_bias = 23.5;
 server float uspzombie_homeboy_spawn_bias = 1.0;
-server float greely_shotgunner_spawn_bias = 4.6;
-server float altis_shotgunner_spawn_bias = 4.6;
-server float verazombie_chaingunner_spawn_bias = 2.0;
+server float greely_shotgunner_spawn_bias = 74.6;
+server float altis_shotgunner_spawn_bias = 74.6;
+server float verazombie_chaingunner_spawn_bias = 4.0;
 server float frontiersman_operator_spawn_bias = 0.5;
 server int frontiersman_operator_spawn_chance = 35;
 

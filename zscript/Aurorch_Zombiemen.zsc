@@ -12,9 +12,9 @@ class HDAurorchZombieman:HDHumanoid{
 		spentrounds=0;
 		chamber=2;
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("POSS");
+            sprite=getspriteindex("SPOS");
         }
-        else sprite = getspriteindex("VDDC");
+        else sprite=getspriteindex("VDDC");
 	}
 	
 	virtual bool noammo(){
@@ -28,7 +28,6 @@ class HDAurorchZombieman:HDHumanoid{
 	}
 
 	void A_MIBAttack(){
-	  
 	  	//check if gun can fire
 		if(cylinder<1){
 		  chamber=0;
@@ -100,10 +99,8 @@ class HDAurorchZombieman:HDHumanoid{
 					wpn.weaponstatus[8]=random(0,1);
                 }
 
-				A_Log("Ammo");
                 for(int i = 0; i < 30; i++) DropNewItem(ammoName, 96);
             } else {
-				A_Log("Has dropped");
                 for(int i=0;i<random(3,6);i++)DropNewItem(ammoName, 96);
             }
         
@@ -162,7 +159,8 @@ class HDAurorchZombieman:HDHumanoid{
 	}
 	states{
 	spawn:
-		VDDC E 1{
+		VDDC A 0;
+		#### E 1{
 			A_HDLook();
 			A_Recoil(frandom(-0.1,0.1));
 		}
