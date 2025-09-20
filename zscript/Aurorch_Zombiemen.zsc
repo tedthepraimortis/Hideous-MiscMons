@@ -8,7 +8,6 @@ class HDAurorchZombieman:HDHumanoid{
 		super.postbeginplay();
 		bhasdropped=false;
 		bhashelmet=false;
-		givearmour(1.,0.06,-0.4);
 		cylinder=6;
 		spentrounds=0;
 		chamber=2;
@@ -101,13 +100,15 @@ class HDAurorchZombieman:HDHumanoid{
 					wpn.weaponstatus[8]=random(0,1);
                 }
 
-                DropNewItem(ammoName, 96);
+				A_Log("Ammo");
+                for(int i = 0; i < 30; i++) DropNewItem(ammoName, 96);
             } else {
-                DropNewItem(ammoName, 96);
+				A_Log("Has dropped");
+                for(int i=0;i<random(3,6);i++)DropNewItem(ammoName, 96);
             }
         
         } else if (!bHASDROPPED) {
-            DropNewItem("HDHandgunRandomDrop");
+            DropNewItem("HDRevolver");
         }
     }
 	
