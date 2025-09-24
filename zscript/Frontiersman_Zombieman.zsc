@@ -46,7 +46,6 @@ class FrontiersmanZombie : HDHumanoid {
 
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("PLAY");
-            A_SetTranslation("Redshirt");
         }
         else sprite = getspriteindex("ZHRT");
     }
@@ -109,6 +108,7 @@ class FrontiersmanZombie : HDHumanoid {
             #### A 0;
         idle:
         spawn2:
+            #### A 0 {if(!hmm_uniquesprites)A_SetTranslation("WhiteSpecialist");}
             #### EEEEEE 1 {
                 A_HDLook();
                 vel.xy -= (cos(angle), sin(angle)) * frandom(-0.1, 0.1);
