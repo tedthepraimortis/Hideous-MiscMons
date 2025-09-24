@@ -89,18 +89,22 @@ class USPHomeboy:HDHumanoid{
 			if(HDCore.CheckClassExists(magName2)){DropNewItem(magName2, 96);}
         }
     }
-	
-	void A_CheckFreedoomSprite(){
-		if(bplayingid)sprite=getspriteindex("VDDC");
-		else{
-			sprite=getspriteindex("SPOS");
-			A_SetTranslation("FreedoomGreycoat");
-		}
-	}
+
 	states{
-	spawn:
-		VDDC A 0;
-		SPOS A 0 A_CheckFreedoomSprite();
+        spawn:
+            SPOS A 0 nodelay
+            {
+                if(!hmm_uniquesprites)
+                {
+                    setstatelabel("spawn2");
+                    A_SetTranslation("FreedoomGreycoat");
+                }
+            }
+            EXTR A 0
+            {
+                setstatelabel("spawn2");
+            }
+            #### A 0;
 	idle:
 	spawn2:
 		#### A 0{

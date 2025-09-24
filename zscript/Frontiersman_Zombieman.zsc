@@ -116,7 +116,7 @@ class FrontiersmanZombie : HDHumanoid {
                 if(!hmm_uniquesprites)
                 {
                     A_JumpIf(wep >= 0, "spawn2");
-                    A_SetTranslation("HattedJackboot");
+                    A_SetTranslation("WhiteSpecialist");
                 }
             }
             ZHRT A 0
@@ -126,7 +126,6 @@ class FrontiersmanZombie : HDHumanoid {
             #### A 0;
         idle:
         spawn2:
-            #### A 0 {if(!hmm_uniquesprites)A_SetTranslation("WhiteSpecialist");}
             #### EEEEEE 1 {
                 A_HDLook();
                 vel.xy -= (cos(angle), sin(angle)) * frandom(-0.1, 0.1);
