@@ -11,10 +11,6 @@ class HDAurorchZombieman:HDHumanoid{
 		cylinder=6;
 		spentrounds=0;
 		chamber=2;
-        If (!hmm_uniquesprites) {
-            sprite=getspriteindex("SPOS");
-        }
-        else sprite=getspriteindex("VDDC");
 	}
 	
 	virtual bool noammo(){
@@ -158,8 +154,22 @@ class HDAurorchZombieman:HDHumanoid{
 		hitobituary "$OB_AURORCHZOMBIEHIT";
 	}
 	states{
-	spawn:
-		VDDC A 0;
+    spawn:
+        POSS A 0 nodelay
+        {
+            if(!hmm_uniquesprites)
+            {
+                setstatelabel("spawn2");
+                A_SetTranslation("HattedJackboot");
+            }
+        }
+        VDDC A 0
+        {
+            setstatelabel("spawn2");
+        }
+        #### A 0;
+    idle:
+	spawn2:
 		#### E 1{
 			A_HDLook();
 			A_Recoil(frandom(-0.1,0.1));

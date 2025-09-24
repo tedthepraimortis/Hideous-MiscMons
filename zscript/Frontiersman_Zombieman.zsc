@@ -204,14 +204,14 @@ class FrontiersmanZombie : HDHumanoid {
 		    }
             #### ABCD 5 A_TurnToAim(40, shootstate: "aiming");
             loop;
-	aiming:
-		#### E 1{
-			double maxspread = 25;
-			double aimrate = 0.75;
-			int minaimtics = 4;
-			A_StartAim(maxspread,rate:aimrate,mintics:random(1,timesdied)+minaimtics,dontlead:randompick(0,0,0,0,1));
-		}
-		#### E 0 setstatelabel("shoot");
+	    aiming:
+		    #### E 1{
+		    	double maxspread = 25;
+		    	double aimrate = 0.75;
+		    	int minaimtics = 4;
+		    	A_StartAim(maxspread,rate:aimrate,mintics:random(1,timesdied)+minaimtics,dontlead:randompick(0,0,0,0,1));
+		    }
+		    #### E 0 setstatelabel("shoot");
         shoot:
             #### E 4 A_LeadTarget(tics);
             #### E 0 {

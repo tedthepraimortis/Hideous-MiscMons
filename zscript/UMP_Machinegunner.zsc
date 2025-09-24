@@ -5,6 +5,7 @@
 class UMPZombie : HDHumanoid {
 
     int gunloaded;
+    int wep;
     
     Default {
         seesound "grunt/sight";
@@ -23,11 +24,6 @@ class UMPZombie : HDHumanoid {
         super.postbeginplay();
         
         gunloaded = 31;
-        If (!hmm_uniquesprites) {
-            sprite = getspriteindex("PLAY");
-            A_SetTranslation("FreedoomGreycoat");
-        }
-        else sprite = getspriteindex("ZSP2");
         givearmour(1.0);
     }
     
@@ -63,7 +59,27 @@ class UMPZombie : HDHumanoid {
 
     States {
         spawn:
+            PLAY A 0 nodelay
+            {
+                if(!hmm_uniquesprites)
+                {
+                    setstatelabel("spawn2");
+                    A_SetTranslation("HattedJackboot");
+                }
+            }
+            ZSP2 A 0
+            {
+                setstatelabel("spawn2");
+            }
+            #### A 0;
+        idle:
+        spawn2:
             #### EE 1 {
+
+                If (!hmm_uniquesprites) {
+                    sprite = getspriteindex("PLAY");
+                }
+                else sprite = getspriteindex("ZSP2");
                 A_HDLook();
                 A_Recoil(frandom(-0.1, 0.1));
                 A_SetTics(random(10, 40));
@@ -209,8 +225,5 @@ class UMPZombie : HDHumanoid {
             #### SRQ 6;
             #### PON 4;
             goto see;
-        CacheTheFuckingSprites:
-            ZSP2 A 0;
-            PLAY A 0;
     }
 }
