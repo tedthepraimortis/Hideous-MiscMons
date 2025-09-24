@@ -115,13 +115,13 @@ class FrontiersmanZombie : HDHumanoid {
             {
                 if(!hmm_uniquesprites)
                 {
-                    A_JumpIf(wep >= 0, "spawn2");
+                    setstatelabel("spawn2");
                     A_SetTranslation("WhiteSpecialist");
                 }
             }
             ZHRT A 0
             {
-                A_JumpIf(wep >= 0, "spawn2");
+                setstatelabel("spawn2");
             }
             #### A 0;
         idle:
