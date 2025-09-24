@@ -78,10 +78,10 @@ class FrontiersmanZombie : HDHumanoid {
                 }
 
                 DropNewItem("SevenMilAmmo", 200);
-			    DropNewItem("PortableLadder");
-			    DropNewItem("PortableStimpack");
-			    DropNewItem("HDHealingPotion");
-			    DropNewItem("HDMap");
+			    if(random(0,2))DropNewItem("PortableLadder");
+			    if(random(0,2))DropNewItem("PortableStimpack");
+			    if(random(0,2))DropNewItem("HDHealingPotion");
+			    if(random(0,2))DropNewItem("HDMap");
                 if(HDCore.CheckClassExists(itmName1))A_DropItem(itmName1, randompick(0,0,0,1,1), 128);
                 if(HDCore.CheckClassExists(itmName2))A_DropItem(itmName2, random(30,120));
             } else {
@@ -90,6 +90,13 @@ class FrontiersmanZombie : HDHumanoid {
 
         } else if (!bHASDROPPED) {
             DropNewItem("BossRifle");
+		    if(!random(0,9)){
+		    	let fff = DropNewItem("HDFragGrenade");
+		    	fff.vel=vel+(frandom(-1,1),frandom(-1,1),2);
+            
+		    	fff = DropNewItem("HDFragSpoon");
+		    	fff.vel=vel+(frandom(-1.5,1.5),frandom(-1.5,1.5),1);
+		    }
         }
     }
 
