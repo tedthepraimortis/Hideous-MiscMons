@@ -22,7 +22,7 @@ class GreelyShortgunner : HDHumanoid {
         tag "$cc_greelyjackboot";
 
         speed 8;
-        scale 0.90;
+        scale 0.85;
         decal "BulletScratch";
         meleesound "weapons/smack";
         meleedamage 4;
@@ -43,8 +43,10 @@ class GreelyShortgunner : HDHumanoid {
     override void postbeginplay() {
         super.postbeginplay();
 
+        gunloaded = 3;
+
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("PLAY");
+            sprite = getspriteindex("SPOS");
         }
         else sprite = getspriteindex("SHCY");
 
