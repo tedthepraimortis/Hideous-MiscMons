@@ -42,7 +42,7 @@ class FrontiersmanZombie : HDHumanoid {
     override void postbeginplay() {
         super.postbeginplay();
         givearmour(1., 0.2, -0.4);
-        gunloaded = 5;
+        gunloaded = 6;
 
         If (!hmm_uniquesprites) {
             sprite = getspriteindex("PLAY");
@@ -75,7 +75,7 @@ class FrontiersmanZombie : HDHumanoid {
                     wpn.weaponstatus[3]=random(0,15);
                     wpn.weaponstatus[4]=0;
 
-                    gunloaded = 5;
+                    gunloaded = 6;
                 }
 
                 DropNewItem("SevenMilAmmo", 200);
@@ -98,7 +98,7 @@ class FrontiersmanZombie : HDHumanoid {
         invoker.gunloaded++;
         A_StartSound("weapons/BossLoad", 8);
 
-        if (invoker.gunloaded >= 3) {
+        if (invoker.gunloaded >= 6) {
             setstatelabel("reloadsgend");
         }
     }
@@ -190,11 +190,21 @@ class FrontiersmanZombie : HDHumanoid {
             loop;
 
         missile:
+		    #### C 1 {
+		    	A_FaceTarget();
+		    	if(floorz>=pos.z)
+		    		A_ChangeVelocity(lasttargetdist>128?3:-3,randompick(-2,2),2,CVF_RELATIVE);
+		    }
             #### ABCD 5 A_TurnToAim(40, shootstate: "aiming");
             loop;
-        aiming:
-            #### E 3 A_StartAim(rate: 0.88, maxtics: random(10, 40));
-            //fallthrough to shoot
+	aiming:
+		#### E 1{
+			double maxspread = 25;
+			double aimrate = 0.75;
+			int minaimtics = 4;
+			A_StartAim(maxspread,rate:aimrate,mintics:random(1,timesdied)+minaimtics,dontlead:randompick(0,0,0,0,1));
+		}
+		#### E 0 setstatelabel("shoot");
         shoot:
             #### E 4 A_LeadTarget(tics);
             #### E 0 {
@@ -296,7 +306,19 @@ class FrontiersmanZombie : HDHumanoid {
             #### G 0 {
                 bFRIGHTENED = false;
             }
+		    #### G 0 A_JumpIf(!random(0,2),"leapdodge");
             goto see;
+	    leapdodge:
+		    #### G 1;
+		    #### G 1 A_Vocalize(painsound);
+		    #### G 2 {
+		    	A_FaceTarget();
+		    	angle+=random(180,190);
+		    	if(floorz>=pos.z)
+		    		A_ChangeVelocity(0,randompick(-1,1)*4.5,2,CVF_RELATIVE);
+		    }
+		    #### G 0 A_JumpIf(random(0,1),"see");
+		    goto shoot;
 
         death:
             #### H 5;
