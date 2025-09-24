@@ -15,6 +15,7 @@ class VeraZombie : HDHumanoid {
         radius 14;
         height 54;
         painchance 170;
+        translation 0;
         monster;
         +floorclip
         seesound "chainguy/sight";
@@ -33,11 +34,6 @@ class VeraZombie : HDHumanoid {
 
     override void postbeginplay() {
         super.postbeginplay();
-
-        If (!hmm_uniquesprites) {
-            sprite=getspriteindex("CPOS");
-        }
-        else sprite=getspriteindex("CPS2");
         
         chambers = 3;
         burstcount = random(7,20);
@@ -47,7 +43,7 @@ class VeraZombie : HDHumanoid {
         bhashelmet = !bplayingid;
         bnoincap = bplayingid;
 
-        gunheight = 32;
+        gunheight = 33;
         givearmour(1., 0.2, -0.4);
     }
 
@@ -151,7 +147,20 @@ class VeraZombie : HDHumanoid {
 
     States {
         spawn:
-            CPS2 A 0 nodelay;
+            CPOS A 0 nodelay
+            {
+                if(!hmm_uniquesprites)
+                {
+                    setstatelabel("spawn2");
+                    A_SetTranslation("WhiteSpecialist");
+                }
+            }
+            CPS2 A 0
+            {
+                setstatelabel("spawn2");
+            }
+            #### A 0;
+        spawn2:
             #### B 1 nodelay {
                 A_HDLook();
                 A_Recoil(random(-1, 1) * 0.1);
@@ -216,7 +225,7 @@ class VeraZombie : HDHumanoid {
                 A_HDWander();
             }
             #### B 5 A_HDWander();
-            #### A 0 A_Jump(96, "spawn", "spawnscan");
+            #### A 0 A_Jump(96, "spawn2", "spawnscan");
             loop;
         spawnscan:
             #### E 4 {
@@ -231,29 +240,14 @@ class VeraZombie : HDHumanoid {
             #### EEEEEE 4 A_HDLook(label: "missile");
             #### E 0 A_Jump(116, "spawnturn", "spawnscan", "spawnscan");
             goto spawnwander;
-        see:
-        scan:
-            #### E 4{
-                turnleft = randompick(0, 0, 0, 1);
-                if (turnleft) {
-                    angle -= frandom(18, 24);
-                } else {
-                    angle += frandom(18, 24);
-                }
-            }
         scanturn:
-            #### E 0 {
-                if (!targetinsight) {
-                    A_HDLook(LOF_NOJUMP|LOF_NOSOUNDCHECK);
-                }
-            }
-            #### EEEEEE 4 A_Watch();
-            #### E 0 A_Jump(32, "scanturn", "scanturn", "scan");
-            //fallthrough to seemove
-        seemove:
+            #### EEEEEEE 4 A_Watch(10.,"see","shoot");
+		    #### E 0 A_JumpIf(absangle(angle,HDMath.AngleTo(pos.xy,lasttargetpos.xy))>10,"see");
+		    loop;
+        see:
             #### A 0 A_Jumpif(!mags && thismag < 1, "reload");
-            #### ABCD 5 A_HDChase(null, "melee");
-            #### A 0 A_Jump(64, "scan");
+            #### ABCD 5 A_HDChase();
+            #### A 0 A_Jump(64, "scanturn");
             loop;
         missile:
             #### ABCD 5 A_TurnToAim(30, shootstate: "aim");
@@ -316,7 +310,7 @@ class VeraZombie : HDHumanoid {
                 } else if (mags < 4) {
                     mags++;
                 } else {
-                    setstatelabel("seemove");
+                    setstatelabel("see");
                     return;
                 }
 
@@ -337,7 +331,7 @@ class VeraZombie : HDHumanoid {
         pain:
             #### G 3;
             #### G 3 A_Vocalize(painsound);
-            goto seemove;
+            goto see;
 
         death:
             #### H 5;
