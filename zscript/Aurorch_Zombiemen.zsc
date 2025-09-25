@@ -33,7 +33,7 @@ class HDAurorchZombieman:HDHumanoid{
 
 		pitch+=frandom(0,spread)-frandom(0,spread);
 		angle+=frandom(0,spread)-frandom(0,spread);
-		HDBulletActor.FireBullet(self,"HDB_420",spread:1.,speedfactor:1.2);
+		HDBulletActor.FireBullet(self,"HDB_420",spread:1.,speedfactor:0.85);
 
 		A_StartSound("weapons/auryshoot",CHAN_WEAPON,CHANF_OVERLAP,0.5);
 		A_StartSound("weapons/auryshoot",CHAN_WEAPON,CHANF_OVERLAP);
