@@ -62,8 +62,8 @@ class HDHellshade:PainMonster
     }
 
     int rnjesus; //lmao
-    name spiritName = 'SpiritualArmour';
-    name preciousName = 'HDPrecious';
+    name spiritName;
+    name preciousName;
 
     override double bulletshell(vector3 hitpos,double hitangle){
         return frandom(3,12);
@@ -76,6 +76,8 @@ class HDHellshade:PainMonster
         super.postbeginplay();
         resize(0.95,1.05);
         A_SpawnItemEx("HellishLight",flags:SXF_SETTARGET);
+        if(HDCore.CheckClassExists("HDPrecious")) preciousName = 'HDPrecious';
+        if(HDCore.CheckClassExists("SpiritualArmour")) spiritName = 'SpiritualArmour';
     }
     override void tick(){
         super.tick();
@@ -140,13 +142,7 @@ class HDHellshade:PainMonster
                     &&aaa.target==caller
                 )aaa.A_ClearTarget();
 
-                if(hdp){
-                    hdp.unstablewoundcount-=2;
-                    hdp.woundcount+=2;
-                }
-                else if(aaa){
-                    HDBleedingWound.Inflict(aaa,13*8,source:caller);
-                }
+                HDBleedingWound.Inflict(aaa,13*8,source:caller);
             }
         }
     }
@@ -172,8 +168,7 @@ class HDHellshade:PainMonster
                 //does the bleeding.
 
                 if(hdp){
-                    hdp.unstablewoundcount--;
-                    hdp.woundcount++;
+                    HDBleedingWound.Inflict(it.thing,13*8,source:caller);
                     hdp.A_Pain();
                 }
             }
@@ -253,7 +248,7 @@ class HDHellshade:PainMonster
             random(1,3) A_StartSound(deathsound,CHAN_VOICE,CHANF_OVERLAP,volume:frandom(0.3,1.),attenuation:0.1,pitch:frandom(0.9,1.1));
     death.bleedout:
         TNT1 A 35;
-        TNT1 A 0 if(HDCore.CheckClassExists(preciousName))A_DropItem(preciousName);
+        TNT1 A 0 {if(HDCore.CheckClassExists(preciousName))A_DropItem(preciousName);}
     xxxdeath:
         stop;
     }
