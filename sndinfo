@@ -24,3 +24,14 @@ $alias harbinger/active cyber/active
 $alias harbinger/pain cyber/pain
 $alias harbinger/melee baron/melee
 $alias harbinger/step cyber/hoof
+
+// Hellshades - [Ted]
+$alias    hellshade/sight    cshellshade/sight
+$alias    hellshade/active    cshellshade/active
+$alias    hellshade/pain    cshellshade/pain
+$alias    hellshade/death    cshellshade/death
+
+$pitchset hellshade/sight 0.5
+$pitchset hellshade/active 0.5
+$pitchset hellshade/pain 0.5
+$pitchset hellshade/death 0.5
