@@ -37,7 +37,7 @@ class HDHellshade:PainMonster
         obituary "$ob_baron";
         hitobituary "$ob_baronhit";
 
-        +missilemore -dontharmspecies
+        +nobouncesound -dontharmspecies
         maxtargetrange 65536;
         damagefactor "hot",0.8;
         damagefactor "cold",0.7;

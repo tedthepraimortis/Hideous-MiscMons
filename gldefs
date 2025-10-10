@@ -7,19 +7,19 @@ brightmap sprite BPOSF1
 
 brightmap sprite BPOSF2F8
 {
-	map BMBPOSF2
+	map BMBPOSF2F8
 	disablefullbright
 }
 
 brightmap sprite BPOSF3F7
 {
-	map BMBPOSF3
+	map BMBPOSF3F7
 	disablefullbright
 }
 
 brightmap sprite BPOSF4F6
 {
-	map BMBPOSF4
+	map BMBPOSF4F6
 	disablefullbright
 }
 
@@ -436,12 +436,6 @@ brightmap sprite HECTF1
 	//iwad
 }
 
-brightmap sprite HECTF2F8
-{
-	map "brightmaps/BMHECTF2F8.png"
-	//iwad
-}
-
 brightmap sprite HECTF3F7
 {
 	map "brightmaps/BMHECTF3F7.png"
@@ -456,7 +450,7 @@ brightmap sprite HECTG1
 
 brightmap sprite HECTG2G8
 {
-	map "brightmaps/BMHECTG2G8.png"
+	map "brightmaps/BMHECTG2.png"
 	//iwad
 }
 
@@ -503,7 +497,7 @@ brightmap sprite HECTI1
 
 brightmap sprite HECTI2I8
 {
-	map "brightmaps/BMHECTI2.png"
+	map "brightmaps/BMHECTI2I8.png"
 	//iwad
 }
 
@@ -560,13 +554,6 @@ brightmap sprite HECTU2V8
 brightmap sprite HECTU3V7
 {
 	map "brightmaps/BMHECTU3.png"
-	//iwad
-	disablefullbright
-}
-
-brightmap sprite HECTU3V6
-{
-	map "brightmaps/BMHECTU4.png"
 	//iwad
 	disablefullbright
 }
