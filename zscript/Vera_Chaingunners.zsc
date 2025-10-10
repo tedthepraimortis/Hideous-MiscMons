@@ -161,7 +161,7 @@ class VeraZombie : HDHumanoid {
             }
             #### A 0;
         spawn2:
-            #### B 1 nodelay {
+            #### B 1 {
                 A_HDLook();
                 A_Recoil(random(-1, 1) * 0.1);
                 A_SetTics(random(5, 25));

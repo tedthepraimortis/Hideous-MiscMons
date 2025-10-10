@@ -46,7 +46,7 @@ class GreelyShortgunner : HDHumanoid {
         gunloaded = 3;
 
         If (!hmm_uniquesprites) {
-            sprite = getspriteindex("SPOS");
+            sprite = getspriteindex("PLAY");
         }
         else sprite = getspriteindex("SHCY");
 
@@ -114,10 +114,29 @@ class GreelyShortgunner : HDHumanoid {
         }
     }
 
+    // Crouching function, from HDPartyGoons
+    bool isCrouched;
+	action void A_GreZombCrouch(){
+		if(GreelyShortgunner(self).isCrouched || !tango_crouch)
+			return;
+		self.sprite = GetSpriteIndex("PLYC");
+		self.height/= 2;
+		self.speed*=0.7;
+		GreelyShortgunner(self).isCrouched = true;
+	}
+	action void A_GreZombUncrouch(){
+		if(!GreelyShortgunner(self).isCrouched) 
+			return;
+		self.sprite = GetSpriteIndex("PLAY");
+		self.height*= 2;
+		self.speed/=0.7;
+		GreelyShortgunner(self).isCrouched = false;
+	}
+
     States {
         spawn:
-            SHCY A 0;
-            #### A 0 nodelay A_JumpIf(wep >= 0, "spawn2");
+            SHCY A 0 nodelay;
+            #### A 0 A_JumpIf(wep >= 0, "spawn2");
             #### A 0;
         idle:
         spawn2:
@@ -182,6 +201,7 @@ class GreelyShortgunner : HDHumanoid {
             loop;
 
         see:
+            #### A 0 A_GreZombUncrouch();
             #### A 0{
                 if (gunloaded < 1) {
                     setstatelabel("reload");
@@ -193,6 +213,7 @@ class GreelyShortgunner : HDHumanoid {
             #### A 0 A_Jump(116, "roam", "roam", "roam", "roam2", "roam2");
             loop;
         roam:
+            #### A 0 A_GreZombUncrouch();
             #### EEEE 3 A_Watch();
             #### A 0 A_Jump(60, "roam");
         roam2:
@@ -205,7 +226,8 @@ class GreelyShortgunner : HDHumanoid {
             #### ABCD 3 A_TurnToAim(40, shootstate: "aiming");
             loop;
         aiming:
-            #### E 1 A_StartAim(rate: 0.88, maxtics: random(10, 40));
+            #### E 1 A_StartAim(17, rate: 0.74, mintics: random(2,5), maxtics: random(10, 40));
+            #### E 0 {if(!random(0,1)) A_GreZombCrouch();}
             //fallthrough to shoot
         shoot:
             #### E 2 A_LeadTarget(lasttargetdist * 0.01, randompick(0, 0, 0, 1));
@@ -252,7 +274,7 @@ class GreelyShortgunner : HDHumanoid {
             #### E 0 A_Jump(32, "missile");
             ---- A 0 setstatelabel("roam");
         chambersg:
-            #### E 8{
+            #### E 4{
                 if (gunspent) {
                     A_SetTics(random(2, 4));
                     A_StartSound("weapons/huntrack", 8);
@@ -286,12 +308,8 @@ class GreelyShortgunner : HDHumanoid {
                     }
                 }
             }
+            #### E 1 A_JumpIf(distance3d(target) < 100, "leapdodge");
             #### E 1 A_SetTics(random(2, 6));
-            #### E 1 {
-			    A_ShoutAlert(0.1,SAF_SILENT);
-				double ato=angleto(target)+randompick(-90,90);
-				vel+=((cos(ato),sin(ato))*speed,0.6);
-			}
             #### E 0 A_Jump(127, "see");
             goto roam;
 
@@ -322,6 +340,8 @@ class GreelyShortgunner : HDHumanoid {
             goto see;
 
         pain:
+            #### G 0 A_JumpIf(!random(0,2),"leapdodge");
+        reallypain:
             #### G 3 A_Jump(12, 1);
             #### G 3 A_Vocalize(painsound);
             #### G 0 {
@@ -335,6 +355,22 @@ class GreelyShortgunner : HDHumanoid {
                 bFRIGHTENED = false;
             }
             goto see;
+        leapdodge:
+		    #### G 1;
+		    #### G 1 A_Vocalize(painsound);
+		    #### G 2 {
+		    	A_FaceTarget();
+		    	angle+=random(-10,10);
+		    	if(floorz>=pos.z)
+		    		A_ChangeVelocity(0,randompick(-1,1)*4.5,2,CVF_RELATIVE);
+		    	if(distance3d(target) < 100){
+		    		A_GreZombCrouch();
+		    		A_ChangeVelocity(0,0,-2.5);
+		    		vel*=1.2;
+		    	}
+		    }
+		    #### G 0 A_JumpIf(random(0,1),"see");
+		goto shoot;
         death:
             #### H 5;
             #### I 5 A_Vocalize(deathsound);
