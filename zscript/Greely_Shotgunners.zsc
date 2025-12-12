@@ -363,7 +363,7 @@ class GreelyShortgunner : HDHumanoid {
 		    	angle+=random(-10,10);
 		    	if(floorz>=pos.z)
 		    		A_ChangeVelocity(0,randompick(-1,1)*4.5,2,CVF_RELATIVE);
-		    	if(distance3d(target) < 255 || !random(0,2)){
+		    	if(target && distance3d(target) < 255 || !random(0,2)){
 		    		A_GreZombCrouch();
 		    		A_ChangeVelocity(0,0,-2.5);
 		    		vel*=1.2;
