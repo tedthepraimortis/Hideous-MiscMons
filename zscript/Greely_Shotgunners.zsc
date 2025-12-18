@@ -119,7 +119,8 @@ class GreelyShortgunner : HDHumanoid {
 	action void A_GreZombCrouch(){
 		if(GreelyShortgunner(self).isCrouched || !tango_crouch)
 			return;
-		self.sprite = GetSpriteIndex(hmm_uniquesprites?"SHYC":"PLYC");
+        // FIXME: unique version of crouching sprite "SHYC" doesn't exist, breaks in-game
+		self.sprite = GetSpriteIndex(hmm_uniquesprites?"SHCY":"PLYC");
 		self.height/= 2;
 		self.speed*=0.7;
 		GreelyShortgunner(self).isCrouched = true;
@@ -263,7 +264,7 @@ class GreelyShortgunner : HDHumanoid {
                 gunspent = 1;
             }
             #### E 2;
-            #### E 1{
+            #### E 1 {
                 if (gunspent) {
                     setstatelabel("chambersg");
                 } else {
@@ -316,7 +317,7 @@ class GreelyShortgunner : HDHumanoid {
         ohforfuckssake:
             #### E 6;
         reload:
-            #### A 0setstatelabel("reloadsg");
+            #### A 0 setstatelabel("reloadsg");
 
         reloadsg:
             #### A 2 A_HDChase("melee", null, flags: CHF_FLEE);
