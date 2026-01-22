@@ -14,13 +14,14 @@ class Behemoth:HDMobBase{
         +floorclip
         +dontmorph
         +bossdeath
+        +E2M8BOSS
+        +E4M6BOSS
         seesound "cyber/sight";
         painsound "cyber/pain";
         deathsound "cyber/death";
         activesound "cyber/active";
         tag "$CC_BEHEMOTH";
 
-        +e1m8boss
         +avoidmelee +nofear
         +noblooddecals
         +hdmobbase.biped

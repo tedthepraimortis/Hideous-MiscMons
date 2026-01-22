@@ -84,6 +84,8 @@ class HDCyberGunner:HDMobBase{ //smh my head
         +floorclip
         +dontmorph
         +bossdeath
+        +E2M8BOSS
+        +E4M6BOSS
         seesound "cyber/sight";
         painsound "cyber/pain";
         deathsound "cyber/death";

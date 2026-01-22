@@ -7,8 +7,10 @@ class HDHarbinger:SatanRobo{
         +nobouncesound
         +floorclip
         +dontmorph
-        +bossdeath
         +quicktoretaliate
+        +bossdeath
+        +E2M8BOSS
+        +E4M6BOSS
         seesound "harbinger/sight";
         painsound "harbinger/pain";
         deathsound "harbinger/death";
