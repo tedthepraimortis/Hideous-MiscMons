@@ -28,7 +28,7 @@ addSpawnTableSingleEntry => { "tableName": "DoomImpReplaces", "name": "FlamerImp
 // Bosses
 addSpawnTableSingleEntry => { "tableName": "FatsoReplaces", "name": "HDHectebus", "weight": "#hectebus_mancubus_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDAnnihilator", "weight": "#annihilator_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
-addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDHarbringer", "weight": "#harbringer_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
+addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDHarbinger", "weight": "#harbringer_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "HDCyberGunner", "weight": "#cybergunner_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 addSpawnTableSingleEntry => { "tableName": "CyberdemonReplaces", "name": "Behemoth", "weight": "#behemoth_cyberdemon_spawn_bias", "persists": "#enemy_persistent_spawning"}
 
@@ -46,7 +46,7 @@ newMerchantBountyTarget => { "name": "VeraZombie", "value": "300" }
 newMerchantBountyTarget => { "name": "FrontiersmanZombie", "value": "500" }
 newMerchantBountyTarget => { "name": "HDCybergunner", "value": "2500" }
 newMerchantBountyTarget => { "name": "HDAnnihilator", "value": "3000" }
-newMerchantBountyTarget => { "name": "HDHarbringer", "value": "3500" }
+newMerchantBountyTarget => { "name": "HDHarbinger", "value": "3500" }
 newMerchantBountyTarget => { "name": "Behemoth", "value": "2500" }
 
 // Ugly as Sin compat - [Ted]
@@ -61,7 +61,7 @@ addFlashlightHumanClass => { "name": "DMRTrooper" }
 
 addFlashlightOtherClass => { "name": "Behemoth" }
 addFlashlightOtherClass => { "name": "HDCyberGunner" }
-addFlashlightOtherClass => { "name": "HDHarbringer" }
+addFlashlightOtherClass => { "name": "HDHarbinger" }
 addFlashlightOtherClass => { "name": "HDAnnihilator" }
 addFlashlightOtherClass => { "name": "GreelyShortgunner" }
 
