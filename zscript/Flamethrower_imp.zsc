@@ -271,3 +271,11 @@ class ImpFlamer : HDActor
 			Stop;
 	}
 }
+
+class DeadFlamerImp : FlamerImp {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
+    }
+}

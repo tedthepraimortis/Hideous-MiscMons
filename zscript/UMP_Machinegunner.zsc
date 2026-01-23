@@ -193,6 +193,7 @@ class UMPZombie : HDHumanoid {
             #### I 5 A_Scream();
             #### JK 5;
         dead:
+        death.spawndead:
             #### K 3 A_Jumpif(abs(vel.z) < 2, 1);
             loop;
             #### L 5 canraise A_Jumpif(abs(vel.z) >= 2, "dead");
@@ -225,5 +226,13 @@ class UMPZombie : HDHumanoid {
             #### SRQ 6;
             #### PON 4;
             goto see;
+    }
+}
+
+class DeadUMPZombie : UMPZombie {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
     }
 }

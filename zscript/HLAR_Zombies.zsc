@@ -428,6 +428,7 @@ class HLARTrooper : HDHumanoid {
             #### I 5 A_Vocalize(deathsound);
             #### JK 5;
         dead:
+        death.spawndead:
             #### K 3 canraise A_JumpIf(abs(vel.z) < 2, 1);
             wait;
             #### L 5 canraise A_JumpIf(abs(vel.z) >= 2, "dead");
@@ -462,5 +463,13 @@ class HLARTrooper : HDHumanoid {
             #### SRQ 6;
             #### PONM 4;
             goto see;
+    }
+}
+
+class DeadHLARTrooper : HLARTrooper {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
     }
 }

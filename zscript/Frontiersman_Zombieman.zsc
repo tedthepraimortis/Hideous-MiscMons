@@ -342,6 +342,7 @@ class FrontiersmanZombie : HDHumanoid {
             #### I 5 A_Vocalize(deathsound);
             #### JK 5;
         dead:
+        death.spawndead:
             #### K 3 canraise A_JumpIf(abs(vel.z) < 2, 1);
             wait;
             #### L 5 canraise A_JumpIf(abs(vel.z) >= 2, "dead");
@@ -398,5 +399,13 @@ class FrontiersmanZombie : HDHumanoid {
             #### SRQ 6;
             #### PON 4;
             goto see;
+    }
+}
+
+class DeadFrontiersmanZombie : FrontiersmanZombie {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
     }
 }

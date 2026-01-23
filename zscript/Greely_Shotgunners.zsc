@@ -435,3 +435,11 @@ class GreelyShortgunner : HDHumanoid {
             goto see;
     }
 }
+
+class DeadGreelyShortgunner : GreelyShortgunner {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
+    }
+}

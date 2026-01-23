@@ -503,6 +503,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             #### I 5 A_Vocalize(deathsound);
             #### JK 5 A_SpawnItemEx("BFGNecroShard",flags:SXF_TRANSFERPOINTERS|SXF_SETMASTER,240);
         dead:
+        death.spawndead:
             #### K 3 A_JumpIf(abs(vel.z) < 2, 1);
             loop;
             #### L 5 A_JumpIf(abs(vel.z) >= 2, "dead");
@@ -526,5 +527,13 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             wait;
             #### U 5 A_JumpIf(abs(vel.z) >= 2, "gibbed");
             wait;
+    }
+}
+
+class DeadPeeDeeFourtyTrooper : PeeDeeFourtyTrooper {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
     }
 }

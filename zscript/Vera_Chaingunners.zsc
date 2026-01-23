@@ -342,6 +342,7 @@ class VeraZombie : HDHumanoid {
             #### J 5 A_GibSplatter();
             #### KLMNO 3;
         dead:
+        death.spawndead:
             #### P 3 A_Jumpif(abs(vel.z) < 2, 1);
             loop;
             #### P 5 canraise A_Jumpif(abs(vel.z) >= 2, "dead");
@@ -381,5 +382,13 @@ class VeraZombie : HDHumanoid {
             #### UT 7;
             #### SRQ 5;
 			goto see;
+    }
+}
+
+class DeadVeraZombie : VeraZombie {
+    override void postBeginPlay() {
+        super.postBeginPlay();
+
+        A_Die("spawndead");
     }
 }
