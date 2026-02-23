@@ -2,23 +2,45 @@
 
 ## What does this mod do?
 
-This is a monster pack intended on expanding the zombieman roster to use more of the community created weapons, without adding __intentionally__ overpowered enemies.
+This is a monster pack intended on expanding the zombieman roster to use more of the community created weapons.
 
-## Usage
+## Requirements
 
-Load after your version of **[Hideous Destructor](https://codeberg.org/mc776/HideousDestructor)** and whichever weapon pack you wish to run with it.
+- [Hideous Destructor](https://codeberg.org/mc776/HideousDestructor)
+- [HDBulletLib-Recasted](https://github.com/HDest-Community/HDBulletLib-Recasted)
+- [HDest-Core-Lib](https://github.com/HDest-Community/hdest-core-lib)
 
 ## Currently supported mods
 
-- [Peppergrinder](https://gitlab.com/hdiscord-saltmines/hd-peppergrinder) (Partial)
-- [Icarus Innovations Improved](https://github.com/HDest-Community/icarus-innovations-improved) (Partial)
+- [Peppergrinder](https://gitlab.com/hdiscord-saltmines/hd-peppergrinder)
+- [Icarus Innovations Improved](https://github.com/HDest-Community/icarus-innovations-improved)
+- [1337-weps](https://gitlab.com/a1337spy/1337weps)
+
+### Current Enemy List
+
+- Altis Jackboots, capable of shooting both buckshot and slugs into you
+- Highwaymen, carrying the Aurorch Single-Action Armory
+- Annihilators, Cybergunners, Harbringers, Hectebus and Hellshades by Benitez
+- BPX Riflemen, utilizing the mag pouches
+- Frontiersmen carrying the gun of the same name
+- DMR Riflemen carrying the DMR
+- Greely Jackboots wielding the greely and capable of slugging you
+- HLAR Zombies
+- PD-42 Zombies
+- Trog Zombies
+- UMP Machinegunners
+- Vera Chaingunners
+- USP Homeboys
+- Flamethrower Imps
+- The Behemoth
+- Winged Babuins
 
 ### Current Feature Plans
 
 - Improve on the unique identity of these enemies.
 - Get unique sprites for all of the enemies.
-- Make a public release. Idiot.
 - Give all of the enemies sounds unique to them.
+- Finish the Urns, Maggots and Decorations.
 
 ## Credits
 
