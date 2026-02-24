@@ -251,22 +251,26 @@ class DMRTrooper : HDHumanoid {
         #### ABCD 2 A_HDChase(flags:CHF_FLEE);
         ---- A 0 setstatelabel("see");
     death:
+        #### A 0 A_JumpIf(!hmm_uniquesprites,"death2");
         #### J 5;
         #### K 5 A_Vocalize(deathsound);
         #### LM 5;
     dead:
     death.spawndead:
+        #### A 0 A_JumpIf(!hmm_uniquesprites,"death2");
         #### M 3 canraise{if(abs(vel.z)<2.)frame++;}
         #### N 5 canraise{if(abs(vel.z)>=2.)setstatelabel("dead");}
         wait;
     raise:
+        #### A 0 A_JumpIf(!hmm_uniquesprites,"raise2");
         #### J 4{
             jammed=false;
         }
-        #### LK 6;
+        #### JK 6;
         #### JIH 4;
         #### A 0 A_Jump(256,"see");
     gib:
+        #### A 0 A_JumpIf(!hmm_uniquesprites,"gib2");
         #### O 5;
         #### P 5{
             A_GibSplatter();
@@ -275,15 +279,51 @@ class DMRTrooper : HDHumanoid {
         #### QR 5 A_GibSplatter();
         #### STUV 5;
     gibbed:
+        #### A 0 A_JumpIf(!hmm_uniquesprites,"gibbed2");
         #### U 3 canraise A_JumpIf(abs(vel.z)<2.,1);
         #### V 5 canraise A_JumpIf(abs(vel.z)>=2.,"gibbed");
         wait;
     ungib:
+        #### A 0 A_JumpIf(!hmm_uniquesprites,"ungib2");
         #### U 12;
         #### T 8;
         #### SRQ 6;
         #### PONM 4;
         #### A 0 A_Jump(256,"pain");
+
+	death2:
+		#### H 5;
+		#### I 5 A_Vocalize(deathsound);
+		#### JK 5;
+	dead2:
+		#### K 3 A_JumpIf(abs(vel.z)<2.,1);
+		#### L 5 canraise{if(abs(vel.z)>=2.)setstatelabel("dead");}
+		wait;
+	raise2:
+		#### L 4{
+			jammed=false;
+		}
+		#### LK 6;
+		#### JIH 4;
+		#### A 0 A_Jump(256,"see");
+	gib2:
+		#### M 5;
+		#### N 5{
+			A_GibSplatter();
+			A_XScream();
+		}
+		#### OP 5 A_GibSplatter();
+		#### QRST 5;
+	gibbed2:
+		#### T 3 canraise A_JumpIf(abs(vel.z)<2.,1);
+		#### U 5 canraise A_JumpIf(abs(vel.z)>=2.,"gibbed");
+		wait;
+	ungib2:
+		#### U 12;
+		#### T 8;
+		#### SRQ 6;
+		#### PONM 4;
+		#### A 0 A_Jump(256,"pain");
     }
 }
 
