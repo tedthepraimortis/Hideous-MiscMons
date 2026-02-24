@@ -252,8 +252,16 @@ class GreelyShortgunner : HDHumanoid {
                 }
                 if (firecount == 2){
                     HDBulletActor.FireBullet(self, "HDB_Slug");
-                    A_StartSound("weapons/greelyshot");
-                    A_StartSound("weapons/greelyblast", 9, CHANF_DEFAULT, 0.1);
+                    if(HDCore.CheckClassExists('HDGreely'))
+                    {
+                        A_StartSound("weapons/greelyshot");
+                        A_StartSound("weapons/greelyblast", 9, CHANF_DEFAULT, 0.1);
+                    }
+                    else
+                    {
+		                distantnoise.make(self,"world/shotgunfar");
+		                A_StartSound("weapons/hunter",CHAN_WEAPON,CHANF_OVERLAP);
+                    }
                     firecount = 0;
                 }
                 else{

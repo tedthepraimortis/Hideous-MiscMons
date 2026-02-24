@@ -145,7 +145,8 @@ class BPXTrooper : HDHumanoid {
                 return;
             }
 
-            A_StartSound("weapons/bpx",CHAN_WEAPON);
+            if(HDcore.CheckClassExists('HDBPX')) A_StartSound("weapons/bpx",CHAN_WEAPON);
+            else A_StartSound("weapons/pistol",CHAN_WEAPON);
             HDBulletActor.FireBullet(self,"HDB_9",speedfactor:1.30);
             pitch+=frandom(-spread,spread*0.5)*0.3;
             angle+=frandom(-spread*0.5,spread)*0.3;

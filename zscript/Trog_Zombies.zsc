@@ -225,7 +225,8 @@ class ZombieTrogtrooper : HDHumanoid {
                     return;
                 }
 
-                A_StartSound("weapons/trog", CHAN_WEAPON);
+                if(HDCore.CheckClassExists('HDTrog')) A_StartSound("weapons/trog", CHAN_WEAPON);
+                else A_StartSound("weapons/rifle", CHAN_WEAPON);
                 HDBulletActor.FireBullet(self, "HDB_426");
 
                 pitch += frandom(-spread, spread * 0.5) * 0.3;

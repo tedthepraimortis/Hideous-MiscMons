@@ -154,7 +154,8 @@ class UMPZombie : HDHumanoid {
                 pitch += frandom(0, spread) - frandom(0, spread);
                 angle += frandom(0, spread) - frandom(0, spread);
 
-                A_StartSound("UMP/fire", CHAN_WEAPON);
+                if(HDCore.CheckClassExists('HDUmp')) A_StartSound("UMP/fire", CHAN_WEAPON);
+				else A_StartSound("weapons/pistol",CHAN_WEAPON);
                 HDBulletActor.FireBullet(self, "HDB_45ACP", zofs: 35, spread: 1.0, speedfactor: frandom(0.69, 0.71));
                 gunloaded--;
             }

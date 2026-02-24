@@ -67,3 +67,4 @@ This is a monster pack intended on expanding the zombieman roster to use more of
 - Hectebus: Sprites: Id Software, Midway | Sprite Edit: AgentSpork | Brightmaps: Sandypaper | Sounds: Project Brutality(?) | Original Code: Benitez
 - BPX Zombie: Sprites: Project Malice
 - DMR Zombie: Sprites: Project Malice
+- Highwaymen: Original code: Swampyrad

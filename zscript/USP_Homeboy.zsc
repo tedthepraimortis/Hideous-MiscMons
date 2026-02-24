@@ -180,7 +180,7 @@ class USPHomeboy:HDHumanoid{
         #### E 0
         {
             double dt = distance3d(target);
-            if (dt < 300)
+            if (dt < 300 || target.CheckInventory('HDMagicShield', 1))
             {
                 firemode = -2;
             }
@@ -202,7 +202,8 @@ class USPHomeboy:HDHumanoid{
                 return;
             }
 			if(firemode==-2){
-				A_StartSound("USP/fire",CHAN_WEAPON);
+				if(HDCore.CheckClassExists('HDUSP')) A_StartSound("USP/fire",CHAN_WEAPON);
+				else A_StartSound("weapons/pistol",CHAN_WEAPON);
 				HDBulletActor.FireBullet(self, "HDB_45ACP", zofs: 35, spread: 1.0, speedfactor: frandom(0.69, 0.71));
 				A_EjectPistolCasing();
 				pitch+=frandom(-0.2,0.1)*spread;
@@ -227,7 +228,7 @@ class USPHomeboy:HDHumanoid{
 			if(
 				//conditions under which no autofire can happen
 				!firemode
-				||firemode==-1
+				||firemode<=-1
 				||firemode>3
 				||mag<1
 			){

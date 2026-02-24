@@ -225,7 +225,8 @@ class HLARTrooper : HDHumanoid {
                     return;
                 }
 
-                A_StartSound("weapons/hlar", CHAN_WEAPON);
+                if(HDCore.CheckClassExists('HDHLAR')) A_StartSound("weapons/hlar", CHAN_WEAPON);
+                else A_StartSound("weapons/pistol", CHAN_WEAPON);
                 HDBulletActor.FireBullet(self, "HDB_9");
 
                 pitch += frandom(-spread, spread * 0.5) * 0.3;

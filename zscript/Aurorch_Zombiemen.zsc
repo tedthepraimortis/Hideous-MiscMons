@@ -23,7 +23,7 @@ class HDAurorchZombieman:HDHumanoid{
 		setstatelabel(jumpto);
 	}
 
-	void A_MIBAttack(){
+	void A_AuryAttack(){
 	  	//check if gun can fire
 		if(cylinder<1){
 		  chamber=0;
@@ -35,9 +35,18 @@ class HDAurorchZombieman:HDHumanoid{
 		angle+=frandom(0,spread)-frandom(0,spread);
 		HDBulletActor.FireBullet(self,"HDB_420",spread:1.,speedfactor:0.85);
 
-		A_StartSound("weapons/auryshoot",CHAN_WEAPON,CHANF_OVERLAP,0.5);
-		A_StartSound("weapons/auryshoot",CHAN_WEAPON,CHANF_OVERLAP);
-		A_StartSound("weapons/deinoblast2",CHAN_WEAPON,CHANF_OVERLAP,0.4);
+		if (HDCore.CheckClassExists('HDAurochs'))
+		{
+			A_StartSound("weapons/auryshoot",CHAN_WEAPON,CHANF_OVERLAP,0.5);
+			A_StartSound("weapons/auryshoot",CHAN_WEAPON,CHANF_OVERLAP);
+			A_StartSound("weapons/deinoblast2",CHAN_WEAPON,CHANF_OVERLAP,0.4);
+		}
+		else
+		{
+			A_StartSound("weapons/deinoblast1",CHAN_WEAPON,CHANF_OVERLAP);
+			A_StartSound("weapons/deinoblast1",CHAN_WEAPON,CHANF_OVERLAP,0.5);
+			A_StartSound("weapons/deinoblast2",CHAN_WEAPON,CHANF_OVERLAP,0.4);
+		}
 		pitch+=frandom(-0.4,0.3);
 		angle+=frandom(-0.4,0.4);
 	
@@ -232,7 +241,7 @@ class HDAurorchZombieman:HDHumanoid{
 		#### E 1 A_SetTics(min(1,int(lasttargetdist)>>5));
 		#### E 5 A_LeadTarget(lasttargetdist*0.01,randompick(0,0,0,1));
 	fire:
-		#### F 1 bright light("SHOT") A_MIBAttack();
+		#### F 1 bright light("SHOT") A_AuryAttack();
 	postshot:
 		#### E 1;
 		#### E 0 A_JumpIf(chamber!=2||!target,"nope");

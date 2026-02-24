@@ -98,7 +98,8 @@ class AltisShotgunner : JackAndJillboot {
             #### F 1 bright light("SHOT"){
                 if(gunloaded>1&&slug==1){
                     //slug
-                    A_StartSound("weapons/ouslug",CHAN_WEAPON,CHANF_OVERLAP);
+                    if(HDCore.CheckClassExists('HDAltis'))A_StartSound("weapons/ouslug",CHAN_WEAPON,CHANF_OVERLAP);
+                    else A_StartSound("weapons/bronto",CHAN_WEAPON);
                     //console.printf("slug: "..slug..".");
                     gunspent++;
                     gunloaded--;
@@ -106,7 +107,8 @@ class AltisShotgunner : JackAndJillboot {
                     HDBulletActor.FireBullet(self, "HDB_Slug", 3, 1.2);
                 }else{
                     //single barrel
-                    A_StartSound("weapons/ousingle",CHAN_WEAPON);
+                    if(HDCore.CheckClassExists('HDAltis'))A_StartSound("weapons/ousingle",CHAN_WEAPON,CHANF_OVERLAP);
+			        A_StartSound("weapons/slayersingle",CHAN_WEAPON,CHANF_OVERLAP);
                     //console.printf("shell: "..slug..".");
                     gunspent++;
                     gunloaded--;

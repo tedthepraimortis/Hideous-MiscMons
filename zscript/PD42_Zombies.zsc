@@ -296,7 +296,8 @@ class PeeDeeFourtyTrooper : HDHumanoid {
                     return;
                 }
 
-                A_StartSound("PD42/fire", CHAN_WEAPON);
+                if(HDCore.CheckClassExists('HDPDFour')) A_StartSound("PD42/fire", CHAN_WEAPON);
+                else A_StartSound("weapons/smg", CHAN_WEAPON);
                 HDBulletActor.FireBullet(self, "HDB_426", speedfactor: 0.9);
                 pitch += frandom(-spread, spread * 0.5) * 0.3;
                 angle += frandom(-spread * 0.5, spread) * 0.3;

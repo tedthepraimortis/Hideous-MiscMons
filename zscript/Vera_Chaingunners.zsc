@@ -76,7 +76,8 @@ class VeraZombie : HDHumanoid {
         }
 
         //shoot the bullet
-        A_StartSound("weapons/vera", CHAN_WEAPON,CHANF_OVERLAP);
+        if(HDCore.CheckClassExists('HDVera')) A_StartSound("weapons/vera", CHAN_WEAPON,CHANF_OVERLAP);
+        else A_StartSound("weapons/vulcanette",CHAN_WEAPON,CHANF_OVERLAP);
         HDBulletActor.FireBullet(self, "HDB_426", spread: 2, distantsound: "world/vulcfar");
         pitch += frandom(-0.4, 0.3);
         angle += frandom(-0.3, 0.3);
