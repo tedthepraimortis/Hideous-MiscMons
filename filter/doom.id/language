@@ -14,7 +14,7 @@ cc_zombieaurorch = "Highwayman Zombieman";
 // Jackboots/Shotgunners
 cc_greelyjackboot = "Breaching Sergeant";
 cc_frontiersmanzombie = "Former Frontiersman";
-cc_altisshotgunner = "Altis Shotgunner"
+cc_altisshotgunner = "Altis Shotgunner";
 
 // Undead Homeboys
 cc_zombusp = "Zombieman Officer";
