@@ -194,7 +194,6 @@ class BPXTrooper : HDHumanoid {
             HDMagAmmo.SpawnMag(self,emptymag,0);
             mag=-1;
             pouches--;
-            A_Log("Pouches: "..pouches);
         }
         #### A 0 setstatelabel("see");
     reloadpouchesfirst:
@@ -202,7 +201,6 @@ class BPXTrooper : HDHumanoid {
         #### A 14{
             A_StartSound("weapons/bpxmagin");
             pouches++;
-            A_Log("Pouches: "..pouches);
         }
         #### A 0 A_JumpIf(pouches>=3,"reload");
         loop;
@@ -214,7 +212,6 @@ class BPXTrooper : HDHumanoid {
             A_StartSound("weapons/bpxmagin",8);
             mag=15;
             pouches--;
-            A_Log("Pouches: "..pouches);
         }
         #### CCBB 2 A_HDWander();
 
