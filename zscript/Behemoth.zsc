@@ -5,17 +5,16 @@ class Behemoth:HDMobBase{
     double launcheroffset;
     int attackloop;
     default{
-        height 140;
-        radius 90;
+        height 100;
+        radius 76;
         missileheight 42;
-        scale 1.65;
+        scale 1.15;
         +boss 
         +nobouncesound
         +floorclip
         +dontmorph
         +bossdeath
-        +E2M8BOSS
-        +E4M6BOSS
+        +E3M8BOSS
         seesound "cyber/sight";
         painsound "cyber/pain";
         deathsound "cyber/death";
@@ -34,10 +33,10 @@ class Behemoth:HDMobBase{
         hdmobbase.shields 8000;
         gibhealth 900;
         health 6000;
-        mass 16000;
+        mass 18000;
         speed 10;
         deathheight 90;
-        painchance 9;
+        painchance 25;
         painthreshold 200;
         maxtargetrange 0;
         radiusdamagefactor 0.6;

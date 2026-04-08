@@ -14,13 +14,13 @@ cc_zombieaurorch = "Highwayman Slophead";
 // Jackboots/Shotgunners
 cc_greelyjackboot = "Breaching Sergeant";
 cc_frontiersmanzombie = "Former Frontiersman";
-cc_altisshotgunner = "Altis Shotgunner"
+cc_altisshotgunner = "Altis Shotgunner";
 
 // Undead Homeboys
 cc_zombusp = "Slophead Officer";
 
 // Chaingunners
-cc_medium = "Vera Zombie";
+cc_medium = "Charlie Delta";
 
 // Demons
 cc_flamerimp = "Verminite";
