@@ -117,7 +117,7 @@ class GreelyShortgunner : HDHumanoid {
     // Crouching function, from HDPartyGoons
     bool isCrouched;
 	action void A_GreZombCrouch(){
-		if(GreelyShortgunner(self).isCrouched || !tango_crouch)
+		if(!GreelyShortgunner(self).isCrouched)
 			return;
         // FIXME: unique version of crouching sprite "SHYC" doesn't exist, breaks in-game
 		self.sprite = GetSpriteIndex(hmm_uniquesprites?"SHCY":"PLYC");
