@@ -4,6 +4,7 @@
 
 class GreelyShortgunner : HDHumanoid {
 
+    double spread;
     int gunloaded;
     int gunspent;
     int wep;

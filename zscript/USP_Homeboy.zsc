@@ -19,7 +19,7 @@ class USPHomeboy:HDHumanoid{
 		hitobituary "$OB_ZOMBRIFLE_HIT";
 		accuracy 0;
 	}
-	double turnamount;
+	double turnamount,spread;
 	int user_weapon;
 	int mag;
     int pismag;

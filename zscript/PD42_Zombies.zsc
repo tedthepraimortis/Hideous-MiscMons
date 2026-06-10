@@ -51,7 +51,7 @@ class PD42Light:PointLight{
 
 class PeeDeeFourtyTrooper : HDHumanoid {
     
-    double turnamount;
+    double turnamount,spread;
     int mag;
     int firemode;
     bool slugthrower;

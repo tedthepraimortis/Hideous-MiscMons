@@ -66,9 +66,7 @@ class FlamerImp:HDMobBase{
 	}
 	states{
 	spawn:
-		TROO A 0 {
-			scale.x+=randompick(-.1,.1);
-		}
+		TROO A 0;
 	idle:
 		#### AAABBCCCDD 8 A_HDLook();
 		#### A 0 A_SetAngle(angle+random(-4,4));

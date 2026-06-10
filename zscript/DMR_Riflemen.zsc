@@ -23,7 +23,7 @@ class DMRTrooper : HDHumanoid {
         obituary "$OB_ZOMBDMR";
         hitobituary "$OB_ZOMBDMR_HIT";
     }
-    double turnamount;
+    double turnamount,spread;
     int mag;
     override void postbeginplay(){
         super.postbeginplay();

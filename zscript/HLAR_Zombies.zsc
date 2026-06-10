@@ -4,7 +4,7 @@
 
 class HLARTrooper : HDHumanoid {
 
-    double turnamount;
+    double turnamount,spread;
     int mag;
     int firemode;
 

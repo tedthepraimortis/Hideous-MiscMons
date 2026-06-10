@@ -4,6 +4,8 @@ class HDAurorchZombieman:HDHumanoid{
 	int cylinder;
 	int spentrounds;
 
+	double spread;
+
 	override void postbeginplay(){
 		super.postbeginplay();
 		bhasdropped=false;

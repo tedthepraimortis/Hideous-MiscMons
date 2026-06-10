@@ -6,6 +6,8 @@ class UMPZombie : HDHumanoid {
 
     int gunloaded;
     int wep;
+
+    double spread;
     
     Default {
         seesound "grunt/sight";

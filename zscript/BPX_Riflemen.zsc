@@ -22,7 +22,7 @@ class BPXTrooper : HDHumanoid {
         obituary "$OB_ZOMBBPX";
         hitobituary "$OB_ZOMBBPX_HIT";
     }
-    double turnamount;
+    double turnamount,spread;
     int mag;
     int pouches;
     override void postbeginplay(){
