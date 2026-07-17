@@ -215,11 +215,9 @@ class HDHarbinger:SatanRobo{
         SUPR F 5;
         ---- A 0 setstatelabel("see");
 
-//S Q U I S H -clance
+    //S Q U I S H -clance
     squish:
-        SUPR G 0{
-if(target is 'SatanRobo'||target is 'technorantula'||target is 'HDHarbinger'){setstatelabel("see");return;}
-}
+        SUPR G 0 A_JumpIf(target is 'SatanRobo' || target is 'SpiderDemon' || target is 'HDHarbinger', "see");
         SUPR G 1{if(target)target.damagemobj(self,self,1000,"claws",DMG_NO_ARMOR);}
         SUPR G 5;
         SUPR F 5;
