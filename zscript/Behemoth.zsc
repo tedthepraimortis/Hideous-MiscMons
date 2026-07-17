@@ -295,7 +295,7 @@ class Behemoth:HDMobBase{
         goto fireend;
 
     single:
-        #### G 1 A_StartAim(rate:0.7,dontlead:randompick(0,0,0,1));
+        #### G 1 A_StartAim(rate:0.7,leadtype:randompick(0,0,0,1));
         LARD H 3 bright light("ROCKET")A_BehemothAttack();
         goto fireend;
 

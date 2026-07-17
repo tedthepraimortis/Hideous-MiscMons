@@ -4,8 +4,6 @@ class HDAurorchZombieman:HDHumanoid{
 	int cylinder;
 	int spentrounds;
 
-	double spread;
-
 	override void postbeginplay(){
 		super.postbeginplay();
 		bhasdropped=false;
@@ -33,8 +31,8 @@ class HDAurorchZombieman:HDHumanoid{
 			return;
 		}
 
-		pitch+=frandom(0,spread)-frandom(0,spread);
-		angle+=frandom(0,spread)-frandom(0,spread);
+		A_MonsterMuzzleClimb(frandom(-0.1,0.2),frandom(-0.1,0.2));
+
 		HDBulletActor.FireBullet(self,"HDB_420",spread:1.,speedfactor:0.85);
 
 		if (HDCore.CheckClassExists('HDAurochs'))

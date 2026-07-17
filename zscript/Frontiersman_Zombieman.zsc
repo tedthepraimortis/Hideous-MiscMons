@@ -10,8 +10,6 @@ class FrontiersmanZombie : HDHumanoid {
     int gunspent;
     int wep;
 
-    double spread;
-
     Default {
         //$Category "Monsters/Hideous Destructor"
         //$Title "Shotgun Guy"
@@ -217,12 +215,7 @@ class FrontiersmanZombie : HDHumanoid {
             #### ABCD 5 A_TurnToAim(40, shootstate: "aiming");
             loop;
 	    aiming:
-		    #### E 1{
-		    	double maxspread = 25;
-		    	double aimrate = 0.75;
-		    	int minaimtics = 4;
-		    	A_StartAim(maxspread,rate:aimrate,mintics:random(1,timesdied)+minaimtics,dontlead:randompick(0,0,0,0,1));
-		    }
+		    #### E 1 A_StartAim(conesize: 25, rate: 0.75, mintics: random(1, timesdied) + 4, leadtype: randompick(0,0,0,0,1));
 		    #### E 0 setstatelabel("shoot");
         shoot:
             #### E 4 A_LeadTarget(tics);
@@ -231,9 +224,7 @@ class FrontiersmanZombie : HDHumanoid {
                     setstatelabel("ohforfuckssake");
                     return;
                 }
-
-                angle += frandom(0, spread) - frandom(0, spread);
-                pitch += frandom(0, spread) - frandom(0, spread);
+                A_MonsterMuzzleClimb(frandom(-0.1,0.2),frandom(-0.1,0.2));
 
                 setstatelabel("shootsg");
             }

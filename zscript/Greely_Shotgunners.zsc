@@ -4,7 +4,6 @@
 
 class GreelyShortgunner : HDHumanoid {
 
-    double spread;
     int gunloaded;
     int gunspent;
     int wep;
@@ -238,9 +237,7 @@ class GreelyShortgunner : HDHumanoid {
                     setstatelabel("ohforfuckssake");
                     return;
                 }
-
-                angle += frandom(0, spread) - frandom(0, spread);
-                pitch += frandom(0, spread) - frandom(0, spread);
+                A_MonsterMuzzleClimb(frandom(-0.1,0.2),frandom(-0.1,0.2));
 
                 setstatelabel("shootsg");
             }

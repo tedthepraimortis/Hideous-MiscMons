@@ -7,8 +7,6 @@ class UMPZombie : HDHumanoid {
     int gunloaded;
     int wep;
 
-    double spread;
-    
     Default {
         seesound "grunt/sight";
         painsound "grunt/pain";
@@ -120,13 +118,7 @@ class UMPZombie : HDHumanoid {
             goto roam;
         roam:
             #### E 3 A_Jump(60, "roam2");
-            #### E 0 {
-                spread = 1;
-            }
             #### EEEE 1 A_Watch();
-            #### E 0 {
-                spread = 0;
-            }
             #### EEEEEEEEEEEEE 1 A_Watch();
             #### A 0 A_Jump(60, "roam");
         roam2:
@@ -153,8 +145,7 @@ class UMPZombie : HDHumanoid {
                     return;
                 }
 
-                pitch += frandom(0, spread) - frandom(0, spread);
-                angle += frandom(0, spread) - frandom(0, spread);
+                A_MonsterMuzzleClimb(frandom(-0.1,0.2),frandom(-0.1,0.2));
 
                 if(HDCore.CheckClassExists('HDUmp')) A_StartSound("UMP/fire", CHAN_WEAPON);
 				else A_StartSound("weapons/pistol",CHAN_WEAPON);
