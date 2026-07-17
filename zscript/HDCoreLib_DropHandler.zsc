@@ -14,6 +14,14 @@ class MiscMonsUrnHandler : HDCoreEventHandler {
 
         // Find the UrnSpawnPool Handler
         if (!sp) sp = UrnSpawnPool(EventHandler.Find("UrnSpawnPool"));
+
+        cmdWhitelist.push('addUrnFilter');
+        cmdWhitelist.push('addUrnWhitelist');
+        cmdWhitelist.push('removeUrnWhitelist');
+        cmdWhitelist.push('clearUrnWhitelist');
+        cmdWhitelist.push('addUrnBlacklist');
+        cmdWhitelist.push('removeUrnBlacklist');
+        cmdWhitelist.push('clearUrnBlacklist');
     }
 
     override void processCommand(HDCoreCommand cmd) {
