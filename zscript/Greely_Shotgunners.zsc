@@ -45,11 +45,6 @@ class GreelyShortgunner : HDHumanoid {
 
         gunloaded = 3;
 
-        If (!hmm_uniquesprites) {
-            sprite = getspriteindex("PLAY");
-        }
-        else sprite = getspriteindex("SHCY");
-
         givearmour(1.0, 0.0, 0.6);
     }
 
@@ -119,8 +114,7 @@ class GreelyShortgunner : HDHumanoid {
 	action void A_GreZombCrouch(){
 		if(!GreelyShortgunner(self).isCrouched)
 			return;
-        // FIXME: unique version of crouching sprite "SHYC" doesn't exist, breaks in-game
-		self.sprite = GetSpriteIndex(hmm_uniquesprites?"SHCY":"PLYC");
+		self.sprite = GetSpriteIndex("PLYC");
 		self.height/= 2;
 		self.speed*=0.7;
 		GreelyShortgunner(self).isCrouched = true;
@@ -128,7 +122,7 @@ class GreelyShortgunner : HDHumanoid {
 	action void A_GreZombUncrouch(){
 		if(!GreelyShortgunner(self).isCrouched) 
 			return;
-		self.sprite = GetSpriteIndex(hmm_uniquesprites?"SHCY":"PLAY");
+		self.sprite = GetSpriteIndex("PLAY");
 		self.height*= 2;
 		self.speed/=0.7;
 		GreelyShortgunner(self).isCrouched = false;
@@ -136,7 +130,7 @@ class GreelyShortgunner : HDHumanoid {
 
     States {
         spawn:
-            SHCY A 0 nodelay;
+            PLAY A 0 nodelay;
             #### A 0 A_JumpIf(wep >= 0, "spawn2");
             #### A 0;
         idle:
@@ -249,7 +243,7 @@ class GreelyShortgunner : HDHumanoid {
                     return;
                 }
                 if (firecount == 2){
-                    HDBulletActor.FireBullet(self, "HDB_Slug");
+                    HDBulletActor.FireBullet(self, "HDB_Slug",spread:1.5,speedfactor:0.75);
                     if(HDCore.CheckClassExists('HDGreely'))
                     {
                         A_StartSound("weapons/greelyshot");
@@ -268,8 +262,9 @@ class GreelyShortgunner : HDHumanoid {
                     firecount++;
                 }
                 gunspent = 1;
+                A_Log("Firecount: "..firecount.." Gunspent: "..gunspent);
             }
-            #### E 2;
+            #### E 3;
             #### E 1 {
                 if (gunspent) {
                     setstatelabel("chambersg");
@@ -315,7 +310,7 @@ class GreelyShortgunner : HDHumanoid {
                     }
                 }
             }
-            #### E 1 A_JumpIf(target && distance3d(target) < 255 || !random(1,4), "leapdodge");
+            #### E 3 A_JumpIf(target && distance3d(target) < 255 || !random(1,4), "leapdodge");
             #### E 1 A_SetTics(random(2, 6));
             #### E 0 A_Jump(127, "see");
             goto roam;
