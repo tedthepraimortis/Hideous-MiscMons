@@ -262,7 +262,6 @@ class GreelyShortgunner : HDHumanoid {
                     firecount++;
                 }
                 gunspent = 1;
-                A_Log("Firecount: "..firecount.." Gunspent: "..gunspent);
             }
             #### E 3;
             #### E 1 {
