@@ -18,7 +18,7 @@ annihilator/death DSANNDTH
 annihilator/explode DSHRLEXP
 
 // Harbringer - [Ted]
-harbinger/death sounds/harbinger_death.ogg
+harbinger/death "sounds/Harbringer/harbinger_death.ogg"
 $alias harbinger/sight cyber/sight
 $alias harbinger/active cyber/active
 $alias harbinger/pain cyber/pain

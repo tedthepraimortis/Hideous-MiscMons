@@ -21,6 +21,9 @@ class GreelyShortgunner : HDHumanoid {
         activesound "shotguy/active";
         tag "$cc_greelyjackboot";
 
+        //translation "112:120=208:216","121:126=217:223","18:21=68:68","213:213=66:66","127:127:3:3";
+        translation "112:120=171:179","121:126=179:186","18:21=68:68","213:213=66:66","127:127=3:3";
+
         speed 8;
         scale 0.85;
         decal "BulletScratch";
