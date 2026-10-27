@@ -287,7 +287,7 @@ class PeeDeeFourtyTrooper : HDHumanoid {
             //fallthrough to shoot
         shoot:
             #### E 0 {
-                if(!iedpawn && lasttargetdist>1024 && !random(0,4))
+                if(!iedpawn && lasttargetdist>256 && !random(0,4))
                 {
                     setstatelabel("dropied");
                 }
